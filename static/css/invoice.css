@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.invoice-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.invoice-header,
+.invoice-footer {
+    text-align: center;
+}
+
+.invoice-details,
+.invoice-items {
+    margin-top: 20px;
+}
+
+.invoice-items table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.invoice-items th,
+.invoice-items td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.invoice-items th {
+    background-color: #f4f4f4;
+}
+
+.total {
+    font-weight: bold;
+}

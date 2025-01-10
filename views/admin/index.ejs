@@ -1,11 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NeoBank Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9F9F9;
+            color: #2E2E2E;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #EFEFEF;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar h1 {
+            margin: 0;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            transition: background-color 0.3s;
+            border-radius: 8px;
+        }
+
+        .sidebar li:hover {
+            background-color: #D3D3D3;
+            cursor: pointer;
+        }
+
+        .sidebar li i {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Align items in the center */
+            margin-bottom: 20px;
+        }
+
+        .header div span {
+            margin-right: 15px;
+        }
+
+        .service-cards,
+        .payment-details {
+            background-color: #FFFFFF;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card {
+            background-color: #33C3F0;
+            color: #FFFFFF;
+            padding: 20px;
+            border-radius: 5px;
+            margin-right: 10px;
+            display: inline-block;
+            width: 130px;
+        }
+
+        .service-card h3 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .service-card p {
+            margin: 8px 0;
+            font-size: 12px;
+        }
+
+        .service-card button {
+            background-color: #2E2E2E;
+            color: #FFFFFF;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .service-card button:hover {
+            background-color: #1C1C1C;
+        }
+
+        .latest-transfers {
+            margin-top: 20px;
+        }
+
+        .transfer {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #E0E0E0;
+            padding: 10px 0;
+        }
+
+        .transfer:first-child {
+            border-top: none;
+        }
+
+        .table-container {
+            max-width: 80vw;
+            margin: auto;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #6183f1;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+            /* Highlight row on hover */
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+            /* Zebra striping */
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Welcome to Waagn dashboard</h1>
+    <div class="sidebar">
+        <h1>WAAGN APP</h1>
+        <ul>
+            <li><i class="material-icons">dashboard</i>Dashboard</li>
+            <li><i class="material-icons">sync_alt</i>Orders</li>
+            <li><i class="material-icons">schedule</i>Assign</li>
+            <li><i class="material-icons">list</i>Templates</li>
+            <li><i class="material-icons">swap_horiz</i>Partners</li>
+            <li><i class="material-icons">currency_exchange</i>Invoice</li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="header">
+            <div>
+                <span>Overview</span>
+                <span>Payments</span>
+                <span>Cards</span>
+                <span>Account</span>
+                <span>System</span>
+                <span>Business</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <span style="font-weight: 600;">Panchanan Deka</span>
+                <i class="material-icons" style="font-size:30px;">account_circle</i>
+            </div>
+        </div>
+
+        <div class="service-cards">
+            <div class="service-card">
+                <h3>Electricity</h3>
+                <p>UK Energy Ltd.</p>
+                <button>Go to service</button>
+            </div>
+            <div class="service-card">
+                <h3>Heating Gas</h3>
+                <p>Gazprom UK</p>
+                <button>Go to service</button>
+            </div>
+            <div class="service-card" style="background-color: #E2E356;">
+                <h3>Tax online</h3>
+                <p>TaxGov.uk</p>
+                <button>Go to service</button>
+            </div>
+        </div>
+
+        <div class="payment-details">
+            <h2>New Payment</h2>
+            <!-- Add additional payment details here -->
+        </div>
+
+        <!-- <div class="latest-transfers"> -->
+        <!-- <h2>Latest Orders</h2> -->
+        <!-- <div class="transfer">
+                <span>Apple Inc.</span>
+                <span>28 Oct. 21</span>
+                <span>$560</span>
+            </div>
+            <div class="transfer">
+                <span>Pinterest</span>
+                <span>26 Oct. 21</span>
+                <span>$120</span>
+            </div>
+            <div class="transfer">
+                <span>Warner Bros.</span>
+                <span>22 Oct. 21</span>
+                <span>$70</span>
+            </div> -->
+
+        <div class="table-container">
+            <h1>Order Details</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Pickup Address</th>
+                        <th>Delivery Address</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>123 Main St, Cityville, ST 12345</td>
+                        <td>456 Elm St, Townsville, ST 67890</td>
+                        <td>John Doe</td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>789 Oak St, Villageville, ST 23456</td>
+                        <td>321 Pine St, Hamletville, ST 34567</td>
+                        <td>Jane Smith</td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>654 Maple St, Boroughville, ST 45678</td>
+                        <td>987 Cedar St, Districtville, ST 56789</td>
+                        <td>Emily Johnson</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 </body>
+
 </html>

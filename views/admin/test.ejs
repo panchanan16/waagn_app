@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/invoice.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Welcome to Testing page 🧪🧪</h1>
+    <div class="invoice-container" id="invoice">
+        <header class="invoice-header">
+            <h1>Waagn Service Invoice</h1>
+            <p>Date: <span id="invoice-date">22/01/2024</span></p>
+            <p>Invoice #: <span id="invoice-number">001</span></p>
+        </header>
+
+        <section class="invoice-details">
+            <h2>Bill To:</h2>
+            <p>Name: John Doe</p>
+            <p>Address: 123 Main St, Cityville, ST 12345</p>
+            <p>Email: john.doe@example.com</p>
+        </section>
+
+        <section class="invoice-items">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Product 1</td>
+                        <td>2</td>
+                        <td>$50.00</td>
+                        <td>$100.00</td>
+                    </tr>
+                    <tr>
+                        <td>Product 2</td>
+                        <td>1</td>
+                        <td>$75.00</td>
+                        <td>$75.00</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="total">
+                        <td colspan="3">Total</td>
+                        <td>$175.00</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <footer class="invoice-footer">
+            Thank you for your business!
+        </footer>
+
+        <!-- Button to download PDF -->
+        <button id="download-btn">Download PDF</button>
+
+    </div>
+</body>
+
+</html>
