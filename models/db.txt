@@ -1,0 +1,15 @@
+customers,
+customer_address,
+vehicles,
+drivers,
+3pl_partners,
+3pl_godowns,
+customer_orders,
+orders_assign,
+3pl_orders,
+customer_invoice,
+3pl_invoice
+
+admin_auth
+partners_auth
+customers_auth
