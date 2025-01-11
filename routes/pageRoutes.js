@@ -9,8 +9,14 @@ pageRouter.get('/', async (req, res)=> {
     res.render('admin/index.ejs')
 })
 
+pageRouter.get('/drivers', async (req, res)=> {
+    res.render('admin/drivers.ejs')
+})
+
 pageRouter.get('/testing', async (req, res)=> {
     res.render('admin/test.ejs')
 })
+
+
 
 module.exports = pageRouter
