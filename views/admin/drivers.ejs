@@ -10,17 +10,7 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <h1>WAAGN APP</h1>
-        <ul>
-            <li><i class="material-icons">dashboard</i>Dashboard</li>
-            <li><i class="material-icons">sync_alt</i>Orders</li>
-            <li><i class="material-icons">schedule</i>Assign</li>
-            <li><i class="material-icons">list</i>Templates</li>
-            <li><i class="material-icons">swap_horiz</i>Partners</li>
-            <li><i class="material-icons">currency_exchange</i>Invoice</li>
-        </ul>
-    </div>
+    <%- include('../partials/aside.ejs') %>
     <div class="content">
         <div class="header">
             <div>
@@ -73,7 +63,7 @@
                 <tbody>
                     <tr class="table-rows">
                         <td>001</td>
-                        <td><select class="status-update">
+                        <td><select class="status-green">
                             <option value="">Active</option>
                             <option value="">Unactive</option>
                         </select></td>

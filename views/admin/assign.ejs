@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waagn App | Assign</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('../partials/aside.ejs') %>
+        <div class="content">
+            <div class="header">
+                <div>
+                    <span>Overview</span>
+                    <span>Payments</span>
+                    <span>Cards</span>
+                    <span>Account</span>
+                    <span>System</span>
+                    <span>Business</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600;">Panchanan Deka</span>
+                    <i class="material-icons" style="font-size:30px;">account_circle</i>
+                </div>
+            </div>
+
+            <div class="service-cards">
+                <div class="service-card">
+                    <h3>Electricity</h3>
+                    <p>UK Energy Ltd.</p>
+                    <button>Go to service</button>
+                </div>
+                <div class="service-card">
+                    <h3>Heating Gas</h3>
+                    <p>Gazprom UK</p>
+                    <button>Go to service</button>
+                </div>
+                <div class="service-card" style="background-color: #E2E356;">
+                    <h3>Tax online</h3>
+                    <p>TaxGov.uk</p>
+                    <button>Go to service</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="flex table-header" style="justify-content: space-between;">
+                    <h1>Orders Activity</h1>
+                    <button class="btn" onclick="openPopup('create-order-form-popup')">Add a driver</button>
+                </div>
+                <div class="wrapper">
+                    <div class="tab">
+                        <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+                        <label for="tab-1" class="tab-label">Un-assigned</label>
+                        <div class="tab-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Pickup Address</th>
+                                        <th>Delivery Address</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-rows">
+                                        <td>001</td>
+                                        <td><select class="status-green">
+                                                <option value="">Active</option>
+                                                <option value="">Unactive</option>
+                                            </select></td>
+                                        <td><span class="status-green">Not assigned</span></td>
+                                        <td>John Doe</td>
+                                        <td>20/02/2024</td>
+                                        <td><span class="btn" onclick="openPopup('order-assign-popup')">assign</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab">
+                        <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+                        <label for="tab-2" class="tab-label">Assigned</label>
+                        <div class="tab-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Pickup Address</th>
+                                        <th>Delivery Address</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-rows">
+                                        <td>001</td>
+                                        <td><select class="status-green">
+                                                <option value="">Active</option>
+                                                <option value="">Unactive</option>
+                                            </select></td>
+                                        <td><span class="status-green">Not assigned</span></td>
+                                        <td>John Doe</td>
+                                        <td>20/02/2024</td>
+                                        <td><span class="btn">assign</span></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- create order popup box -->
+        <div class="flex popup-container create-order-form-popup hide">
+            <div class="form-container">
+                <div class="flex form-header">
+                    <h2>Create New Order</h2>
+                    <button class="close-button" onclick="closePopup('create-order-form-popup')">
+                        <span class="material-icons">close</span> <!-- Material Icon for Close -->
+                    </button>
+                </div>
+                <form class="order-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-address">Pickup Address</label>
+                        <textarea id="pickup-address" name="pickup-address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-address">Delivery Address</label>
+                        <textarea id="delivery-address" name="delivery-address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="goods-description">Goods Description</label>
+                        <textarea id="goods-description" name="goods-description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Rate</label>
+                        <input type="number" id="rate" name="rate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" required>
+                    </div>
+                    <button type="submit" class="btn">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- order details popup box -->
+        <div class="flex popup-container order-assign-popup hide">
+            <div class="info-box" style="background-color: #fff;">
+                <button class="close-button" onclick="closePopup('order-assign-popup')">
+                    <span class="material-icons">close</span> <!-- Material Icon for Close -->
+                </button>
+                <div class="key-value-box" style="justify-content: space-around; margin-block: 1rem;">
+                    <div class="key-value">
+                        <div class="key-value-pair">
+                            <strong>OrderId:</strong> 983774784
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Name:</strong> John Doe
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Pickup Location:</strong> New York, NY
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Drop Location:</strong> Los Angeles, CA
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Goods:</strong> Electronics
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Description:</strong> Fragile items
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Quantity:</strong> 5
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Rate:</strong> $150
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Date:</strong> 20/02/2025
+                        </div>
+                    </div>
+                    <div class="key-value">
+                        <div class="key-value-pair">
+                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Name:</strong> John Doe
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
+                                near police point, paltan bazar</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Drop Location:</strong> Los Angeles, CA
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Goods:</strong> Electronics
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Description:</strong> Fragile items
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Quantity:</strong> 5
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Rate:</strong> $150
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Date:</strong> 20/02/2025
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn" onclick="openPopup('sub-popup')">Assign Vehicle</button>
+                    <button class="btn" style="margin-left: 1rem;">Assign partner</button>
+                </div>
+                <!-- vehicle and drivers box -->
+                <div class="flex sub-popup hide">
+                    <div class="sub-form-box">
+                        <ul class="checkbox-list">
+                            <h3>Vehicle List</h3>
+                            <li class="list-item" style="margin-top: 1.5rem;">
+                                <div>
+                                    <span>Item 1</span>
+                                    <span class="circle-red"></span>
+                                </div>
+                                <input type="checkbox" class="checkbox">
+                            </li>
+                            <li class="list-item">
+                                <div>
+                                    <span>Item 1</span>
+                                    <span class="circle-green"></span>
+                                </div>
+                                <input type="checkbox" class="checkbox">
+                            </li>
+                            <li class="list-item">
+                                <div>
+                                    <span>Item 1</span>
+                                    <span class="circle-red"></span>
+                                </div>
+                                <input type="checkbox" class="checkbox">
+                            </li>
+                            <li class="list-item">
+                                <div>
+                                    <span>Item 1</span>
+                                    <span class="circle-green"></span>
+                                </div>
+                                <input type="checkbox" class="checkbox">
+                            </li>
+                        </ul>
+                        <button class="btn">Update</button>
+                        <button class="btn" onclick="closePopup('sub-popup')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/common.js"></script>
+</body>
+
+</html>

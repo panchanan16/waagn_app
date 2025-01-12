@@ -3,7 +3,7 @@ const pageRouter = express.Router()
 
 
 
-//admin auth api---
+//admin page URLs---
 
 pageRouter.get('/', async (req, res)=> {
     res.render('admin/index.ejs')
@@ -11,6 +11,10 @@ pageRouter.get('/', async (req, res)=> {
 
 pageRouter.get('/drivers', async (req, res)=> {
     res.render('admin/drivers.ejs')
+})
+
+pageRouter.get('/assign', async (req, res)=> {
+    res.render('admin/assign.ejs')
 })
 
 pageRouter.get('/testing', async (req, res)=> {
