@@ -48,110 +48,110 @@
             <div class="table-container">
                 <div class="flex table-header" style="justify-content: space-between;">
                     <h1>Orders Activity</h1>
-                    <button class="btn" onclick="openPopup('create-order-form-popup')">Add a driver</button>
+                    <button class="btn" onclick="openPopup('create-order-form-popup')">Assign Now</button>
                 </div>
-                <div class="wrapper">
-                    <div class="tab">
-                        <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
-                        <label for="tab-1" class="tab-label">Un-assigned</label>
-                        <div class="tab-content">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>Pickup Address</th>
-                                        <th>Delivery Address</th>
-                                        <th>Name</th>
-                                        <th>Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="table-rows">
-                                        <td>001</td>
-                                        <td><select class="status-green">
-                                                <option value="">Active</option>
-                                                <option value="">Unactive</option>
-                                            </select></td>
-                                        <td><span class="status-green">Not assigned</span></td>
-                                        <td>John Doe</td>
-                                        <td>20/02/2024</td>
-                                        <td><span class="btn" onclick="openPopup('order-assign-popup')">assign</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab">
-                        <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
-                        <label for="tab-2" class="tab-label">Assigned</label>
-                        <div class="tab-content">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>Pickup Address</th>
-                                        <th>Delivery Address</th>
-                                        <th>Name</th>
-                                        <th>Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="table-rows">
-                                        <td>001</td>
-                                        <td><select class="status-green">
-                                                <option value="">Active</option>
-                                                <option value="">Unactive</option>
-                                            </select></td>
-                                        <td><span class="status-green">Not assigned</span></td>
-                                        <td>John Doe</td>
-                                        <td>20/02/2024</td>
-                                        <td><span class="btn">assign</span></td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Pickup Address</th>
+                            <th>Delivery Address</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-rows">
+                            <td>001</td>
+                            <td><select class="status-green">
+                                    <option value="">Active</option>
+                                    <option value="">Unactive</option>
+                                </select></td>
+                            <td><span class="status-green">Not assigned</span></td>
+                            <td>John Doe</td>
+                            <td>20/02/2024</td>
+                            <td><span class="btn" onclick="openPopup('order-assign-popup')">View</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
-        <!-- create order popup box -->
+        <!-- assign order popup box -->
         <div class="flex popup-container create-order-form-popup hide">
             <div class="form-container">
                 <div class="flex form-header">
-                    <h2>Create New Order</h2>
+                    <h2>Assign to a Order</h2>
                     <button class="close-button" onclick="closePopup('create-order-form-popup')">
                         <span class="material-icons">close</span> <!-- Material Icon for Close -->
                     </button>
                 </div>
                 <form class="order-form">
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">OrderId</label>
                         <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pickup-address">Pickup Address</label>
-                        <textarea id="pickup-address" name="pickup-address" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="delivery-address">Delivery Address</label>
-                        <textarea id="delivery-address" name="delivery-address" required></textarea>
-                    </div>
+                    </div>                               
                     <div class="form-group">
                         <label for="goods-description">Goods Description</label>
                         <textarea id="goods-description" name="goods-description" required></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="rate">Rate</label>
-                        <input type="number" id="rate" name="rate" required>
+                    <div class="flex" style="justify-content: space-between; gap:2rem;">
+                        <div class="form-group">
+                            <label for="rate">Rate</label>
+                            <input type="number" id="rate" name="rate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" name="quantity" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" id="quantity" name="quantity" required>
+
+                    <div class="flex" style="justify-content: space-between; gap:2rem;">
+                        <div class="form-group">
+                            <label for="quantity">Add vehicles</label>
+                            <select class="select">
+                                <option>Select a vehicle</option>
+                                <option>As-02-34-8909</option>
+                                <option>As-02-34-8909</option>
+                                <option>As-02-34-8909</option>
+                                <option>As-02-34-8909</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Add driver</label>
+                            <select class="select">
+                                <option>Select a driver</option>
+                                <option>Anirban hazarika</option>
+                                <option>Anirban hazarika</option>
+                                <option>Anirban hazarika</option>
+                                <option>Anirban hazarika</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex" style="justify-content: space-between; gap:2rem;">
+                        <div class="form-group">
+                            <label for="quantity">Add 3PL-partners</label>
+                            <select class="select">
+                                <option>Select a 3PL partners</option>
+                                <option>3pl abc</option>
+                                <option>3pl abc</option>
+                                <option>3pl abc</option>
+                                <option>3pl abc</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Add Godown</label>
+                            <select class="select">
+                                <option>Select a Godown</option>
+                                <option>Anirban hazarika</option>
+                                <option>Anirban hazarika</option>
+                                <option>Anirban hazarika</option>
+                                <option>Anirban hazarika</option>
+                            </select>
+                        </div>
                     </div>
                     <button type="submit" class="btn">Submit</button>
                 </form>
@@ -225,10 +225,12 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <!-- <div>
                     <button class="btn" onclick="openPopup('sub-popup')">Assign Vehicle</button>
                     <button class="btn" style="margin-left: 1rem;">Assign partner</button>
-                </div>
+                </div> -->
+
+
                 <!-- vehicle and drivers box -->
                 <div class="flex sub-popup hide">
                     <div class="sub-form-box">

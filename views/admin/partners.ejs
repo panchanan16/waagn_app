@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waagn App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('../partials/aside.ejs') %>
+        <div class="content">
+            <div class="header">
+                <div>
+                    <span>Overview</span>
+                    <span>Payments</span>
+                    <span>Cards</span>
+                    <span>Account</span>
+                    <span>System</span>
+                    <span>Business</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600;">Panchanan Deka</span>
+                    <i class="material-icons" style="font-size:30px;">account_circle</i>
+                </div>
+            </div>
+
+            <div class="service-cards">
+                <div class="service-card">
+                    <h3>Electricity</h3>
+                    <p>UK Energy Ltd.</p>
+                    <button>Go to service</button>
+                </div>
+                <div class="service-card">
+                    <h3>Heating Gas</h3>
+                    <p>Gazprom UK</p>
+                    <button>Go to service</button>
+                </div>
+                <div class="service-card" style="background-color: #E2E356;">
+                    <h3>Tax online</h3>
+                    <p>TaxGov.uk</p>
+                    <button>Go to service</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="flex table-header" style="justify-content: space-between;">
+                    <h1>Drivers List</h1>
+                    <button class="btn" onclick="openPopup('create-order-form-popup')">Add a Partner</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Pickup Address</th>
+                            <th>Delivery Address</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-rows" onclick="openPopup('godown-list-popup')">
+                            <td>001</td>
+                            <td><select class="status-green">
+                                    <option value="">Active</option>
+                                    <option value="">Unactive</option>
+                                </select></td>
+                            <td><span class="status-green">Active</span></td>
+                            <td>John Doe</td>
+                            <td>20/02/2024</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- add partner popup box -->
+        <div class="flex popup-container create-order-form-popup hide">
+            <div class="form-container">
+                <div class="flex form-header">
+                    <h2>Create New Order</h2>
+                    <button class="close-button" onclick="closePopup('create-order-form-popup')">
+                        <span class="material-icons">close</span> <!-- Material Icon for Close -->
+                    </button>
+                </div>
+                <form class="order-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-address">Pickup Address</label>
+                        <textarea id="pickup-address" name="pickup-address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="goods-description">Goods Description</label>
+                        <textarea id="goods-description" name="goods-description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Rate</label>
+                        <input type="number" id="rate" name="rate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" required>
+                    </div>
+                    <button type="submit" class="btn">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- godown list popup box -->
+        <div class="flex popup-container godown-list-popup hide">
+            <div class="info-box" style="background-color: #fff;">
+                <button class="close-button" onclick="closePopup('godown-list-popup')">
+                    <span class="material-icons">close</span> <!-- Material Icon for Close -->
+                </button>
+                <div class="list-box" style="justify-content: space-around; margin-block: 1rem;">
+                    <ul>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <button class="btn" onclick="openPopup('sub-popup')">Add Godown</button>
+                </div>
+                <!-- add go down box -->
+                <div class="flex sub-popup hide">
+                    <div class="sub-form-box">
+                        <div class="flex" style="align-items: center; gap:1rem">
+                            <h3>Add Location</h3>
+                            <button class="btn" onclick="addNewField('location-form')">Add more</button>
+                        </div>
+                        <form style="margin-top: 1rem;" id="location-form">                           
+                            <div class="form-group">
+                                <label class="
+                                label-location" style="display: flex;"><span>location</span> <span class="material-icons">close</span></label>
+                                <textarea></textarea>
+                            </div>                           
+                        </form>
+                        <button class="btn">Update</button>
+                        <button class="btn" onclick="closePopup('sub-popup')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="/js/common.js"></script>
+</body>
+
+</html>

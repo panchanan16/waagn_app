@@ -1,0 +1,66 @@
+<div class="wrapper">
+    <div class="tab">
+        <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+        <label for="tab-1" class="tab-label">Un-assigned</label>
+        <div class="tab-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Pickup Address</th>
+                        <th>Delivery Address</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-rows">
+                        <td>001</td>
+                        <td><select class="status-green">
+                                <option value="">Active</option>
+                                <option value="">Unactive</option>
+                            </select></td>
+                        <td><span class="status-green">Not assigned</span></td>
+                        <td>John Doe</td>
+                        <td>20/02/2024</td>
+                        <td><span class="btn" onclick="openPopup('order-assign-popup')">assign</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab">
+        <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+        <label for="tab-2" class="tab-label">Assigned</label>
+        <div class="tab-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Pickup Address</th>
+                        <th>Delivery Address</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-rows">
+                        <td>001</td>
+                        <td><select class="status-green">
+                                <option value="">Active</option>
+                                <option value="">Unactive</option>
+                            </select></td>
+                        <td><span class="status-green">Not assigned</span></td>
+                        <td>John Doe</td>
+                        <td>20/02/2024</td>
+                        <td><span class="btn">assign</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,11 @@ pageRouter.get('/assign', async (req, res)=> {
     res.render('admin/assign.ejs')
 })
 
+
+pageRouter.get('/partners', async (req, res)=> {
+    res.render('admin/partners.ejs')
+})
+
 pageRouter.get('/testing', async (req, res)=> {
     res.render('admin/test.ejs')
 })
