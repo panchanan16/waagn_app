@@ -3,18 +3,18 @@ class DataCall {
     GET_POST = async (url, method, body, type) => {
         if (method == 'GET') {
             try {
-                document.getElementById('loading-container').classList.remove('hide')
+                // document.getElementById('loading-container').classList.remove('hide')
                 const fet = await fetch(this.urlHead + url, { method: method })
                 const res = await fet.json()
-                document.getElementById('loading-container').classList.add('hide')
+                // document.getElementById('loading-container').classList.add('hide')
                 return res;
             } catch (error) {
-                document.getElementById('loading-container').classList.add('hide')
+                // document.getElementById('loading-container').classList.add('hide')
                 throw new Error('request not proceed !' + error.message)
             }
         } else if (method == 'POST' && body != undefined && type === undefined) {
             try {
-                document.getElementById('loading-container').classList.remove('hide')
+                // document.getElementById('loading-container').classList.remove('hide')
                 const fet = await fetch(this.urlHead + url, {
                     method: method,
                     headers: { 'Content-Type': 'application/json' },
@@ -22,20 +22,20 @@ class DataCall {
                 })
                 const res = await fet.json()
                 if (fet.ok) {
-                    document.getElementById('loading-container').classList.add('hide')
+                    // document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Successfully Done', 'Successfull', 'success')
                 } else {
-                    document.getElementById('loading-container').classList.add('hide')
+                    // document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Error Recognized', 'Something Error', 'error')
                 }
                 return res;
             } catch (err) {
-                document.getElementById('loading-container').classList.add('hide')
+                // document.getElementById('loading-container').classList.add('hide')
                 throw new Error('request not proceed !' + err.message)
             }
         } else if (type && type == 'form' && body != undefined) {
             try {
-                document.getElementById('loading-container').classList.remove('hide')
+                // document.getElementById('loading-container').classList.remove('hide')
                 const payload = new URLSearchParams(body);
                 const fet = await fetch(this.urlHead + url, {
                     method: method,
@@ -43,20 +43,20 @@ class DataCall {
                 })
                 const res = await fet.json()
                 if (fet.ok) {
-                    document.getElementById('loading-container').classList.add('hide')
-                    this.GET_Notify('Successfully Done', 'Successfull', 'success')
+                    // document.getElementById('loading-container').classList.add('hide')
+                    this.GET_Notify('Successfully Done', res.message, 'success')
                 } else {
-                    document.getElementById('loading-container').classList.add('hide')
-                    this.GET_Notify('Error Recognized', 'Something Error', 'error')
+                    // document.getElementById('loading-container').classList.add('hide')
+                    this.GET_Notify('Error Recognized', res.message, 'error')
                 }
                 return res;
             } catch (err) {
-                document.getElementById('loading-container').classList.add('hide')
+                // document.getElementById('loading-container').classList.add('hide')
                 this.GET_Notify('Something Error', 'Invalid Request!', 'error')
                 throw new Error('request not proceed !' + err.message)
             }
         } else {
-            document.getElementById('loading-container').classList.add('hide')
+            // document.getElementById('loading-container').classList.add('hide')
             this.GET_Notify('Something Error', 'Invalid Request!', 'error')
             throw new Error('Invalid request !')
         }
@@ -67,20 +67,20 @@ class DataCall {
         if (method == 'DELETE') {
             if (!body) {
                 try {
-                    document.getElementById('loading-container').classList.remove('hide')
+                    // document.getElementById('loading-container').classList.remove('hide')
                     const fet = await fetch(this.urlHead + url, { method: method })
                     const res = await fet.json()
                     console.log(fet)
                     if (fet.ok) {
-                        document.getElementById('loading-container').classList.add('hide')
+                        // document.getElementById('loading-container').classList.add('hide')
                         this.GET_Notify('Removed Successfully', 'Successfull', 'success')
                     } else {
-                        document.getElementById('loading-container').classList.add('hide')
+                        // document.getElementById('loading-container').classList.add('hide')
                         this.GET_Notify('Error Recognized', 'Something Error', 'error')
                     }
                     return res;
                 } catch (error) {
-                    document.getElementById('loading-container').classList.add('hide')
+                    // document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Something Error', 'Invalid Request!', 'error')
                     throw new Error('request not proceed !' + error.message)
                 }
@@ -88,7 +88,7 @@ class DataCall {
 
         } else if (method == 'PUT' && body != undefined && type === undefined) {
             try {
-                document.getElementById('loading-container').classList.remove('hide')
+                // document.getElementById('loading-container').classList.remove('hide')
                 const fet = await fetch(this.urlHead + url, {
                     method: method,
                     headers: { 'Content-Type': 'application/json' },
@@ -97,21 +97,21 @@ class DataCall {
                 const res = await fet.json()
                 console.log(fet)
                 if (fet.ok) {
-                    document.getElementById('loading-container').classList.add('hide')
+                    // document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Updated Successfully', 'Successfull', 'success')
                 } else {
-                    document.getElementById('loading-container').classList.add('hide')
+                    // document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Error Recognized', 'Something Error', 'error')
                 }
                 return res;
             } catch (err) {
-                document.getElementById('loading-container').classList.add('hide')
+                // document.getElementById('loading-container').classList.add('hide')
                 this.GET_Notify('Something Error', 'Invalid Request!', 'error')
                 throw new Error('request not proceed !' + err.message)
             }
         } else if (type && type == 'form' && body != undefined) {
             try {
-                document.getElementById('loading-container').classList.remove('hide')
+                // document.getElementById('loading-container').classList.remove('hide')
                 const payload = new URLSearchParams(body);
                 const fet = await fetch(this.urlHead + url, {
                     method: method,
@@ -119,15 +119,15 @@ class DataCall {
                 })
                 const res = await fet.json()
                 if (fet.ok) {
-                    document.getElementById('loading-container').classList.add('hide')
+                    // document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Successfully Done', 'Successfull', 'success')
                 } else {
-                    document.getElementById('loading-container').classList.add('hide')
+                    // document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Error Recognized', 'Something Error', 'error')
                 }
                 return res;
             } catch (err) {
-                document.getElementById('loading-container').classList.add('hide')
+                // document.getElementById('loading-container').classList.add('hide')
                 this.GET_Notify('Something Error', 'Invalid Request!', 'error')
                 throw new Error('request not proceed !' + err.message)
             }
@@ -161,7 +161,8 @@ class DataCall {
             title: title,
             text: text,
             icon: icon,
-            confirmButtonText: 'Okay'
+            confirmButtonText: 'Okay',
+            confirmButtonColor: '#313132'
         });
     }
 

@@ -29,19 +29,16 @@
 
             <div class="service-cards">
                 <div class="service-card">
-                    <h3>Electricity</h3>
-                    <p>UK Energy Ltd.</p>
-                    <button>Go to service</button>
+                    <h3>13</h3>
+                    <p>Today's Orders</p>               
                 </div>
-                <div class="service-card">
-                    <h3>Heating Gas</h3>
-                    <p>Gazprom UK</p>
-                    <button>Go to service</button>
+                <div class="service-card" style="background-color: #c4c443;">
+                    <h3>8</h3>
+                    <p>Order In Progress</p>               
                 </div>
-                <div class="service-card" style="background-color: #E2E356;">
-                    <h3>Tax online</h3>
-                    <p>TaxGov.uk</p>
-                    <button>Go to service</button>
+                <div class="service-card" style="background-color: #89c867;">
+                    <h3>50</h3>
+                    <p>Completed Orders</p>               
                 </div>
             </div>
 
@@ -81,7 +78,7 @@
         <div class="flex popup-container create-order-form-popup hide">
             <div class="form-container">
                 <div class="flex form-header">
-                    <h2>Create New Order</h2>
+                    <h2>Add a New Partner</h2>
                     <button class="close-button" onclick="closePopup('create-order-form-popup')">
                         <span class="material-icons">close</span> <!-- Material Icon for Close -->
                     </button>
@@ -118,7 +115,7 @@
                 <button class="close-button" onclick="closePopup('godown-list-popup')">
                     <span class="material-icons">close</span> <!-- Material Icon for Close -->
                 </button>
-                <div class="list-box" style="justify-content: space-around; margin-block: 1rem;">
+                <div class="list-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
                     <ul>
                         <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
                         <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
@@ -147,7 +144,7 @@
                 </div>
                 <!-- add go down box -->
                 <div class="flex sub-popup hide">
-                    <div class="sub-form-box">
+                    <div class="sub-form-box scroll-box">
                         <div class="flex" style="align-items: center; gap:1rem">
                             <h3>Add Location</h3>
                             <button class="btn" onclick="addNewField('location-form')">Add more</button>
@@ -155,7 +152,7 @@
                         <form style="margin-top: 1rem;" id="location-form">                           
                             <div class="form-group">
                                 <label class="
-                                label-location" style="display: flex;"><span>location</span> <span class="material-icons">close</span></label>
+                                label-location" style="display: flex;"><span>location</span></label>
                                 <textarea></textarea>
                             </div>                           
                         </form>

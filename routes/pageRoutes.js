@@ -6,6 +6,10 @@ const pageRouter = express.Router()
 //admin page URLs---
 
 pageRouter.get('/', async (req, res)=> {
+    res.render('admin/login.ejs')
+})
+
+pageRouter.get('/orders', async (req, res)=> {
     res.render('admin/index.ejs')
 })
 

@@ -29,19 +29,16 @@
 
         <div class="service-cards">
             <div class="service-card">
-                <h3>Electricity</h3>
-                <p>UK Energy Ltd.</p>
-                <button>Go to service</button>
+                <h3>13</h3>
+                <p>Today's Orders</p>               
             </div>
-            <div class="service-card">
-                <h3>Heating Gas</h3>
-                <p>Gazprom UK</p>
-                <button>Go to service</button>
+            <div class="service-card" style="background-color: #c4c443;">
+                <h3>8</h3>
+                <p>Order In Progress</p>               
             </div>
-            <div class="service-card" style="background-color: #E2E356;">
-                <h3>Tax online</h3>
-                <p>TaxGov.uk</p>
-                <button>Go to service</button>
+            <div class="service-card" style="background-color: #89c867;">
+                <h3>50</h3>
+                <p>Completed Orders</p>               
             </div>
         </div>
 
@@ -63,9 +60,9 @@
                 <tbody>
                     <tr class="table-rows">
                         <td>001</td>
-                        <td><select class="status-green">
-                            <option value="">Active</option>
-                            <option value="">Unactive</option>
+                        <td><select class="status-green" onchange="changeStatus(this)">
+                            <option value="Active">Active</option>
+                            <option value="Unactive">Unactive</option>
                         </select></td>
                         <td><span class="status-green">Active</span></td>
                         <td>John Doe</td>

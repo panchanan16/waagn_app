@@ -3,8 +3,7 @@ const db = require('../config/dbConfig');
 
 
 const authenticate = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Get token from "Bearer TOKEN"
+    const token = req.cookies.adminToken;
 
     if (!token) {
         return res.status(401).json({ message: 'Authorization token is required.' });

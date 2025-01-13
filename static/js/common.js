@@ -12,8 +12,28 @@ function closePopup(className) {
 function addNewField(formId) {
     const form = document.getElementById(formId)
     const htmlField = `<div class="form-group">
-                    <label>location</label>
-                    <textarea></textarea>
-                </div>`
+    <label class="
+    label-location" style="display: flex;"><span>location</span> <span class="material-icons" onclick="closeField(this)">close</span></label>
+    <textarea></textarea>
+    </div>  `
     form.innerHTML += htmlField
+}
+
+function closeField(target) {
+    target.parentNode.parentNode.remove()
+}
+
+function cancelFilter() {
+    closePopup('filter-box')
+}
+
+function changeStatus(target) {
+    console.log(target.classList)
+    if (target.value === 'Active') {
+        target.classList.remove('status-red')
+        target.classList.add('status-green')
+    } else {
+        target.classList.remove('status-green')
+        target.classList.add('status-red')
+    }
 }

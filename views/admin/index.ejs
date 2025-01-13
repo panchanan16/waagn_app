@@ -11,186 +11,206 @@
 
 <body>
     <%- include('../partials/aside.ejs') %>
-    <div class="content">
-        <div class="header">
-            <div>
-                <span>Overview</span>
-                <span>Payments</span>
-                <span>Cards</span>
-                <span>Account</span>
-                <span>System</span>
-                <span>Business</span>
+        <div class="content">
+            <div class="header">
+                <div>
+                    <span>Overview</span>
+                    <span>Payments</span>
+                    <span>Cards</span>
+                    <span>Account</span>
+                    <span>System</span>
+                    <span>Business</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600;">Panchanan Deka</span>
+                    <i class="material-icons" style="font-size:30px;">account_circle</i>
+                </div>
             </div>
-            <div style="display: flex; align-items: center;">
-                <span style="font-weight: 600;">Panchanan Deka</span>
-                <i class="material-icons" style="font-size:30px;">account_circle</i>
+
+            <div class="service-cards">
+                <div class="service-card">
+                    <h3>13</h3>
+                    <p>Today's Orders</p>
+                </div>
+                <div class="service-card" style="background-color: #c4c443;">
+                    <h3>8</h3>
+                    <p>Order In Progress</p>
+                </div>
+                <div class="service-card" style="background-color: #89c867;">
+                    <h3>50</h3>
+                    <p>Completed Orders</p>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="flex table-header" style="justify-content: space-between;">
+                    <h1>Latest Order</h1>
+                    <div class="flex" style="gap:1rem;">
+                        <button class="btn" onclick="openPopup('create-order-form-popup')">Create Order</button>
+                        <button class="btn" onclick="openPopup('filter-box')"><i style="font-size: 16px;" class="material-icons">tune</i></button>
+                    </div>
+                </div>
+                <div class="filter-box hide flex flex-col">
+                    <div class="filter-item flex" style="justify-content: space-between;">
+                        <label>Total order</label>
+                        <input type="radio" name="filter" id="">
+                    </div>
+                    <div class="filter-item flex" style="justify-content: space-between;">
+                        <label>Total order</label>
+                        <input type="radio" name="filter" id="">
+                    </div>
+                    <div class="filter-item flex" style="justify-content: space-between;">
+                        <label>Total order</label>
+                        <input type="radio" name="filter" id="">
+                    </div>
+                    
+                    <div>
+                        <button class="btn">Apply</button>
+                        <button class="btn" onclick="cancelFilter()">Cancel</button>
+                    </div>
+                    
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Pickup Address</th>
+                            <th>Delivery Address</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-rows" onclick="openPopup('order-detail-popup')">
+                            <td>001</td>
+                            <td>123 Main St, Cityville, ST 12345</td>
+                            <td>456 Elm St, Townsville, ST 67890</td>
+                            <td>John Doe</td>
+                            <td>20/02/2024</td>
+                        </tr>
+                        <tr class="table-rows" onclick="openPopup('order-detail-popup')">
+                            <td>001</td>
+                            <td>123 Main St, Cityville, ST 12345</td>
+                            <td>456 Elm St, Townsville, ST 67890</td>
+                            <td>John Doe</td>
+                            <td>20/02/2024</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- create order popup box -->
+        <div class="flex popup-container create-order-form-popup hide">
+            <div class="form-container">
+                <div class="flex form-header">
+                    <h2>Create New Order</h2>
+                    <button class="close-button" onclick="closePopup('create-order-form-popup')">
+                        <span class="material-icons">close</span> <!-- Material Icon for Close -->
+                    </button>
+                </div>
+                <form class="order-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pickup-address">Pickup Address</label>
+                        <textarea id="pickup-address" name="pickup-address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-address">Delivery Address</label>
+                        <textarea id="delivery-address" name="delivery-address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="goods-description">Goods Description</label>
+                        <textarea id="goods-description" name="goods-description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rate">Rate</label>
+                        <input type="number" id="rate" name="rate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" required>
+                    </div>
+                    <button type="submit" class="btn">Submit</button>
+                </form>
             </div>
         </div>
 
-        <div class="service-cards">
-            <div class="service-card">
-                <h3>Electricity</h3>
-                <p>UK Energy Ltd.</p>
-                <button>Go to service</button>
-            </div>
-            <div class="service-card">
-                <h3>Heating Gas</h3>
-                <p>Gazprom UK</p>
-                <button>Go to service</button>
-            </div>
-            <div class="service-card" style="background-color: #E2E356;">
-                <h3>Tax online</h3>
-                <p>TaxGov.uk</p>
-                <button>Go to service</button>
-            </div>
-        </div>
-
-        <div class="table-container">
-            <div class="flex table-header" style="justify-content: space-between;">
-                <h1>Latest Order</h1>
-                <button class="btn" onclick="openPopup('create-order-form-popup')">Create Order</button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Pickup Address</th>
-                        <th>Delivery Address</th>
-                        <th>Name</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="table-rows" onclick="openPopup('order-detail-popup')">
-                        <td>001</td>
-                        <td>123 Main St, Cityville, ST 12345</td>
-                        <td>456 Elm St, Townsville, ST 67890</td>
-                        <td>John Doe</td>
-                        <td>20/02/2024</td>
-                    </tr>
-                    <tr class="table-rows" onclick="openPopup('order-detail-popup')">
-                        <td>001</td>
-                        <td>123 Main St, Cityville, ST 12345</td>
-                        <td>456 Elm St, Townsville, ST 67890</td>
-                        <td>John Doe</td>
-                        <td>20/02/2024</td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-    <!-- create order popup box -->
-    <div class="flex popup-container create-order-form-popup hide">
-        <div class="form-container">
-            <div class="flex form-header">
-                <h2>Create New Order</h2>
-                <button class="close-button" onclick="closePopup('create-order-form-popup')">
+        <!-- order details popup box -->
+        <div class="flex popup-container order-detail-popup hide">
+            <div class="info-box" style="background-color: #fff;">
+                <button class="close-button" onclick="closePopup('order-detail-popup')">
                     <span class="material-icons">close</span> <!-- Material Icon for Close -->
                 </button>
-            </div>
-            <form class="order-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="pickup-address">Pickup Address</label>
-                    <textarea id="pickup-address" name="pickup-address" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="delivery-address">Delivery Address</label>
-                    <textarea id="delivery-address" name="delivery-address" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="goods-description">Goods Description</label>
-                    <textarea id="goods-description" name="goods-description" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="rate">Rate</label>
-                    <input type="number" id="rate" name="rate" required>
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantity</label>
-                    <input type="number" id="quantity" name="quantity" required>
-                </div>
-                <button type="submit" class="btn">Submit</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- order details popup box -->
-    <div class="flex popup-container order-detail-popup hide">
-        <div class="info-box" style="background-color: #fff;">
-            <button class="close-button" onclick="closePopup('order-detail-popup')">
-                <span class="material-icons">close</span> <!-- Material Icon for Close -->
-            </button>
-            <div class="key-value-box" style="justify-content: space-around; margin-block: 1rem;">
-                <div class="key-value">
-                    <div class="key-value-pair">
-                        <strong>OrderId:</strong> 983774784
+                <div class="key-value-box" style="justify-content: space-around; margin-block: 1rem;">
+                    <div class="key-value">
+                        <div class="key-value-pair">
+                            <strong>OrderId:</strong> 983774784
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Name:</strong> John Doe
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Pickup Location:</strong> New York, NY
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Drop Location:</strong> Los Angeles, CA
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Goods:</strong> Electronics
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Description:</strong> Fragile items
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Quantity:</strong> 5
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Rate:</strong> $150
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Date:</strong> 20/02/2025
+                        </div>
                     </div>
-                    <div class="key-value-pair">
-                        <strong>Name:</strong> John Doe
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Pickup Location:</strong> New York, NY
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Drop Location:</strong> Los Angeles, CA
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Goods:</strong> Electronics
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Description:</strong> Fragile items
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Quantity:</strong> 5
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Rate:</strong> $150
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Date:</strong> 20/02/2025
-                    </div>
-                </div>
-                <div class="key-value">
-                    <div class="key-value-pair">
-                        <strong>Order Status:</strong> <span class="status-green">delivered</span>
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Name:</strong> John Doe
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                            near police point, paltan bazar</span>
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Drop Location:</strong> Los Angeles, CA
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Goods:</strong> Electronics
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Description:</strong> Fragile items
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Quantity:</strong> 5
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Rate:</strong> $150
-                    </div>
-                    <div class="key-value-pair">
-                        <strong>Date:</strong> 20/02/2025
+                    <div class="key-value">
+                        <div class="key-value-pair">
+                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Name:</strong> John Doe
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
+                                near police point, paltan bazar</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Drop Location:</strong> Los Angeles, CA
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Goods:</strong> Electronics
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Description:</strong> Fragile items
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Quantity:</strong> 5
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Rate:</strong> $150
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Date:</strong> 20/02/2025
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="/js/common.js"></script>
+        <script src="/js/common.js"></script>
 </body>
 
 </html>

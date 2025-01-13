@@ -41,7 +41,7 @@ exports.loginAdmin = async (req, res) => {
             if (err) {
                 return res.status(500).json({ message: 'Error saving token in database', error: err });
             }
-            res.status(200).json({ message: 'Login successful', token });
+            res.status(200).json({ success: true, redirect: '/orders', message: 'Login successful', token });
         });
     });
 };
