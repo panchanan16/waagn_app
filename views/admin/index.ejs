@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waagn App</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/request.module.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -47,7 +49,8 @@
                     <h1>Latest Order</h1>
                     <div class="flex" style="gap:1rem;">
                         <button class="btn" onclick="openPopup('create-order-form-popup')">Create Order</button>
-                        <button class="btn" onclick="openPopup('filter-box')"><i style="font-size: 16px;" class="material-icons">tune</i></button>
+                        <button class="btn" onclick="openPopup('filter-box')"><i style="font-size: 16px;"
+                                class="material-icons">tune</i></button>
                     </div>
                 </div>
                 <div class="filter-box hide flex flex-col">
@@ -63,12 +66,12 @@
                         <label>Total order</label>
                         <input type="radio" name="filter" id="">
                     </div>
-                    
+
                     <div>
                         <button class="btn">Apply</button>
                         <button class="btn" onclick="cancelFilter()">Cancel</button>
                     </div>
-                    
+
                 </div>
                 <table>
                     <thead>
@@ -101,53 +104,190 @@
             </div>
 
         </div>
-        <!-- create order popup box -->
+        <!-- create order popup form -->
         <div class="flex popup-container create-order-form-popup hide">
             <div class="form-container">
                 <div class="flex form-header">
-                    <h2>Create New Order</h2>
-                    <button class="close-button" onclick="closePopup('create-order-form-popup')">
-                        <span class="material-icons">close</span> <!-- Material Icon for Close -->
-                    </button>
+                    <h2>Order Information Form</h2>
+                    <span class="material-icons" style="cursor: pointer;color: #c11717;"
+                        onclick="closePopup('create-order-form-popup')">close</span>
                 </div>
-                <form class="order-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+                <form id="order-create-form-admin" style="margin-top: 1.5rem;">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="pickup_location_address">Pickup Location Address:</label>
+                            <input type="text" id="pickup_location_address" name="pickup_location_address" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="delivery_location_address">Delivery Location Address:</label>
+                            <input type="text" id="delivery_location_address" name="delivery_location_address" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="pickup-address">Pickup Address</label>
-                        <textarea id="pickup-address" name="pickup-address" required></textarea>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="shipper_company_name">Shipper Company Name:</label>
+                            <input type="text" id="shipper_company_name" name="shipper_company_name">
+                        </div>
+                        <div class="form-field">
+                            <label for="shipper_name">Shipper Name:</label>
+                            <input type="text" id="shipper_name" name="shipper_name">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="delivery-address">Delivery Address</label>
-                        <textarea id="delivery-address" name="delivery-address" required></textarea>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="shipper_contact_number">Shipper Contact Number:</label>
+                            <input type="text" id="shipper_contact_number" name="shipper_contact_number">
+                        </div>
+                        <div class="form-field">
+                            <label for="shipper_email_address">Shipper Email Address:</label>
+                            <input type="email" id="shipper_email_address" name="shipper_email_address">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="goods-description">Goods Description</label>
-                        <textarea id="goods-description" name="goods-description" required></textarea>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="receiver_company_name">Receiver Company Name:</label>
+                            <input type="text" id="receiver_company_name" name="receiver_company_name">
+                        </div>
+                        <div class="form-field">
+                            <label for="receiver_name">Receiver Name:</label>
+                            <input type="text" id="receiver_name" name="receiver_name">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="rate">Rate</label>
-                        <input type="number" id="rate" name="rate" required>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="receiver_contact_number">Receiver Contact Number:</label>
+                            <input type="text" id="receiver_contact_number" name="receiver_contact_number">
+                        </div>
+                        <div class="form-field">
+                            <label for="receiver_gst">Receiver GST:</label>
+                            <input type="text" id="receiver_gst" name="receiver_gst">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" id="quantity" name="quantity" required>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="receiver_email_address">Receiver Email Address:</label>
+                            <input type="email" id="receiver_email_address" name="receiver_email_address">
+                        </div>
+                        <div class="form-field">
+                            <label for="types_of_goods">Types of Goods:</label>
+                            <select name="types_of_goods">
+                                <option value="lquid">Liquid</option>
+                                <option value="solid">Solid</option>
+                            </select>
+                        </div>
                     </div>
-                    <button type="submit" class="btn">Submit</button>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="actual_weight_of_consignment">Actual Weight of Consignment:</label>
+                            <input type="number" step="0.01" id="actual_weight_of_consignment"
+                                name="actual_weight_of_consignment">
+                        </div>
+                        <div class="form-field">
+                            <label for="number_of_boxes">Number of Boxes:</label>
+                            <input type="number" id="number_of_boxes" name="number_of_boxes">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="length_of_box">Length of Box:</label>
+                            <input type="text" id="length_of_box" name="length_of_box">
+                        </div>
+                        <div class="form-field">
+                            <label for="height_of_box">Height of Box:</label>
+                            <input type="text" id="height_of_box" name="height_of_box">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="breadth_of_box">Breadth of Box:</label>
+                            <input type="text" id="breadth_of_box" name="breadth_of_box">
+                        </div>
+                        <div class="form-field">
+                            <label for="volume_of_consignment">Volume of Consignment:</label>
+                            <input type="text" id="volume_of_consignment" name="volume_of_consignment">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="consignment_risk">Consignment Risk:</label>
+                            <select name="consignment_risk">
+                                <option value="owner_risk">Owner Risk</option>
+                                <option value="carrier_risk">Carier Risk</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="pickup_datetime">Pickup Date and Time:</label>
+                            <input type="datetime-local" id="pickup_datetime" name="pickup_datetime">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="delivery_datetime">Delivery Date and Time:</label>
+                            <input type="datetime-local" id="delivery_datetime" name="delivery_datetime">
+                        </div>
+                        <div class="form-field">
+                            <label for="insurance">Insurance:</label>
+                            <input type="text" id="insurance" name="insurance">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="tax_invoice_number">Tax Invoice Number:</label>
+                            <input type="text" id="tax_invoice_number" name="tax_invoice_number">
+                        </div>
+                        <div class="form-field">
+                            <label for="payment_status">Payment Mode:</label>
+                            <select name="payment_mode">
+                                <option value="upi">UPI</option>
+                                <option value="cash">Cash</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="amount">Amount:</label>
+                            <input type="number" id="amount" name="amount">
+                        </div>
+                        <div class="form-field">
+                            <label for="amount">Payment Status:</label>
+                            <select name="payment_status">
+                                <option value="topay">To pay</option>
+                                <option value="tobill">To be billed</option>
+                                <option value="paid">Paid</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="full-width">
+                        <button type="button" onclick="createOrderFromAdmin(event)" class="btn">Submit</button>
+                    </div>
                 </form>
             </div>
+
         </div>
 
         <!-- order details popup box -->
-        <div class="flex popup-container order-detail-popup hide">
+        <div class="flex popup-container hide order-detail-popup">
             <div class="info-box" style="background-color: #fff;">
                 <button class="close-button" onclick="closePopup('order-detail-popup')">
                     <span class="material-icons">close</span> <!-- Material Icon for Close -->
                 </button>
-                <div class="key-value-box" style="justify-content: space-around; margin-block: 1rem;">
+                <div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
                     <div class="key-value">
+                        <h2 class="flex details-heading">Customer Details</h2>
                         <div class="key-value-pair">
                             <strong>OrderId:</strong> 983774784
                         </div>
@@ -160,23 +300,30 @@
                         <div class="key-value-pair">
                             <strong>Drop Location:</strong> Los Angeles, CA
                         </div>
+                    </div>
+                    <div class="key-value">
+                        <h2 class="flex details-heading">Delivery Details</h2>
                         <div class="key-value-pair">
-                            <strong>Goods:</strong> Electronics
+                            <strong>Order Status:</strong>
+                            <select class="status-red">
+                                <option value="">Pending</option>
+                                <option value="">In transit</option>
+                                <option value="">Delivered</option>
+                            </select>
                         </div>
                         <div class="key-value-pair">
-                            <strong>Description:</strong> Fragile items
+                            <strong>Name:</strong> John Doe
                         </div>
                         <div class="key-value-pair">
-                            <strong>Quantity:</strong> 5
+                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
+                                near police point, paltan bazar</span>
                         </div>
                         <div class="key-value-pair">
-                            <strong>Rate:</strong> $150
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Date:</strong> 20/02/2025
+                            <strong>Drop Location:</strong> Los Angeles, CA
                         </div>
                     </div>
                     <div class="key-value">
+                        <h2 class="flex details-heading">GOODS INFORMATION</h2>
                         <div class="key-value-pair">
                             <strong>Order Status:</strong> <span class="status-green">delivered</span>
                         </div>
@@ -190,27 +337,101 @@
                         <div class="key-value-pair">
                             <strong>Drop Location:</strong> Los Angeles, CA
                         </div>
+                    </div>
+                    <div class="key-value">
+                        <h2 class="flex details-heading">3PL DELIVERY LOCATION</h2>
                         <div class="key-value-pair">
-                            <strong>Goods:</strong> Electronics
+                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
                         </div>
                         <div class="key-value-pair">
-                            <strong>Description:</strong> Fragile items
+                            <strong>Name:</strong> John Doe
                         </div>
                         <div class="key-value-pair">
-                            <strong>Quantity:</strong> 5
+                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
+                                near police point, paltan bazar</span>
                         </div>
                         <div class="key-value-pair">
-                            <strong>Rate:</strong> $150
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Date:</strong> 20/02/2025
+                            <strong>Drop Location:</strong> Los Angeles, CA
                         </div>
                     </div>
+
+                    <div class="key-value flex flex-col" style="gap: 1rem;">
+                        <h2 class="flex details-heading">DOCUMENTATION</h2>
+                        <div class="flex key-value-pair">
+                            <div>
+                                <label for="order-lr" class="btn">Upload LR</label>
+                                <input type="file" name="order-lr" id="order-lr" class="hide">
+                            </div>
+                            <p class="view-doc">View</p>
+                        </div>
+                        <div class="flex key-value-pair">
+                            <div>
+                                <label for="order-tax-invoice" class="btn">Upload Tax Invoice</label>
+                                <input type="file" name="order-tax-invoice" id="order-tax-invoice" class="hide">
+                            </div>
+                            <p class="view-doc">View</p>
+                        </div>
+                        <div class="flex key-value-pair">
+                            <div>
+                                <label for="goods-photos" class="btn">Goods Photo</label>
+                                <input type="file" name="goods-photos" id="goods-photos" class="hide">
+                            </div>
+                            <p class="view-doc unactive">View</p>
+                        </div>
+                    </div>
+
+                    <div class="key-value">
+                        <h2 class="flex details-heading">COMMENTS</h2>
+                        <div class="key-value-pair">
+                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Name:</strong> John Doe
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
+                                near police point, paltan bazar</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Drop Location:</strong> Los Angeles, CA
+                        </div>
+                    </div>
+
+                    <div class="key-value">
+                        <h2 class="flex details-heading">COMMENTS</h2>
+                        <div class="key-value-pair">
+                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Name:</strong> John Doe
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
+                                near police point, paltan bazar</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Drop Location:</strong> Los Angeles, CA
+                        </div>
+                    </div>
+
+                    <div class="key-value">
+                        <h2 class="flex details-heading">BILLING INFORMATION</h2>
+                        <div class="key-value-pair form-row">
+                            <input type="text" name="amount" value="1000">
+                            <button class="btn">Update</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex" style="gap: 1rem">
+                    <button class="btn">Assign Pickup Vehicle</button>
+                    <button class="btn">Assign 3pl Partner</button>
+                    <button class="btn">Download</button>
                 </div>
             </div>
         </div>
 
         <script src="/js/common.js"></script>
+        <script src="/js/order.js"></script>
 </body>
 
 </html>

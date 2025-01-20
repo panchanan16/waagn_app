@@ -1,10 +1,24 @@
 const express = require('express')
 const appRoutes = express.Router()
-const adminAuthControllers = require('../controllers/auth/admin/adminAuth')
+const driverControllers = require('../controllers/drivers/driverController')
+const ordersController = require('../controllers/orders/ordersControllers')
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 
-//admin auth api---
-authRoutes.post('/admin/register', adminAuthControllers.registerAdmin)
-authRoutes.post('/admin/login', adminAuthControllers.loginAdmin)
+//drivers api---
+appRoutes.post('/driver/register', upload.single('driver_photo'), driverControllers.registerDriver)
+appRoutes.get('/driver/getAll', driverControllers.getAllDrivers)
+appRoutes.put('/driver/update', driverControllers.updateDriver)
 
-module.exports = authRoutes
+
+//Orders Api ---
+
+appRoutes.get('/orders', ordersController.getAll);  
+// appRoutes.get('/orders/getOne/:id', ordersController.getOne); 
+appRoutes.post('/orders', ordersController.create);    
+appRoutes.put('/orders/:id', ordersController.update);  // Update an order
+appRoutes.delete('/orders/:id', ordersController.delete);
+
+module.exports = appRoutes

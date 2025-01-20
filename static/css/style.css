@@ -61,8 +61,8 @@ body {
 
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    right: 3px;
+    top: 5px;
     background: none;
     border: none;
     font-size: 24px;
@@ -134,6 +134,10 @@ a {
     padding: 10px;
     transition: background-color 0.3s;
     border-radius: 8px;
+}
+
+.sidebar li a{
+    width: 100%; 
 }
 
 .sidebar li:hover {
@@ -259,17 +263,19 @@ tbody tr:nth-child(even) {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 1000;
+    min-height: 100vh;
+    max-height: fit-content;
 }
 
 .info-box {
-    width: 50%;
+    width: 80%;
     padding: 25px;
     background-color: #f8f8f8;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     font-family: Arial, sans-serif;
-    margin-block: 5rem;
+    margin-block: 1.5rem;
 }
 
 
@@ -295,6 +301,9 @@ tbody tr:nth-child(even) {
     border: 1px solid rgb(167, 165, 165);
     padding: 15px;
     border-radius: 8px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: scroll;
 }
 
 
@@ -305,20 +314,66 @@ tbody tr:nth-child(even) {
 
 .key-value-pair {
     margin-bottom: 10px;
+    gap: .5rem;
 }
 
 .key-value-pair strong {
     color: #333;
 }
 
+.details-heading {
+    border: 1px dashed gray;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    color: gray;
+}
+
+.view-doc {
+    color: blue;
+    cursor: pointer;
+}
+
+.unactive {
+  color: #7a7a7a;
+}
+
 /* form design */
 .form-container {
-    background-color: white;
-    padding: 30px;
+    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 40%;
-    position: relative;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    margin-block: 1.5rem;
+}
+
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-row input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-field {
+    flex: 1 1 45%;
 }
 
 .form-header {

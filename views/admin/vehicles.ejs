@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waagn App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('../partials/aside.ejs') %>
+        <div class="content">
+            <div class="header">
+                <div>
+                    <span>Overview</span>
+                    <span>Payments</span>
+                    <span>Cards</span>
+                    <span>Account</span>
+                    <span>System</span>
+                    <span>Business</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600;">Panchanan Deka</span>
+                    <i class="material-icons" style="font-size:30px;">account_circle</i>
+                </div>
+            </div>
+
+            <div class="service-cards">
+                <div class="service-card">
+                    <h3>13</h3>
+                    <p>Today's Orders</p>
+                </div>
+                <div class="service-card" style="background-color: #c4c443;">
+                    <h3>8</h3>
+                    <p>Order In Progress</p>
+                </div>
+                <div class="service-card" style="background-color: #89c867;">
+                    <h3>50</h3>
+                    <p>Completed Orders</p>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="flex table-header" style="justify-content: space-between;">
+                    <h1>Drivers List</h1>
+                    <button class="btn" onclick="openPopup('vehicle-add-form-popup')">Add a vehicle</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Pickup Address</th>
+                            <th>Delivery Address</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-rows">
+                            <td>001</td>
+                            <td><select class="status-green" onchange="changeStatus(this)">
+                                    <option value="Active">Active</option>
+                                    <option value="Unactive">Unactive</option>
+                                </select></td>
+                            <td><span class="status-green">Active</span></td>
+                            <td>John Doe</td>
+                            <td>20/02/2024</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- create driver popup box -->
+        <div class="flex popup-container vehicle-add-form-popup hide">
+            <div class="form-container">
+                <div class="flex form-header">
+                    <h2>Vehicle Information Form</h2>
+                    <span class="material-icons" style="cursor: pointer;color: #c11717;" onclick="closePopup('vehicle-add-form-popup')">close</span>
+                </div>
+                <form action="submit_vehicle_info.php" method="POST" style="margin-top: 1rem;">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="vehicle_type">Vehicle Type:</label>
+                            <input type="text" id="vehicle_type" name="vehicle_type" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="registration_number">Registration Number:</label>
+                            <input type="text" id="registration_number" name="registration_number" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="model">Model:</label>
+                            <input type="text" id="model" name="model" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="owners_name">Owner's Name:</label>
+                            <input type="text" id="owners_name" name="owners_name" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="contact_details">Contact Details:</label>
+                            <input type="text" id="contact_details" name="contact_details" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="company_affiliation">Company Affiliation:</label>
+                            <input type="text" id="company_affiliation" name="company_affiliation">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="capacity">Capacity (Seats):</label>
+                            <input type="number" id="capacity" name="capacity" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="intercity_intra_city_operation">Intercity/Intra-city Operation:</label>
+                            <input type="text" id="intercity_intra_city_operation"
+                                name="intercity_intra_city_operation">
+                        </div>
+                        <div class="form-field">
+                            <label for="cost_per_km_hour">Cost per Km/Hour:</label>
+                            <input type="number" id="cost_per_km_hour" name="cost_per_km_hour" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="types_of_goods_handled">Types of Goods Handled:</label>
+                            <textarea id="types_of_goods_handled" name="types_of_goods_handled"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="preferred_routes">Preferred Routes:</label>
+                            <textarea id="preferred_routes" name="preferred_routes"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="availability_schedule">Availability Schedule:</label>
+                            <textarea id="availability_schedule" name="availability_schedule"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="gps_availability">GPS Availability:</label>
+                            <select id="gps_availability" name="gps_availability">
+                                <option value="1">Available</option>
+                                <option value="0">Not Available</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="vehicle_registration_certificate">Vehicle Registration Certificate:</label>
+                            <select id="vehicle_registration_certificate" name="vehicle_registration_certificate">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="pollution_certificate">Pollution Certificate:</label>
+                            <select id="pollution_certificate" name="pollution_certificate">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="temperature_control">Temperature Control:</label>
+                            <select id="temperature_control" name="temperature_control">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="road_permit">Road Permit:</label>
+                            <select id="road_permit" name="road_permit">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="fitness_certificate">Fitness Certificate:</label>
+                            <select id="fitness_certificate" name="fitness_certificate">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="special_handling_capabilities">Special Handling Capabilities:</label>
+                            <textarea id="special_handling_capabilities"
+                                name="special_handling_capabilities"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="payment_terms">Payment Terms:</label>
+                            <textarea id="payment_terms" name="payment_terms"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="invoicing_process">Invoicing Process:</label>
+                            <textarea id="invoicing_process" name="invoicing_process"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="coverage_for_goods_and_vehicle">Coverage for Goods and Vehicle:</label>
+                            <select id="coverage_for_goods_and_vehicle" name="coverage_for_goods_and_vehicle">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="gps_tracking_integration">GPS Tracking Integration:</label>
+                            <select id="gps_tracking_integration" name="gps_tracking_integration">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="compatibility_with_logistics_software">Compatibility with Logistics
+                                Software:</label>
+                            <select id="compatibility_with_logistics_software"
+                                name="compatibility_with_logistics_software">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="online_availability_status">Online Availability Status:</label>
+                            <select id="online_availability_status" name="online_availability_status">
+                                <option value="1">Available</option>
+                                <option value="0">Not Available</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="insurance_provider">Insurance Provider:</label>
+                            <input type="text" id="insurance_provider" name="insurance_provider">
+                        </div>
+                        <div class="form-field">
+                            <label for="last_service_date">Last Service Date:</label>
+                            <input type="date" id="last_service_date" name="last_service_date">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="policy_details">Policy Details:</label>
+                            <textarea id="policy_details" name="policy_details"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="maintenance_schedule">Maintenance Schedule:</label>
+                            <textarea id="maintenance_schedule" name="maintenance_schedule"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="major_repairs">Major Repairs:</label>
+                            <textarea id="major_repairs" name="major_repairs"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="claim_process">Claim Process:</label>
+                            <textarea id="claim_process" name="claim_process"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="references_from_previous_employers_clients">References from Previous
+                                Employers/Clients:</label>
+                            <textarea id="references_from_previous_employers_clients"
+                                name="references_from_previous_employers_clients"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="feedback_on_performance_and_reliability">Feedback on Performance and
+                                Reliability:</label>
+                            <textarea id="feedback_on_performance_and_reliability"
+                                name="feedback_on_performance_and_reliability"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn" type="submit">Submit</button>
+                </form>
+            </div>
+
+        </div>
+
+
+        <!-- order details popup box -->
+        <div class="flex popup-container order-detail-popup hide">
+            <div class="info-box" style="background-color: #fff;">
+                <button class="close-button" onclick="closePopup('order-detail-popup')">
+                    <span class="material-icons">close</span> <!-- Material Icon for Close -->
+                </button>
+                <div class="key-value-box" style="justify-content: space-around; margin-block: 1rem;">
+                    <div class="key-value">
+                        <div class="key-value-pair">
+                            <strong>OrderId:</strong> 983774784
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Name:</strong> John Doe
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Pickup Location:</strong> New York, NY
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Drop Location:</strong> Los Angeles, CA
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Goods:</strong> Electronics
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Description:</strong> Fragile items
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Quantity:</strong> 5
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Rate:</strong> $150
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Date:</strong> 20/02/2025
+                        </div>
+                    </div>
+                    <div class="key-value">
+                        <div class="key-value-pair">
+                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Name:</strong> John Doe
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
+                                near police point, paltan bazar</span>
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Drop Location:</strong> Los Angeles, CA
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Goods:</strong> Electronics
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Description:</strong> Fragile items
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Quantity:</strong> 5
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Rate:</strong> $150
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Date:</strong> 20/02/2025
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/common.js"></script>
+</body>
+
+</html>

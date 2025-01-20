@@ -7,4 +7,136 @@ CREATE TABLE `admin_auth` (
   `token` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Orders table
+
+CREATE TABLE orders (
+    order_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    pickup_location_address VARCHAR(255) NOT NULL,
+    delivery_location_address VARCHAR(255) NOT NULL,
+    shipper_company_name VARCHAR(255),
+    shipper_name VARCHAR(100),
+    shipper_contact_number VARCHAR(20),
+    shipper_email_address VARCHAR(100),
+    receiver_company_name VARCHAR(150),
+    receiver_name VARCHAR(100),
+    receiver_contact_number VARCHAR(20),
+    receiver_gst VARCHAR(20),
+    receiver_email_address VARCHAR(100),
+    types_of_goods VARCHAR(150),
+    actual_weight_of_consignment DECIMAL(10, 2),
+    number_of_boxes INT,
+    length_of_box VARCHAR(30),
+    height_of_box VARCHAR(30),
+    breadth_of_box VARCHAR(30),
+    volume_of_consignment VARCHAR(100),
+    consignment_risk VARCHAR(100),
+    pickup_datetime VARCHAR(100),
+    delivery_datetime VARCHAR(100),
+    insurance VARCHAR(30),
+    tax_invoice_number VARCHAR(80),
+    payment_mode VARCHAR(80),
+    payment_status VARCHAR(80),
+    amount INT DEFAULT NULL,
+    order_status VARCHAR(100)
+);
+
+-- Drivers Table
+
+CREATE TABLE drivers (
+    driver_id INT AUTO_INCREMENT PRIMARY KEY,
+    driver_name VARCHAR(100),
+    contact_number VARCHAR(20) NOT NULL,
+    dl_number VARCHAR(20) NOT NULL,
+    aadhaar_card_number VARCHAR(20) NOT NULL,
+    current_address VARCHAR(255),
+    permanent_address VARCHAR(255),
+    alt_number VARCHAR(20),
+    whatsapp_number VARCHAR(20),
+    driver_photo VARCHAR(255),
+    emergency_number VARCHAR(20) NOT NULL,
+    driver_status TINYINT(1) DEFAULT 1 NOT NULL
+);
+
+
+-- Vehicle table
+
+CREATE TABLE vehicle_information (
+    vehicle_id INT AUTO_INCREMENT PRIMARY KEY,
+    vehicle_type VARCHAR(255),
+    registration_number VARCHAR(150) UNIQUE,
+    model VARCHAR(200),
+    capacity INT,
+    gps_availability TINYINT(1),
+    owners_name VARCHAR(255),
+    contact_details VARCHAR(255),
+    company_affiliation VARCHAR(255),
+    driving_license_number VARCHAR(255),
+    intercity_intra_city_operation VARCHAR(255),
+    preferred_routes TEXT,
+    availability_schedule TEXT,
+    vehicle_registration_certificate TINYINT(1), 
+    pollution_certificate TINYINT(1), 
+    road_permit TINYINT(1), 
+    fitness_certificate TINYINT(1), 
+    types_of_goods_handled TEXT,
+    temperature_control TINYINT(1), 
+    special_handling_capabilities TEXT,
+    cost_per_km_hour INT,
+    payment_terms TEXT,
+    invoicing_process TEXT,
+    gps_tracking_integration TINYINT(1), 
+    compatibility_with_logistics_software TINYINT(1), 
+    online_availability_status TINYINT(1), 
+    insurance_provider VARCHAR(255),
+    policy_details TEXT,
+    coverage_for_goods_and_vehicle TINYINT(1), 
+    claim_process TEXT,
+    last_service_date DATE,
+    maintenance_schedule TEXT,
+    major_repairs TEXT,
+    references_from_previous_employers_clients TEXT,
+    feedback_on_performance_and_reliability TEXT
+);
+
+
+-- 3pl partners table
+
+CREATE TABLE logistics_companies (
+    company_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    company_name VARCHAR(255) NOT NULL,
+    years_of_experience INT DEFAULT NULL,
+    contact_details VARCHAR(255),
+    certifications VARCHAR(255),
+    operational_capability TEXT,
+    types_of_goods_handled VARCHAR(255),
+    specialization VARCHAR(255),
+    type_of_services VARCHAR(50),
+    fleet_size INT,
+    types_of_vehicles VARCHAR(255),
+    average_age_of_vehicles INT,
+    number_of_warehouses INT,
+    regions_covered VARCHAR(255),
+    area_type_of_logistics VARCHAR(50),
+    compliance_with_transportation_laws ENUM('Yes', 'No') NOT NULL,
+    driver_certifications TEXT,
+    cost_structure TEXT,
+    payment_terms TEXT,
+    additional_charges_for_specialized_services TEXT,
+    real_time_tracking_availability ENUM('Yes', 'No') NOT NULL,
+    integration_with_logistics_software ENUM('Yes', 'No') NOT NULL,
+    online_booking_systems ENUM('Yes', 'No') NOT NULL,
+    customer_support_24_7 ENUM('Yes', 'No') NOT NULL,
+    emergency_point_of_contact VARCHAR(255),
+    insurance_coverage_for_cargo ENUM('Yes', 'No') NOT NULL,
+    liability_in_case_of_damage_or_loss ENUM('Yes', 'No') NOT NULL,
+    claim_processing_time VARCHAR(255),
+    references_from_previous_clients TEXT,
+    market_reputation_reviews TEXT
+);
+
+
+
+
+
+
 

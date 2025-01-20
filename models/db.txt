@@ -13,3 +13,77 @@ customer_invoice,
 admin_auth
 partners_auth
 customers_auth
+
+
+Vehicle Type
+Registration Number
+Model: 
+Capacity: 
+GPS Availability 
+Owner’s Name:
+Contact Details:
+Company Affiliation (if any):
+Driving License Number
+Intercity/Intra-city Operation:
+Preferred Routes:
+Availability Schedule: 
+Vehicle Registration Certificate (RC) [Yes/No]:
+Pollution Certificate [Yes/No]:
+Road Permit [Yes/No]:
+Fitness Certificate [Yes/No]:
+Types of Goods Handled:
+Temperature Control (if any) [Yes/No]:
+Special Handling Capabilities: 
+Cost per Kilometer/Hour:
+Payment Terms:
+Invoicing Process:
+GPS Tracking Integration [Yes/No]:
+Compatibility with Logistics Software [Yes/No]:
+Online Availability Status [Yes/No]:
+Insurance Provider:
+Policy Details:
+Coverage for Goods and Vehicle [Yes/No]:
+Claim Process:
+Last Service Date:
+Maintenance Schedule:
+Major Repairs (if any):
+References from Previous Employers/Clients:
+Feedback on Performance and Reliability: 
+
+
+
+3pl onboard from ---
+
+Company Name:
+Years of Experience:
+Contact Details (Phone/Email):
+Certifications (e.g., ISO):
+Operational Capability
+Types of Goods Handled:
+Specialization (e.g., B2B Cargo):
+Dedicated or Shared Services:
+Fleet Size:
+Types of Vehicles (e.g., Refrigerated, Container, Bulk):
+Average Age of Vehicles:
+Number of Warehouses:
+Regions Covered:
+Intercity, Interstate, or Cross-Border Logistics:
+Compliance with Transportation Laws [Yes/No]:
+Driver Certifications:
+Cost Structure:
+Payment Terms:
+Additional Charges for Specialized Services:
+Technology Integration
+Real-Time Tracking Availability [Yes/No]:
+Integration with Logistics Software [Yes/No]:
+Online Booking Systems [Yes/No]:
+24/7 Customer Support [Yes/No]:
+Emergency Point of Contact:
+Insurance Coverage for Cargo [Yes/No]:
+Liability in Case of Damage/Loss [Yes/No]:
+Claim Processing Time:
+References and Reputation
+References from Previous Clients:
+Market Reputation/Reviews:
+
+

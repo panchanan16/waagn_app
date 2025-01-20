@@ -3,12 +3,14 @@ const app = express()
 const path = require('path')
 const ejs = require('ejs')
 const cookieParser = require('cookie-parser')
+const compression = require('compression')
 require('dotenv').config({ path: ['.env.development'] })
 
 require('./config/dbConfig')
 
 const authRoutes = require('./routes/authRoutes')
 const pageRouter = require('./routes/pageRoutes')
+const appRoutes = require('./routes/appRoutes')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -16,9 +18,14 @@ app.use(express.static(path.join(__dirname, 'static')))
 app.set('view engine', ejs)
 app.set('views', path.join(__dirname, 'views'))
 app.use(cookieParser());
+app.use(compression())
 
 // Auth Routes
 app.use('/v1/auth', authRoutes)
+
+
+//App Routes
+app.use('/v1', appRoutes)
 
 
 //page routes

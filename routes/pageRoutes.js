@@ -13,6 +13,10 @@ pageRouter.get('/orders', async (req, res)=> {
     res.render('admin/index.ejs')
 })
 
+pageRouter.get('/vehicles', async (req, res)=> {
+    res.render('admin/vehicles.ejs')
+})
+
 pageRouter.get('/drivers', async (req, res)=> {
     res.render('admin/drivers.ejs')
 })
