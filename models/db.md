@@ -52,7 +52,7 @@ Feedback on Performance and Reliability:
 
 
 
-3pl onboard from ---
+### 3pl onboard from ---
 
 Company Name:
 Years of Experience:
@@ -66,7 +66,6 @@ Fleet Size:
 Types of Vehicles (e.g., Refrigerated, Container, Bulk):
 Average Age of Vehicles:
 Number of Warehouses:
-Regions Covered:
 Intercity, Interstate, or Cross-Border Logistics:
 Compliance with Transportation Laws [Yes/No]:
 Driver Certifications:
@@ -85,5 +84,16 @@ Claim Processing Time:
 References and Reputation
 References from Previous Clients:
 Market Reputation/Reviews:
+
+### 3pl locations of gowdown
+
+town
+full_address
+contact_person_name
+number
+alt_number
+rate
+oda_number
+partner_id
 
 

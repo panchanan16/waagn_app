@@ -101,27 +101,26 @@ CREATE TABLE vehicle_information (
 
 -- 3pl partners table
 
-CREATE TABLE logistics_companies (
+CREATE TABLE partner_companies (
     company_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     company_name VARCHAR(255) NOT NULL,
     years_of_experience INT DEFAULT NULL,
-    contact_details VARCHAR(255),
-    certifications VARCHAR(255),
-    operational_capability TEXT,
-    types_of_goods_handled VARCHAR(255),
-    specialization VARCHAR(255),
-    type_of_services VARCHAR(50),
-    fleet_size INT,
+    contact_details VARCHAR(255) DEFAULT NULL,
+    certifications VARCHAR(255) DEFAULT NULL,
+    operational_capability TEXT DEFAULT NULL,
+    types_of_goods_handled VARCHAR(255) DEFAULT NULL,
+    specialization VARCHAR(255) DEFAULT NULL,
+    type_of_services VARCHAR(50) DEFAULT NULL,
+    fleet_size VARCHAR(50) DEFAULT NULL,
     types_of_vehicles VARCHAR(255),
     average_age_of_vehicles INT,
     number_of_warehouses INT,
-    regions_covered VARCHAR(255),
-    area_type_of_logistics VARCHAR(50),
+    area_type_of_logistics ENUM('Intercity', 'Interstate', 'Cross-Border') DEFAULT NULL,
     compliance_with_transportation_laws ENUM('Yes', 'No') NOT NULL,
     driver_certifications TEXT,
-    cost_structure TEXT,
-    payment_terms TEXT,
-    additional_charges_for_specialized_services TEXT,
+    cost_structure TEXT DEFAULT NULL,
+    payment_terms TEXT DEFAULT NULL,
+    additional_charges_for_specialized_services TEXT DEFAULT NULL,
     real_time_tracking_availability ENUM('Yes', 'No') NOT NULL,
     integration_with_logistics_software ENUM('Yes', 'No') NOT NULL,
     online_booking_systems ENUM('Yes', 'No') NOT NULL,
@@ -129,10 +128,28 @@ CREATE TABLE logistics_companies (
     emergency_point_of_contact VARCHAR(255),
     insurance_coverage_for_cargo ENUM('Yes', 'No') NOT NULL,
     liability_in_case_of_damage_or_loss ENUM('Yes', 'No') NOT NULL,
-    claim_processing_time VARCHAR(255),
-    references_from_previous_clients TEXT,
-    market_reputation_reviews TEXT
+    claim_processing_time VARCHAR(255) DEFAULT NULL,
+    references_from_previous_clients TEXT DEFAULT NULL,
+    market_reputation_reviews TEXT DEFAULT NULL,
+    is_active TINYINT(1) DEFAULT 1
 );
+
+
+-- 3pl godown location
+
+CREATE TABLE partner_godown (
+    godown_id INT AUTO_INCREMENT PRIMARY KEY,
+    town VARCHAR(150) DEFAULT NULL,
+    full_address TEXT DEFAULT NULL,
+    contact_person_name VARCHAR(150) DEFAULT NULL,
+    number VARCHAR(20) DEFAULT NULL,
+    alt_number VARCHAR(20) DEFAULT NULL,
+    rate DECIMAL(10, 2) DEFAULT NULL,
+    oda_number VARCHAR(255) DEFAULT NULL,
+    partner_id INT DEFAULT NULL,
+    FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE SET NULL
+);
+
 
 
 

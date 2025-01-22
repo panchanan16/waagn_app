@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waagn App</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/request.module.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -30,22 +32,22 @@
             <div class="service-cards">
                 <div class="service-card">
                     <h3>13</h3>
-                    <p>Today's Orders</p>               
+                    <p>Today's Orders</p>
                 </div>
                 <div class="service-card" style="background-color: #c4c443;">
                     <h3>8</h3>
-                    <p>Order In Progress</p>               
+                    <p>Order In Progress</p>
                 </div>
                 <div class="service-card" style="background-color: #89c867;">
                     <h3>50</h3>
-                    <p>Completed Orders</p>               
+                    <p>Completed Orders</p>
                 </div>
             </div>
 
             <div class="table-container">
                 <div class="flex table-header" style="justify-content: space-between;">
-                    <h1>Drivers List</h1>
-                    <button class="btn" onclick="openPopup('create-order-form-popup')">Add a Partner</button>
+                    <h1>3PL Partners List</h1>
+                    <button class="btn" onclick="openPopup('partner-add-form-popup')">Add a Partner</button>
                 </div>
                 <table>
                     <thead>
@@ -60,7 +62,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="table-rows" onclick="openPopup('godown-list-popup')">
+                        <tr class="table-rows" ondblclick="openPopup('godown-list-popup')">
                             <td>001</td>
                             <td>Amazon</td>
                             <td>Goods</td>
@@ -79,38 +81,191 @@
 
         </div>
         <!-- add partner popup box -->
-        <div class="flex popup-container create-order-form-popup hide">
+        <div class="flex popup-container partner-add-form-popup hide">
             <div class="form-container">
                 <div class="flex form-header">
-                    <h2>Add a New Partner</h2>
-                    <button class="close-button" onclick="closePopup('create-order-form-popup')">
-                        <span class="material-icons">close</span> <!-- Material Icon for Close -->
-                    </button>
+                    <h2>3PL partner Information Form</h2>
+                    <span class="material-icons" style="cursor: pointer;color: #c11717;"
+                        onclick="closePopup('partner-add-form-popup')">close</span>
                 </div>
-                <form class="order-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+                <form id="partner-create-form" style="margin-top: 1rem;">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="company_name">Company Name:</label>
+                            <input type="text" id="company_name" name="company_name" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="years_of_experience">Years of Experience:</label>
+                            <input type="number" id="years_of_experience" name="years_of_experience" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="contact_details">Contact Details (Phone/Email):</label>
+                            <input type="text" id="contact_details" name="contact_details" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="pickup-address">Pickup Address</label>
-                        <textarea id="pickup-address" name="pickup-address" required></textarea>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="certifications">Certifications (e.g., ISO):</label>
+                            <input type="text" id="certifications" name="certifications">
+                        </div>
+                        <div class="form-field">
+                            <label for="operational_capability">Operational Capability:</label>
+                            <input type="text" id="operational_capability" name="operational_capability">
+                        </div>
+                        <div class="form-field">
+                            <label for="types_of_goods_handled">Types of Goods Handled:</label>
+                            <input type="text" id="types_of_goods_handled" name="types_of_goods_handled">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="goods-description">Goods Description</label>
-                        <textarea id="goods-description" name="goods-description" required></textarea>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="specialization">Specialization (e.g., B2B Cargo):</label>
+                            <input type="text" id="specialization" name="specialization">
+                        </div>
+                        <div class="form-field">
+                            <label for="type_of_services">Dedicated or Shared Services:</label>
+                            <input type="text" id="type_of_services" name="type_of_services">
+                        </div>
+                        <div class="form-field">
+                            <label for="fleet_size">Fleet Size:</label>
+                            <input type="number" id="fleet_size" name="fleet_size" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="rate">Rate</label>
-                        <input type="number" id="rate" name="rate" required>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="types_of_vehicles">Types of Vehicles (e.g., Refrigerated, Container):</label>
+                            <input type="text" id="types_of_vehicles" name="types_of_vehicles">
+                        </div>
+                        <div class="form-field">
+                            <label for="average_age_of_vehicles">Average Age of Vehicles:</label>
+                            <input type="number" id="average_age_of_vehicles" name="average_age_of_vehicles">
+                        </div>
+                        <div class="form-field">
+                            <label for="number_of_warehouses">Number of Warehouses:</label>
+                            <input type="number" id="number_of_warehouses" name="number_of_warehouses">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="quantity">Quantity</label>
-                        <input type="number" id="quantity" name="quantity" required>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="logistics_type">Intercity, Interstate, or Cross-Border Logistics:</label>
+                            <select id="logistics_type" name="area_type_of_logistics">
+                                <option value="Intercity">Intercity</option>
+                                <option value="Interstate">Interstate</option>
+                                <option value="Cross-Border">Cross-Border</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="compliance_with_transportation_laws">Compliance with Transportation
+                                Laws:</label>
+                            <select id="compliance_with_transportation_laws" name="compliance_with_transportation_laws">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
                     </div>
-                    <button type="submit" class="btn">Submit</button>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="driver_certifications">Driver Certifications:</label>
+                            <textarea id="driver_certifications" name="driver_certifications"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="cost_structure">Cost Structure:</label>
+                            <textarea id="cost_structure" name="cost_structure"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="payment_terms">Payment Terms:</label>
+                            <textarea id="payment_terms" name="payment_terms"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="additional_charges_for_specialized_services">Additional Charges for Specialized
+                                Services:</label>
+                            <textarea id="additional_charges_for_specialized_services"
+                                name="additional_charges_for_specialized_services"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="real_time_tracking_availability">Real-Time Tracking Availability:</label>
+                            <select id="real_time_tracking_availability" name="real_time_tracking_availability">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="integration_with_logistics_software">Integration with Logistics
+                                Software:</label>
+                            <select id="integration_with_logistics_software" name="integration_with_logistics_software">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="online_booking_systems">Online Booking Systems:</label>
+                            <select id="online_booking_systems" name="online_booking_systems">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="customer_support">24/7 Customer Support:</label>
+                            <select id="customer_support" name="customer_support">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="emergency_point_of_contact">Emergency Point of Contact:</label>
+                            <input type="text" id="emergency_point_of_contact" name="emergency_point_of_contact">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="insurance_coverage_for_cargo">Insurance Coverage for Cargo:</label>
+                            <select id="insurance_coverage_for_cargo" name="insurance_coverage_for_cargo">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="liability_in_case_of_damage_loss">Liability in Case of Damage/Loss:</label>
+                            <select id="liability_in_case_of_damage_loss" name="liability_in_case_of_damage_loss">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="claim_processing_time">Claim Processing Time:</label>
+                            <input type="text" id="claim_processing_time" name="claim_processing_time">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="references_from_previous_clients">References from Previous Clients:</label>
+                            <textarea id="references_from_previous_clients"
+                                name="references_from_previous_clients"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="market_reputation">Market Reputation/Reviews:</label>
+                            <textarea id="market_reputation" name="market_reputation_reviews"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="createpartner(event)" type="button">Submit</button>
                 </form>
             </div>
+
+
         </div>
 
         <!-- godown list popup box -->
@@ -151,17 +306,60 @@
                     <div class="sub-form-box scroll-box">
                         <div class="flex" style="align-items: center; gap:1rem">
                             <h3>Add Location</h3>
-                            <button class="btn" onclick="addNewField('location-form')">Add more</button>
                         </div>
-                        <form style="margin-top: 1rem;" id="location-form">                           
-                            <div class="form-group">
-                                <label class="
-                                label-location" style="display: flex;"><span>location</span></label>
-                                <textarea></textarea>
-                            </div>                           
+                        <form method="POST">
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label for="town">Town:</label>
+                                    <select name="town" id="town">
+                                        <option value="nagaon">Nagaon</option>
+                                        <option value="ghy">Guwahati</option>
+                                    </select>
+                                </div>
+                                <div class="form-field">
+                                    <label for="full_address">Full Address:</label>
+                                    <textarea id="full_address" name="full_address" required></textarea>
+                                </div>
+                                <div class="form-field">
+                                    <label for="contact_person_name">Contact Person Name:</label>
+                                    <input type="text" id="contact_person_name" name="contact_person_name"
+                                        maxlength="150" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label for="rate">Rate:</label>
+                                    <input type="number" id="rate" name="rate" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="oda_number">ODA Number:</label>
+                                    <input type="text" id="oda_number" name="oda_number" maxlength="255">
+                                </div>
+                                <div class="form-field">
+                                    <label for="partner_id">Partner ID:</label>
+                                    <input type="number" id="partner_id" name="partner_id" min="1" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label for="number">Phone Number:</label>
+                                    <input type="text" id="number" name="number" maxlength="20" required>
+                                </div>
+                                <div class="form-field">
+                                    <label for="alt_number">Alternate Phone Number:</label>
+                                    <input type="text" id="alt_number" name="alt_number" maxlength="20">
+                                </div>
+                            </div>
+
+                         
+
+                            <div style="margin-top: 1rem;">
+                                <button class="btn">Add Godown</button>
+                                <button class="btn" onclick="closePopup('sub-popup')">Cancel</button>
+                            </div>
                         </form>
-                        <button class="btn">Update</button>
-                        <button class="btn" onclick="closePopup('sub-popup')">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -169,6 +367,7 @@
         </div>
 
         <script src="/js/common.js"></script>
+        <script src="/js/partner.js"></script>
 </body>
 
 </html>
