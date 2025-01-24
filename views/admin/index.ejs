@@ -430,6 +430,40 @@
             </div>
         </div>
 
+            <!-- assign pickup vehicle -->
+            <div class="flex sub-popup hide">
+                <div class="sub-form-box scroll-box">
+                    <div class="flex" style="align-items: center; gap:1rem">
+                        <h3>Assign Pickup vehicle</h3>
+                    </div>
+                    <form id="godown-create-form">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="town">Town:</label>
+                                <select name="town" id="town">
+                                    <option value="nagaon">Nagaon</option>
+                                    <option value="ghy">Guwahati</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="full_address">Full Address:</label>
+                                <textarea id="full_address" name="full_address" required></textarea>
+                            </div>
+                            <div class="form-field">
+                                <label for="contact_person_name">Contact Person Name:</label>
+                                <input type="text" id="contact_person_name" name="contact_person_name"
+                                    maxlength="150" required>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1rem;">
+                            <button class="btn" onclick="createGodown(event)">Assign Now</button>
+                            <button class="btn" onclick="closePopup('sub-popup')">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         <script src="/js/common.js"></script>
         <script src="/js/order.js"></script>
 </body>

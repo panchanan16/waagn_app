@@ -84,10 +84,10 @@ exports.getAllPartnerCompanies = (req, res) => {
 
 // Read Partner Company by ID
 exports.getPartnerCompanyById = (req, res) => {
-    const { id } = req.params;
+    const { partner_id } = req.params;
     const query = 'SELECT * FROM partner_companies WHERE company_id = ?';
 
-    db.query(query, [id], (error, rows) => {
+    db.query(query, [partner_id], (error, rows) => {
         if (error) {
             return res.status(500).json({ success: false, message: "Error fetching partner company", error: error.message });
         }

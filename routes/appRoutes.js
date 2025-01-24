@@ -25,7 +25,7 @@ appRoutes.delete('/orders/:id', ordersController.delete);
 
 //Partners Api ---
 appRoutes.get('/partners', partnerController.getAllPartnerCompanies);  
-appRoutes.get('/partner/getOne/:id', partnerController.getPartnerCompanyById); 
+appRoutes.get('/partner/:partner_id', partnerController.getPartnerCompanyById); 
 appRoutes.post('/partner', partnerController.createPartnerCompany);    
 appRoutes.put('/partner/:id', partnerController.updatePartnerCompany);
 appRoutes.delete('/partner/:id', partnerController.deletePartnerCompany);

@@ -52,29 +52,16 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Order ID</th>
+                            <th>ID</th>
                             <th>3PL name</th>
-                            <th>Order Type</th>
-                            <th>Route</th>
+                            <th>Contact</th>
+                            <th>Experience</th>
                             <th>Pickup Date</th>
                             <th>Delivery Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="table-rows" ondblclick="openPopup('godown-list-popup')">
-                            <td>001</td>
-                            <td>Amazon</td>
-                            <td>Goods</td>
-                            <td>Nagon To Ghy</td>
-                            <td>01/09/2002</td>
-                            <td>09/09/2024</td>
-                            <td><select class="status-green">
-                                    <option value="">Active</option>
-                                    <option value="">Unactive</option>
-                                </select></td>
-                        </tr>
-
+                    <tbody id="partners-display-table">
                     </tbody>
                 </table>
             </div>
@@ -268,38 +255,17 @@
 
         </div>
 
-        <!-- godown list popup box -->
-        <div class="flex popup-container godown-list-popup hide">
+        <!-- partner details popup box -->
+        <div class="flex popup-container partner-details-popup hide">
             <div class="info-box" style="background-color: #fff;">
-                <button class="close-button" onclick="closePopup('godown-list-popup')">
+                <button class="close-button" onclick="closePopup('partner-details-popup')">
                     <span class="material-icons">close</span> <!-- Material Icon for Close -->
                 </button>
-                <div class="list-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
-                    <ul>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                        <li><span>1.</span><span> 700201, amingaon, senduri path, guwahati, house no. 12</span></li>
-                    </ul>
+                <div id="partner-details-box">
+                    <!-- dynamic render -->
                 </div>
                 <div>
-                    <button class="btn" onclick="openPopup('sub-popup')">Add Godown</button>
+                    <button class="btn" onclick="getIdAndOpenGodownForm()">Add Godown</button>
                 </div>
                 <!-- add go down box -->
                 <div class="flex sub-popup hide">
@@ -307,7 +273,7 @@
                         <div class="flex" style="align-items: center; gap:1rem">
                             <h3>Add Location</h3>
                         </div>
-                        <form method="POST">
+                        <form id="godown-create-form">
                             <div class="form-row">
                                 <div class="form-field">
                                     <label for="town">Town:</label>
@@ -337,8 +303,8 @@
                                     <input type="text" id="oda_number" name="oda_number" maxlength="255">
                                 </div>
                                 <div class="form-field">
-                                    <label for="partner_id">Partner ID:</label>
-                                    <input type="number" id="partner_id" name="partner_id" min="1" required>
+                                    <label for="partner_id">Partner Id:</label>
+                                    <input type="text" id="partner_id" name="partner_id">
                                 </div>
                             </div>
 
@@ -353,15 +319,121 @@
                                 </div>
                             </div>
 
-                         
+
 
                             <div style="margin-top: 1rem;">
-                                <button class="btn">Add Godown</button>
+                                <button class="btn" onclick="createGodown(event)">Add Godown</button>
                                 <button class="btn" onclick="closePopup('sub-popup')">Cancel</button>
                             </div>
                         </form>
                     </div>
                 </div>
+
+                <!-- view godown list -->
+                <div class="flex sub-popup godown-list-popup hide">
+                    <div class="sub-form-box">
+                        <div class="flex" style="align-items: center; justify-content: space-between; cursor: pointer;">
+                            <h3>Godown Locations</h3>
+                            <span class="material-icons" onclick="closePopup('godown-list-popup')">close</span>
+                        </div>
+                        <div id="godown-location-box">
+                            <div class="key-value-box scroll-box"
+                                style="justify-content: space-around; margin-block: 1rem;">
+                                <div class="key-value">
+                                    <div class="key-value-pair">
+                                        <strong>Partner Name:</strong> <span
+                                            id="company_id">${boxData.company_id}</span>
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Town:</strong> ${boxData.company_name}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Full Address:</strong> ${boxData.years_of_experience}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Contact Person:</strong> ${boxData.
+                                        contact_details}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Numbers:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Rate:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>ODA number:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="key-value-box scroll-box"
+                                style="justify-content: space-around; margin-block: 1rem;">
+                                <div class="key-value">
+                                    <div class="key-value-pair">
+                                        <strong>Partner Name:</strong> <span
+                                            id="company_id">${boxData.company_id}</span>
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Town:</strong> ${boxData.company_name}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Full Address:</strong> ${boxData.years_of_experience}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Contact Person:</strong> ${boxData.
+                                        contact_details}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Numbers:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Rate:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>ODA number:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="key-value-box scroll-box"
+                                style="justify-content: space-around; margin-block: 1rem;">
+                                <div class="key-value">
+                                    <div class="key-value-pair">
+                                        <strong>Partner Name:</strong> <span
+                                            id="company_id">${boxData.company_id}</span>
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Town:</strong> ${boxData.company_name}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Full Address:</strong> ${boxData.years_of_experience}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Contact Person:</strong> ${boxData.
+                                        contact_details}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Numbers:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>Rate:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                    <div class="key-value-pair">
+                                        <strong>ODA number:</strong> ${boxData.
+                                        certifications}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
