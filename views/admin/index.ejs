@@ -423,46 +423,87 @@
                     </div>
                 </div>
                 <div class="flex" style="gap: 1rem">
-                    <button class="btn">Assign Pickup Vehicle</button>
-                    <button class="btn">Assign 3pl Partner</button>
+                    <button class="btn" onclick="openPopup('select-vehicle-box')">Assign Pickup Vehicle</button>
+                    <button class="btn" onclick="openAddPartnerForm()">Assign 3pl Partner</button>
                     <button class="btn">Download</button>
                 </div>
             </div>
-        </div>
 
             <!-- assign pickup vehicle -->
-            <div class="flex sub-popup hide">
+            <div class="flex sub-popup hide select-vehicle-box">
                 <div class="sub-form-box scroll-box">
                     <div class="flex" style="align-items: center; gap:1rem">
-                        <h3>Assign Pickup vehicle</h3>
+                        <h3>Assign Pickup Vehicle</h3>
                     </div>
-                    <form id="godown-create-form">
+                    <form id="assign-vehicle-form" style="margin-top: 1rem;">
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="town">Town:</label>
-                                <select name="town" id="town">
+                                <label for="town">Select vehicle:</label>
+                                <select name="town" id="vehicle-dropdown">
                                     <option value="nagaon">Nagaon</option>
                                     <option value="ghy">Guwahati</option>
                                 </select>
                             </div>
                             <div class="form-field">
-                                <label for="full_address">Full Address:</label>
+                                <label for="full_address">Comments for driver:</label>
                                 <textarea id="full_address" name="full_address" required></textarea>
                             </div>
                             <div class="form-field">
-                                <label for="contact_person_name">Contact Person Name:</label>
-                                <input type="text" id="contact_person_name" name="contact_person_name"
-                                    maxlength="150" required>
+                                <label for="contact_person_name">Driver Name:</label>
+                                <input type="text" id="contact_person_name" name="contact_person_name" maxlength="150"
+                                    required>
                             </div>
                         </div>
 
                         <div style="margin-top: 1rem;">
                             <button class="btn" onclick="createGodown(event)">Assign Now</button>
-                            <button class="btn" onclick="closePopup('sub-popup')">Cancel</button>
+                            <button class="btn" onclick="closePopup('select-vehicle-box')">Cancel</button>
                         </div>
                     </form>
                 </div>
             </div>
+
+            <!-- assign 3pl partner -->
+            <div class="flex sub-popup hide select-3pl-box">
+                <div class="sub-form-box scroll-box">
+                    <div class="flex" style="align-items: center; gap:1rem">
+                        <h3>Assign 3PL Partner</h3>
+                    </div>
+                    <form id="assign-vehicle-form" style="margin-top: 1rem;">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="town">Select 3PL Partner:</label>
+                                <select name="town" id="partner-dropdown" onchange="renderGodownLocationInForm(this)">
+                                   <!-- rendering dynamic -->
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="town">Select Location Type:</label>
+                                <select name="town" id="godown-type-dropdown" onchange="renderGodownLocationInForm()">
+                                    <option value="" disabled selected>Select here</option>
+                                    <option value="src">Source</option>
+                                    <option value="dest">Destination</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="town">Select Gowdown Location:</label>
+                                <select name="town" id="godown-location-dropdown">
+                                    <option value="" disabled selected>Select from here</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div style="margin-top: 1rem;">
+                            <button class="btn" onclick="">Assign Now</button>
+                            <button class="btn" type="button" onclick="closePopup('select-3pl-box')">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
 
         <script src="/js/common.js"></script>
         <script src="/js/order.js"></script>

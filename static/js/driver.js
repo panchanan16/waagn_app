@@ -1,7 +1,7 @@
 const request = new DataCall()
 
 async function renderDrivers() {
-    const response = await request.GET_POST('v1/driver/getAll', 'GET')
+    const response = await request.GET_POST('v1/drivers', 'GET')
     const table = document.getElementById('driver-table')
     if (response) {
         table.innerHTML = ''
@@ -27,6 +27,6 @@ renderDrivers()
 async function registerDriver(e) {
     e.preventDefault()
     const formData = new FormData(document.getElementById('driver-register-form'))
-    const response = await request.GET_POST('v1/driver/register', 'POST', formData, 'form')
+    const response = await request.GET_POST('v1/driver/register', 'POST', formData, 'file')
     if (response.success) { renderDrivers() }
 }

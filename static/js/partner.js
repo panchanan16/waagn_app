@@ -124,7 +124,7 @@ async function renderPartnerDetails() {
                             </div>
                             <div class="key-value-pair">
                                 <strong>Locations of Warehouses:</strong>
-                                <button class="btn" onclick="openPopup('godown-list-popup')">View all</button>
+                                <button class="btn" onclick="renderGodownList()">View all</button>
                             </div>
                             <div class="key-value-pair">
                                 <strong>Logistics Area:</strong>
@@ -218,6 +218,53 @@ async function createGodown(e) {
     const formData = new FormData(document.getElementById('godown-create-form'))
     const response = await request.GET_POST('v1/godown', 'POST', formData, 'form')
 }
+
+
+async function renderGodownList() {
+    const response = await request.GET_POST('v1/godown/3', 'GET')
+    console.log(response)
+    if (response.success) {
+        document.getElementById('godown-location-box').innerHTML = '';
+        response.data.forEach((item)=> {
+            const html = `<div class="key-value-box scroll-box"
+            style="justify-content: space-around; margin-block: 1rem;">
+            <div class="key-value">
+                <div class="key-value-pair">
+                    <strong>Type:</strong> <span
+                        id="company_id">${item.type_of_godown}</span>
+                </div>
+                <div class="key-value-pair">
+                    <strong>Town:</strong> ${item.town}
+                </div>
+                <div class="key-value-pair">
+                    <strong>Full Address:</strong> ${item.full_address}
+                </div>
+                <div class="key-value-pair">
+                    <strong>Contact Person:</strong> ${item.
+                    contact_person_name}
+                </div>
+                <div class="key-value-pair">
+                    <strong>Numbers:</strong> ${item.
+                        number} / ${item.alt_number}
+                </div>
+                <div class="key-value-pair">
+                    <strong>Rate:</strong> ${item.
+                    rate}
+                </div>
+                <div class="key-value-pair">
+                    <strong>ODA number:</strong> ${item.
+                    oda_number}
+                </div>
+            </div>
+        </div>`
+        document.getElementById('godown-location-box').innerHTML += html;
+        })
+    }
+    openPopup('godown-list-popup')
+
+}
+
+
 
 
 renderPartners();

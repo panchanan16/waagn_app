@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waagn App</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/request.module.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -44,44 +46,34 @@
 
             <div class="table-container">
                 <div class="flex table-header" style="justify-content: space-between;">
-                    <h1>Drivers List</h1>
-                    <button class="btn" onclick="openPopup('vehicle-add-form-popup')">Add a vehicle</button>
+                    <h1>Vehicles List</h1>
+                    <button class="btn" onclick="renderDriversAddOpenForm()">Add a vehicle</button>
                 </div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Order ID</th>
+                            <th>vehicles ID</th>
                             <th>Pickup Address</th>
                             <th>Delivery Address</th>
                             <th>Name</th>
                             <th>Date</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="table-rows">
-                            <td>001</td>
-                            <td><select class="status-green" onchange="changeStatus(this)">
-                                    <option value="Active">Active</option>
-                                    <option value="Unactive">Unactive</option>
-                                </select></td>
-                            <td><span class="status-green">Active</span></td>
-                            <td>John Doe</td>
-                            <td>20/02/2024</td>
-                        </tr>
-
+                    <tbody id="vehicle-table">                        
+                        <!-- Dynamic vehicles rendering -->
                     </tbody>
                 </table>
             </div>
 
         </div>
-        <!-- create driver popup box -->
+        <!-- create vehicles popup box -->
         <div class="flex popup-container vehicle-add-form-popup hide">
             <div class="form-container">
                 <div class="flex form-header">
                     <h2>Vehicle Information Form</h2>
                     <span class="material-icons" style="cursor: pointer;color: #c11717;" onclick="closePopup('vehicle-add-form-popup')">close</span>
                 </div>
-                <form action="submit_vehicle_info.php" method="POST" style="margin-top: 1rem;">
+                <form style="margin-top: 1rem;" id="vehicle-add-form">
                     <div class="form-row">
                         <div class="form-field">
                             <label for="vehicle_type">Vehicle Type:</label>
@@ -285,10 +277,18 @@
                         </div>
                     </div>
 
-                    <button class="btn" type="submit">Submit</button>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="driver-list-dropdown">Select Driver:</label>
+                            <select id="driver-list-dropdown" name="driver_details">                               
+                                <option value="">driver one</option>
+                            </select>
+                        </div>                        
+                    </div>
+
+                    <button class="btn" type="button" onclick="createNewVehicle(event)">Submit</button>
                 </form>
             </div>
-
         </div>
 
 
@@ -363,6 +363,7 @@
         </div>
 
         <script src="/js/common.js"></script>
+        <script src="/js/vehicle.js"></script>
 </body>
 
 </html>

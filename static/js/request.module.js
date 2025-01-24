@@ -55,6 +55,26 @@ class DataCall {
                 this.GET_Notify('Something Error', 'Invalid Request!', 'error')
                 throw new Error('request not proceed !' + err.message)
             }
+        } else if (method == 'POST' && body != undefined && type === 'file') {
+            try {
+                // document.getElementById('loading-container').classList.remove('hide')
+                const fet = await fetch(this.urlHead + url, {
+                    method: method,
+                    body: body
+                })
+                const res = await fet.json()
+                if (fet.ok) {
+                    // document.getElementById('loading-container').classList.add('hide')
+                    this.GET_Notify('Successfully Done', 'Successfull', 'success')
+                } else {
+                    // document.getElementById('loading-container').classList.add('hide')
+                    this.GET_Notify('Error Recognized', 'Something Error', 'error')
+                }
+                return res;
+            } catch (err) {
+                // document.getElementById('loading-container').classList.add('hide')
+                throw new Error('request not proceed !' + err.message)
+            }
         } else {
             // document.getElementById('loading-container').classList.add('hide')
             this.GET_Notify('Something Error', 'Invalid Request!', 'error')

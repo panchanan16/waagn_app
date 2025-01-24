@@ -11,7 +11,7 @@ async function registerDriver(req, res) {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
-    db.query(query, [driver_name, contact_number, dl_number, aadhaar_card_number, current_address, permanent_address, alt_number, whatsapp_number, 'jhfho', emergency_number], (error, results) => {
+    db.query(query, [driver_name, contact_number, dl_number, aadhaar_card_number, current_address, permanent_address, alt_number, whatsapp_number, file.originalname, emergency_number], (error, results) => {
         if (error) {
             console.error(error);
             return res.status(500).json({ error: 'Failed to insert driver data' });
@@ -21,7 +21,6 @@ async function registerDriver(req, res) {
 }
 
 // Read all drivers
-
 function getAllDrivers(req, res) {
     const query = 'SELECT * FROM drivers';
 
@@ -31,6 +30,20 @@ function getAllDrivers(req, res) {
             return res.status(500).json({ error: 'Failed to retrieve drivers data' });
         }
         res.status(200).json(results);
+    });
+}
+
+
+// Read drivers for dropdown ---
+function getAllDriversForDropdown(req, res) {
+    const query = 'SELECT driver_id, driver_name, driver_status FROM drivers';
+
+    db.query(query, (error, results) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({success: false, error: 'Failed to retrieve drivers data' });
+        }
+        res.status(200).json({success: true, data: results});
     });
 }
 
@@ -59,4 +72,4 @@ function updateDriver(req, res) {
     });
 }
 
-module.exports = {registerDriver, updateDriver, getAllDrivers}
+module.exports = {registerDriver, updateDriver, getAllDrivers, getAllDriversForDropdown}

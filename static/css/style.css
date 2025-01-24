@@ -505,6 +505,7 @@ form textarea {
     background-color: rgba(0, 0, 0, 0.3);
     align-items: center;
     justify-content: center;
+    z-index: 10;
 }
 
 .sub-form-box {

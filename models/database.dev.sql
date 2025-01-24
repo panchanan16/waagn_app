@@ -95,7 +95,9 @@ CREATE TABLE vehicle_information (
     maintenance_schedule TEXT,
     major_repairs TEXT,
     references_from_previous_employers_clients TEXT,
-    feedback_on_performance_and_reliability TEXT
+    feedback_on_performance_and_reliability TEXT,
+    driver_details INT DEFAULT NULL,
+    FOREIGN KEY (driver_details) REFERENCES drivers(driver_id) ON DELETE SET NULL
 );
 
 
@@ -140,6 +142,7 @@ CREATE TABLE partner_companies (
 CREATE TABLE partner_godown (
     godown_id INT AUTO_INCREMENT PRIMARY KEY,
     town VARCHAR(150) DEFAULT NULL,
+    type_of_godown VARCHAR(50) DEFAULT NULL,
     full_address TEXT DEFAULT NULL,
     contact_person_name VARCHAR(150) DEFAULT NULL,
     number VARCHAR(20) DEFAULT NULL,

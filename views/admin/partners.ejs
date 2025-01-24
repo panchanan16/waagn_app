@@ -273,7 +273,7 @@
                         <div class="flex" style="align-items: center; gap:1rem">
                             <h3>Add Location</h3>
                         </div>
-                        <form id="godown-create-form">
+                        <form id="godown-create-form" style="margin-top: 1rem;">
                             <div class="form-row">
                                 <div class="form-field">
                                     <label for="town">Town:</label>
@@ -283,13 +283,23 @@
                                     </select>
                                 </div>
                                 <div class="form-field">
-                                    <label for="full_address">Full Address:</label>
-                                    <textarea id="full_address" name="full_address" required></textarea>
+                                    <label for="type_of_godown">Type:</label>
+                                    <select name="type_of_godown" id="type_of_godown">
+                                        <option value="src">Source</option>
+                                        <option value="dest">Destiny</option>
+                                    </select>
                                 </div>
                                 <div class="form-field">
                                     <label for="contact_person_name">Contact Person Name:</label>
                                     <input type="text" id="contact_person_name" name="contact_person_name"
                                         maxlength="150" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-field">
+                                    <label for="full_address">Full Address:</label>
+                                    <textarea id="full_address" name="full_address" required></textarea>
                                 </div>
                             </div>
 
@@ -323,7 +333,7 @@
 
                             <div style="margin-top: 1rem;">
                                 <button class="btn" onclick="createGodown(event)">Add Godown</button>
-                                <button class="btn" onclick="closePopup('sub-popup')">Cancel</button>
+                                <button class="btn" type="button" onclick="closePopup('sub-popup')">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -337,99 +347,7 @@
                             <span class="material-icons" onclick="closePopup('godown-list-popup')">close</span>
                         </div>
                         <div id="godown-location-box">
-                            <div class="key-value-box scroll-box"
-                                style="justify-content: space-around; margin-block: 1rem;">
-                                <div class="key-value">
-                                    <div class="key-value-pair">
-                                        <strong>Partner Name:</strong> <span
-                                            id="company_id">${boxData.company_id}</span>
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Town:</strong> ${boxData.company_name}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Full Address:</strong> ${boxData.years_of_experience}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Contact Person:</strong> ${boxData.
-                                        contact_details}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Numbers:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Rate:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>ODA number:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="key-value-box scroll-box"
-                                style="justify-content: space-around; margin-block: 1rem;">
-                                <div class="key-value">
-                                    <div class="key-value-pair">
-                                        <strong>Partner Name:</strong> <span
-                                            id="company_id">${boxData.company_id}</span>
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Town:</strong> ${boxData.company_name}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Full Address:</strong> ${boxData.years_of_experience}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Contact Person:</strong> ${boxData.
-                                        contact_details}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Numbers:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Rate:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>ODA number:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="key-value-box scroll-box"
-                                style="justify-content: space-around; margin-block: 1rem;">
-                                <div class="key-value">
-                                    <div class="key-value-pair">
-                                        <strong>Partner Name:</strong> <span
-                                            id="company_id">${boxData.company_id}</span>
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Town:</strong> ${boxData.company_name}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Full Address:</strong> ${boxData.years_of_experience}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Contact Person:</strong> ${boxData.
-                                        contact_details}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Numbers:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>Rate:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                    <div class="key-value-pair">
-                                        <strong>ODA number:</strong> ${boxData.
-                                        certifications}
-                                    </div>
-                                </div>
-                            </div>
+                           <!-- rendering dynamic -->                           
                         </div>
                     </div>
                 </div>

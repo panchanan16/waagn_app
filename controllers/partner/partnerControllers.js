@@ -80,6 +80,19 @@ exports.getAllPartnerCompanies = (req, res) => {
     });
 };
 
+// Get all Partner Companies
+exports.getAllPartnerCompaniesForDropdown = (req, res) => {
+    const query = 'SELECT company_id, company_name FROM partner_companies';
+
+    db.query(query, (error, rows) => {
+        if (error) {
+            return res.status(500).json({ success: false, message: "Error fetching partner companies", error: error.message });
+        }
+
+        res.status(200).json({ success: true, data: rows });
+    });
+};
+
 
 
 // Read Partner Company by ID
@@ -190,12 +203,12 @@ exports.deletePartnerCompany = (req, res) => {
 
 // CREATE Partner gowdown
 exports.createGodown = (req, res) => {
-    const { town, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id } = req.body;
+    const { town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id } = req.body;
 
-    const query = `INSERT INTO partner_godown (town, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO partner_godown (town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    db.query(query, [town, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id], (err, result) => {
+    db.query(query, [town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id], (err, result) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Error inserting partner address", error: err.message });
         }
@@ -205,9 +218,24 @@ exports.createGodown = (req, res) => {
 
 // GET all Partner Addresses
 exports.getAllGodown = (req, res) => {
-    const query = 'SELECT * FROM partner_godown';
+    const {id} = req.params;
+    const query = 'SELECT * FROM partner_godown WHERE partner_id = ?';
 
-    db.query(query, (err, rows) => {
+    db.query(query, [id], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: "Error fetching partner godown", error: err.message });
+        }
+
+        res.status(200).json({ success: true, data: rows });
+    });
+};
+
+// GET all Partner for dropdown
+exports.getAllGodownForDropdown = (req, res) => {
+    const {id, type} = req.params;
+    const query = 'SELECT godown_id, full_address FROM partner_godown WHERE partner_id = ? AND type_of_godown = ?';
+
+    db.query(query, [id, type], (err, rows) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Error fetching partner godown", error: err.message });
         }
