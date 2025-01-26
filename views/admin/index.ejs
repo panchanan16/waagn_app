@@ -83,22 +83,8 @@
                             <th>Date</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="table-rows" onclick="openPopup('order-detail-popup')">
-                            <td>001</td>
-                            <td>123 Main St, Cityville, ST 12345</td>
-                            <td>456 Elm St, Townsville, ST 67890</td>
-                            <td>John Doe</td>
-                            <td>20/02/2024</td>
-                        </tr>
-                        <tr class="table-rows" onclick="openPopup('order-detail-popup')">
-                            <td>001</td>
-                            <td>123 Main St, Cityville, ST 12345</td>
-                            <td>456 Elm St, Townsville, ST 67890</td>
-                            <td>John Doe</td>
-                            <td>20/02/2024</td>
-                        </tr>
-
+                    <tbody id="order-table">
+                        <!-- rendering dynamic value  -->
                     </tbody>
                 </table>
             </div>
@@ -285,147 +271,198 @@
                 <button class="close-button" onclick="closePopup('order-detail-popup')">
                     <span class="material-icons">close</span> <!-- Material Icon for Close -->
                 </button>
-                <div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
-                    <div class="key-value">
-                        <h2 class="flex details-heading">BOOKING DETAILS</h2>
-                        <div class="key-value-pair">
-                            <strong>OrderId:</strong> 983774784
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Name:</strong> John Doe
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Pickup Location:</strong> New York, NY
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Drop Location:</strong> Los Angeles, CA
-                        </div>
-                    </div>
-                    <div class="key-value">
-                        <h2 class="flex details-heading">CONSIGNOR/CONSIGNEE</h2>
-                        <div class="key-value-pair">
-                            <strong>Order Status:</strong>
-                            <select class="status-red">
-                                <option value="">Pending</option>
-                                <option value="">In transit</option>
-                                <option value="">Delivered</option>
-                            </select>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Name:</strong> John Doe
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                                near police point, paltan bazar</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Drop Location:</strong> Los Angeles, CA
-                        </div>
-                    </div>
-                    <div class="key-value">
-                        <h2 class="flex details-heading">GOODS INFORMATION</h2>
-                        <div class="key-value-pair">
-                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Name:</strong> John Doe
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                                near police point, paltan bazar</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Drop Location:</strong> Los Angeles, CA
-                        </div>
-                    </div>
-                    <div class="key-value">
-                        <h2 class="flex details-heading"> PICKUP DETAILS</h2>
-                        <div class="key-value-pair">
-                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Name:</strong> John Doe
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                                near police point, paltan bazar</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Drop Location:</strong> Los Angeles, CA
-                        </div>
-                    </div>
-
-                    <div class="key-value flex flex-col" style="gap: 1rem;">
-                        <h2 class="flex details-heading">3PL PARTNER</h2>
-                        <div class="flex key-value-pair">
-                            <div>
-                                <label for="order-lr" class="btn">Upload LR</label>
-                                <input type="file" name="order-lr" id="order-lr" class="hide">
+                <div id="order-details-box">
+                    <div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
+                        <div class="key-value">
+                            <h2 class="flex details-heading">BOOKING DETAILS</h2>
+                            <div class="key-value-pair">
+                                <strong>OrderId:</strong> 983774784
                             </div>
-                            <p class="view-doc">View</p>
-                        </div>
-                        <div class="flex key-value-pair">
-                            <div>
-                                <label for="order-tax-invoice" class="btn">Upload Tax Invoice</label>
-                                <input type="file" name="order-tax-invoice" id="order-tax-invoice" class="hide">
+                            <div class="key-value-pair">
+                                <strong>Name:</strong> John Doe
                             </div>
-                            <p class="view-doc">View</p>
-                        </div>
-                        <div class="flex key-value-pair">
-                            <div>
-                                <label for="goods-photos" class="btn">Goods Photo</label>
-                                <input type="file" name="goods-photos" id="goods-photos" class="hide">
+                            <div class="key-value-pair">
+                                <strong>Pickup Location:</strong> New York, NY
                             </div>
-                            <p class="view-doc unactive">View</p>
+                            <div class="key-value-pair">
+                                <strong>Drop Location:</strong> Los Angeles, CA
+                            </div>
+                        </div>
+                        <div class="key-value">
+                            <h2 class="flex details-heading">CONSIGNOR/CONSIGNEE</h2>
+                            <div class="key-value-pair">
+                                <strong>Order Status:</strong>
+                                <select class="status-red">
+                                    <option value="">Pending</option>
+                                    <option value="">In transit</option>
+                                    <option value="">Delivered</option>
+                                </select>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Name:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin
+                                    nagar,
+                                    near police point, paltan bazar</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Drop Location:</strong> Los Angeles, CA
+                            </div>
+                        </div>
+                        <div class="key-value">
+                            <h2 class="flex details-heading">GOODS INFORMATION</h2>
+                            <div class="key-value-pair">
+                                <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Name:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin
+                                    nagar,
+                                    near police point, paltan bazar</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Drop Location:</strong> Los Angeles, CA
+                            </div>
+                        </div>
+                        <div class="key-value">
+                            <h2 class="flex details-heading"> PICKUP DETAILS</h2>
+                            <div class="key-value-pair">
+                                <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Name:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin
+                                    nagar,
+                                    near police point, paltan bazar</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Drop Location:</strong> Los Angeles, CA
+                            </div>
+                        </div>
+
+                        <div class="key-value flex flex-col" style="gap: 1rem;">
+                            <h2 class="flex details-heading">3PL PARTNER</h2>
+                            <div class="flex key-value-pair">
+                                <div>
+                                    <label for="order-lr" class="btn">Upload LR</label>
+                                    <input type="file" name="order-lr" id="order-lr" class="hide">
+                                </div>
+                                <p class="view-doc">View</p>
+                            </div>
+                            <div class="flex key-value-pair">
+                                <div>
+                                    <label for="order-tax-invoice" class="btn">Upload Tax Invoice</label>
+                                    <input type="file" name="order-tax-invoice" id="order-tax-invoice" class="hide">
+                                </div>
+                                <p class="view-doc">View</p>
+                            </div>
+                            <div class="flex key-value-pair">
+                                <div>
+                                    <label for="goods-photos" class="btn">Goods Photo</label>
+                                    <input type="file" name="goods-photos" id="goods-photos" class="hide">
+                                </div>
+                                <p class="view-doc unactive">View</p>
+                            </div>
+                        </div>
+
+                        <div class="key-value">
+                            <h2 class="flex details-heading">BILLING INFORMATION</h2>
+                            <div class="key-value-pair">
+                                <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Name:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin
+                                    nagar,
+                                    near police point, paltan bazar</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Drop Location:</strong> Los Angeles, CA
+                            </div>
+                        </div>
+
+                        <div class="key-value">
+                            <h2 class="flex details-heading">Delivery Adress</h2>
+                            <div class="key-value-pair">
+                                <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Name:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin
+                                    nagar,
+                                    near police point, paltan bazar</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Drop Location:</strong> Los Angeles, CA
+                            </div>
+                        </div>
+
+                        <div class="key-value">
+                            <h2 class="flex details-heading">COMMENTS</h2>
+                            <div class="key-value-pair form-row">
+                                <input type="text" name="amount" value="1000">
+                                <button class="btn">Update</button>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="key-value">
-                        <h2 class="flex details-heading">BILLING INFORMATION</h2>
-                        <div class="key-value-pair">
-                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Name:</strong> John Doe
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                                near police point, paltan bazar</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Drop Location:</strong> Los Angeles, CA
-                        </div>
-                    </div>
-
-                    <div class="key-value">
-                        <h2 class="flex details-heading">Delivery Adress</h2>
-                        <div class="key-value-pair">
-                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Name:</strong> John Doe
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                                near police point, paltan bazar</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Drop Location:</strong> Los Angeles, CA
-                        </div>
-                    </div>
-
-                    <div class="key-value">
-                        <h2 class="flex details-heading">COMMENTS</h2>
-                        <div class="key-value-pair form-row">
-                            <input type="text" name="amount" value="1000">
-                            <button class="btn">Update</button>
-                        </div>
+                    <div class="flex" style="gap: 1rem">
+                        <button class="btn" onclick="openPopup('select-vehicle-box')">Assign Pickup Vehicle</button>
+                        <button class="btn" onclick="openAddPartnerForm()">Assign 3pl Partner</button>
+                        <button class="btn">Download</button>
                     </div>
                 </div>
-                <div class="flex" style="gap: 1rem">
-                    <button class="btn" onclick="openPopup('select-vehicle-box')">Assign Pickup Vehicle</button>
-                    <button class="btn" onclick="openAddPartnerForm()">Assign 3pl Partner</button>
-                    <button class="btn">Download</button>
+            </div>
+
+             <!-- assign 3pl partner -->
+             <div class="flex sub-popup hide select-3pl-box">
+                <div class="sub-form-box scroll-box">
+                    <div class="flex" style="align-items: center; gap:1rem">
+                        <h3>Assign 3PL Partner</h3>
+                    </div>
+                    <form id="assign-partner-form" style="margin-top: 1rem;">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="partner-dropdown">Select 3PL Partner:</label>
+                                <select name="partner_id" id="partner-dropdown"
+                                    onchange="renderGodownLocationInForm(this)">
+                                    <!-- rendering dynamic -->
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="godown-type-dropdown">Select Location Type:</label>
+                                <select name="godown_type" id="godown-type-dropdown"
+                                    onchange="renderGodownLocationInForm()">
+                                    <option value="" disabled selected>Select here</option>
+                                    <option value="src">Source</option>
+                                    <option value="dest">Destination</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="godown-location-dropdown">Select Gowdown Location:</label>
+                                <select name="godown_id" id="godown-location-dropdown">
+                                    <option value="" disabled selected>Select from here</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="town">Order ID:</label>
+                                <input type="text" name="order_id" value="2" id="order-id-input" required readonly>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1rem;">
+                            <button class="btn" type="button" onclick="assignPartnerToOrder(event)">Assign Now</button>
+                            <button class="btn" type="button" onclick="closePopup('select-3pl-box')">Cancel</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -437,70 +474,60 @@
                     </div>
                     <form id="assign-vehicle-form" style="margin-top: 1rem;">
                         <div class="form-row">
-                            <div class="form-field">
-                                <label for="town">Select vehicle:</label>
-                                <select name="town" id="vehicle-dropdown">
-                                    <option value="nagaon">Nagaon</option>
-                                    <option value="ghy">Guwahati</option>
-                                </select>
+                            <div class="form-field" style="position: relative;">
+                                <div>
+                                    <label for="town">Select vehicle:</label>
+                                    <input placeholder="Seach Vh. Number..." type="text"
+                                        onfocus="openPopup('search-input')" name="town" id="vehicle-dropdown" oninput="searchItems(this, 'vh-num-li')">
+                                </div>
+                                <div class="search-input scroll-box hide">
+                                    <ul id="search-list">
+                                        <li class="vh-num-li" onclick="selectVehicle(this)">DL 1C 2345</li>
+                                        <li class="vh-num-li" onclick="selectVehicle(this)">MH 04 AB 5678</li>
+                                        <li class="vh-num-li" onclick="selectVehicle(this)">KA 03 P 1234</li>
+                                        <li class="vh-num-li" onclick="selectVehicle(this)">TN 22 AZ 9876</li>
+                                        <li class="vh-num-li" onclick="selectVehicle(this)">UP 16 AB 4321</li>
+                                    </ul>
+                                </div>
                             </div>
+                            <div class="form-field">
+                                <label for="contact_person_name">Order Id:</label>
+                                <input type="text" value="" id="order-id-input-vh" name="order_id" maxlength="150"
+                                    required readonly>
+                            </div>
+                            <div class="form-field">
+                                <label for="driver-name-inp">Driver Name:</label>
+                                <input type="text" id="driver-name-inp" name="contact_person_name" maxlength="150"
+                                    required>
+                            </div>                           
+                        </div>
+                        <div class="form-row" style="margin-top: 1rem;">
+                            <div class="form-field">
+                                <label for="driver-vehicleid-inp">Vehicle Id:</label>
+                                <input type="text" value="not-set" id="driver-vehicleid-inp" name="vehicle_id" maxlength="150"
+                                    required readonly>
+                            </div>
+                            <div class="form-field">
+                                <label for="contact_person_name">Driver Id:</label>
+                                <input type="text" value="" id="driver-driverid-inp" name="driver_id" maxlength="150"
+                                    required readonly>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 1rem;">
                             <div class="form-field">
                                 <label for="full_address">Comments for driver:</label>
-                                <textarea id="full_address" name="full_address" required></textarea>
-                            </div>
-                            <div class="form-field">
-                                <label for="contact_person_name">Driver Name:</label>
-                                <input type="text" id="contact_person_name" name="contact_person_name" maxlength="150"
-                                    required>
+                                <textarea id="full_address" name="msg_for_driver" required></textarea>
                             </div>
                         </div>
-
                         <div style="margin-top: 1rem;">
-                            <button class="btn" onclick="createGodown(event)">Assign Now</button>
-                            <button class="btn" onclick="closePopup('select-vehicle-box')">Cancel</button>
+                            <button class="btn" type="button" onclick="assignVehicleToOrder(event)">Assign Now</button>
+                            <button class="btn" type="button" onclick="closePopup('select-vehicle-box')">Cancel</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- assign 3pl partner -->
-            <div class="flex sub-popup hide select-3pl-box">
-                <div class="sub-form-box scroll-box">
-                    <div class="flex" style="align-items: center; gap:1rem">
-                        <h3>Assign 3PL Partner</h3>
-                    </div>
-                    <form id="assign-vehicle-form" style="margin-top: 1rem;">
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label for="town">Select 3PL Partner:</label>
-                                <select name="town" id="partner-dropdown" onchange="renderGodownLocationInForm(this)">
-                                   <!-- rendering dynamic -->
-                                </select>
-                            </div>
-                            <div class="form-field">
-                                <label for="town">Select Location Type:</label>
-                                <select name="town" id="godown-type-dropdown" onchange="renderGodownLocationInForm()">
-                                    <option value="" disabled selected>Select here</option>
-                                    <option value="src">Source</option>
-                                    <option value="dest">Destination</option>
-                                </select>
-                            </div>
-                            <div class="form-field">
-                                <label for="town">Select Gowdown Location:</label>
-                                <select name="town" id="godown-location-dropdown">
-                                    <option value="" disabled selected>Select from here</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div style="margin-top: 1rem;">
-                            <button class="btn" onclick="">Assign Now</button>
-                            <button class="btn" type="button" onclick="closePopup('select-3pl-box')">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+           
         </div>
 
 

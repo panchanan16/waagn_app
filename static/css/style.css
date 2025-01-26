@@ -7,7 +7,7 @@
 }
 
 .scroll-box::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 .scroll-box::-webkit-scrollbar-track {
@@ -411,6 +411,29 @@ form textarea {
     color: rgb(120, 120, 120);
 }
 
+.search-input {
+  background-color: #ededed;
+  height: 6rem;
+  overflow-y: scroll;
+  border-radius: 5px;
+  position: absolute;
+  width: 100%;
+}
+
+
+.search-input ul li{
+    list-style: none;
+    padding: 5px;
+    border-bottom: 1px solid gray;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  .search-input ul li:hover {
+    background-color: #fff;
+  }
+
+
 /* tabs design */
 
 .wrapper {
@@ -511,10 +534,11 @@ form textarea {
 .sub-form-box {
     background-color: #fff;
     width: 60%;
-    max-height: 40rem;
+    max-height: fit-content;
     overflow-y: scroll;
     padding: 1rem;
     border-radius: 6px;
+    min-height: 15rem;
 }
 
 .label-location span {

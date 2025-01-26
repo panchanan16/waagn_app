@@ -37,3 +37,18 @@ function changeStatus(target) {
         target.classList.add('status-red')
     }
 }
+
+
+function searchItems(target, searchId) {
+    const items = document.querySelectorAll(`.${searchId}`)
+    const query = target.value.toLowerCase(); 
+    for (let i = 0; i < items.length; i++) {
+      const itemText = items[i].textContent.toLowerCase(); 
+      
+      if (itemText.includes(query)) {
+        items[i].style.display = 'list-item';
+      } else {
+        items[i].style.display = 'none';
+      }
+    }
+  }

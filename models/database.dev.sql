@@ -154,6 +154,34 @@ CREATE TABLE partner_godown (
 );
 
 
+--- 3PL assign table 
+CREATE TABLE partner_assign (
+    p_assign_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT DEFAULT NULL,
+    partner_id INT DEFAULT NULL,
+    godown_id INT DEFAULT NULL,
+    datetime VARCHAR(100) DEFAULT NULL,
+    msg_for_partner TEXT DEFAULT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE SET NULL,
+    FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE CASCADE,
+    FOREIGN KEY (godown_id) REFERENCES partner_godown(godown_id) ON DELETE CASCADE,
+    CONSTRAINT unique_order_partner_godown UNIQUE (order_id, partner_id, godown_id)
+);
+
+
+--- Vehicle assign table 
+CREATE TABLE vehicle_assignment (
+    v_assign_id INT AUTO_INCREMENT PRIMARY KEY, 
+    orderid BIGINT DEFAULT NULL,                        
+    vehicle_id INT NOT NULL,                     
+    driver_id INT NOT NULL,                     
+    msg_for_driver TEXT,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE SET NULL, 
+    FOREIGN KEY (vehicle_id) REFERENCES vehicle_information(vehicle_id) ON DELETE CASCADE,  
+    FOREIGN KEY (driver_id) REFERENCES drivers(driver_id) ON DELETE CASCADE                 
+);
+
+
 
 
 

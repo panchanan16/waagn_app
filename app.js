@@ -11,6 +11,7 @@ require('./config/dbConfig')
 const authRoutes = require('./routes/authRoutes')
 const pageRouter = require('./routes/pageRoutes')
 const appRoutes = require('./routes/appRoutes')
+const transactionRoute = require('./routes/transactionRoutes')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -26,6 +27,11 @@ app.use('/v1/auth', authRoutes)
 
 //App Routes
 app.use('/v1', appRoutes)
+
+
+//transactions routee
+app.use('/v1', transactionRoute)
+
 
 
 //page routes

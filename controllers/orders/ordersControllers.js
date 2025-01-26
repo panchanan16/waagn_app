@@ -9,7 +9,21 @@ exports.getAll = (req, res) => {
       console.error('Error fetching orders:', err);
       return res.status(500).json({ message: 'Failed to retrieve orders', success: false });
     }
-    return res.status(200).json({results, success: true});
+    return res.status(200).json({data: results, success: true});
+  });
+};
+
+// GET all orders
+exports.getOne = (req, res) => {
+  const {id} = req.params
+  const query = 'SELECT * FROM orders WHERE order_id = ?';
+  
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error fetching orders:', err);
+      return res.status(500).json({ message: 'Failed to retrieve the order', success: false });
+    }
+    return res.status(200).json({data: results, success: true});
   });
 };
 

@@ -85,8 +85,7 @@ References and Reputation
 References from Previous Clients:
 Market Reputation/Reviews:
 
-### 3pl locations of gowdown
-
+### 3pl locations of gowdown ---
 town
 full_address
 contact_person_name
@@ -95,5 +94,21 @@ alt_number
 rate
 oda_number
 partner_id
+
+### Assign 3pL table ---
+assign_id
+order_id
+partner_id
+godown_id
+datetime
+msg_for_partner
+
+
+### Assign vehicles table ---
+v_assign_id
+orderid
+vehicle_id
+driver_id
+msg_for_driver
 
 
