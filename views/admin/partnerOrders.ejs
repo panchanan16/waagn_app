@@ -42,9 +42,8 @@
 
             <div class="table-container">
                 <div class="flex table-header" style="justify-content: space-between;">
-                    <h1>Latest Order</h1>
-                    <div class="flex" style="gap:1rem;">
-                        <button class="btn" onclick="openPopup('create-order-form-popup')">Create Order</button>
+                    <h1>3PL Partner's Order</h1>
+                    <div class="flex" style="gap:1rem;">        
                         <button class="btn" onclick="openPopup('filter-box')"><i style="font-size: 16px;"
                                 class="material-icons">tune</i></button>
                     </div>
@@ -73,10 +72,11 @@
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Pickup Address</th>
-                            <th>Delivery Address</th>
-                            <th>Name</th>
-                            <th>Date</th>
+                            <th>3PL name</th>
+                            <th>Godown adress</th>
+                            <th>Order Status</th>
+                            <th>Name</th>    
+                            <th>Action</th>     
                         </tr>
                     </thead>
                     <tbody id="order-table">
@@ -431,40 +431,64 @@
              <div class="flex sub-popup hide select-3pl-box">
                 <div class="sub-form-box scroll-box">
                     <div class="flex" style="align-items: center; gap:1rem">
-                        <h3>Assign 3PL Partner</h3>
+                        <h3>Dispatch Details Form</h3>
                     </div>
-                    <form id="assign-partner-form" style="margin-top: 1rem;">
+                    <form id="dispatch-details-form" style="margin-top: 1rem;">
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="partner-dropdown">Select 3PL Partner:</label>
-                                <select name="partner_id" id="partner-dropdown"
-                                    onchange="renderGodownLocationInForm(this)">
-                                    <!-- rendering dynamic -->
-                                </select>
+                                <label for="partner-dropdown">Partner Id:</label>
+                                <input type="text" name="partner_id" value="" id="partner-id-input" required readonly>
                             </div>
                             <div class="form-field">
-                                <label for="godown-type-dropdown">Select Location Type:</label>
-                                <select name="godown_type" id="godown-type-dropdown"
-                                    onchange="renderGodownLocationInForm()">
+                                <label for="godown-type-dropdown">Delivery Godown Location:</label>
+                                <select name="delivery_godown_address" id="godown-type-dropdown">
                                     <option value="" disabled selected>Select here</option>
                                     <option value="src">Source</option>
                                     <option value="dest">Destination</option>
                                 </select>
                             </div>
                             <div class="form-field">
-                                <label for="godown-location-dropdown">Select Gowdown Location:</label>
-                                <select name="godown_id" id="godown-location-dropdown">
-                                    <option value="" disabled selected>Select from here</option>
-                                </select>
+                                <label for="assigned_vehicle_no">Vehicle Number:</label>
+                                <input type="text" name="assigned_vehicle_no" value="" id="assigned_vehicle_no" required>
                             </div>
                             <div class="form-field">
-                                <label for="town">Order ID:</label>
-                                <input type="text" name="order_id" value="2" id="order-id-input" required readonly>
+                                <label for="assigned_driver_name">Driver Name:</label>
+                                <input type="text" name="assigned_driver_name" id="assigned_driver_name" required>
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="assigned_driver_number">Driver Number:</label>
+                                <input type="text" name="assigned_driver_number" id="assigned_driver_number" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="e_way_bill_no">E Way Bill Number:</label>
+                                <input type="text" name="e_way_bill_no" id="e_way_bill_no" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="actual_weight">Actual Weight:</label>
+                                <input type="text" name="actual_weight" id="actual_weight" required>
+                            </div>                          
+                            <div class="form-field">
+                                <label for="charged_weight">Charged Weight:</label>
+                                <input type="text" name="charged_weight" value="" id="charged_weight" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="partner_amount">Amount:</label>
+                                <input type="text" name="partner_amount" id="partner_amount" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="order_id">Order ID:</label>
+                                <input type="text" name="order_id" id="order-id-input" required readonly>
+                            </div>                            
+                        </div>
+
                         <div style="margin-top: 1rem;">
-                            <button class="btn" type="button" onclick="assignPartnerToOrder(event)">Assign Now</button>
+                            <button class="btn" type="button" onclick="addDispatchDetails(event)">Assign Now</button>
                             <button class="btn" type="button" onclick="closePopup('select-3pl-box')">Cancel</button>
                         </div>
                     </form>
@@ -538,7 +562,8 @@
 
 
         <script src="/js/common.js"></script>
-        <script src="/js/order.js"></script>
+        <!-- <script src="/js/order.js"></script> -->
+        <script src="/js/partnerOrder.js"></script>
 </body>
 
 </html>

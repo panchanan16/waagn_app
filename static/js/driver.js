@@ -7,7 +7,7 @@ async function renderDrivers() {
         table.innerHTML = ''
         response.forEach(item => {
             table.innerHTML += `<tr class="table-rows">
-        <td>001</td>
+        <td>${item.driver_id}</td>
         <td><select class="status-green" onchange="changeStatus(this)">
                 <option value="Active">Active</option>
                 <option value="Unactive">Unactive</option>

@@ -118,10 +118,10 @@ class DataCall {
                 console.log(fet)
                 if (fet.ok) {
                     // document.getElementById('loading-container').classList.add('hide')
-                    this.GET_Notify('Updated Successfully', 'Successfull', 'success')
+                    this.GET_Notify('Updated Successfully', res.message, 'success')
                 } else {
                     // document.getElementById('loading-container').classList.add('hide')
-                    this.GET_Notify('Error Recognized', 'Something Error', 'error')
+                    this.GET_Notify('Error Recognized', res.message, 'error')
                 }
                 return res;
             } catch (err) {

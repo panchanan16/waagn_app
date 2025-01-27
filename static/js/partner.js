@@ -14,7 +14,7 @@ async function renderPartners() {
         const table = document.getElementById('partners-display-table')
         table.innerHTML = ''
         response.data.forEach((item, ind) => {
-            const html = `<tr  data-partnerid="${item.company_id}" class="table-rows" ondblclick="setIdAndOpenPartnerDetails(this)">
+            const html = `<tr  data-partnerid="${item.company_id}" class="table-rows" ondblclick="setIdAndOpenPartnerDetails(${item.company_id})">
         <td>${ind + 1}</td>
         <td>${item.company_name}</td>
         <td>${item.contact_details}</td>
@@ -44,10 +44,9 @@ async function createpartner(e) {
 }
 
 
-async function setIdAndOpenPartnerDetails(target) {
-    console.log(target)
+async function setIdAndOpenPartnerDetails(partnerId) {
     openPopup('partner-details-popup')
-    renderPartnerDetails()
+    renderPartnerDetails(partnerId)
 }
 
 async function getIdAndOpenGodownForm(target) {
@@ -57,8 +56,8 @@ async function getIdAndOpenGodownForm(target) {
 }
 
 
-async function renderPartnerDetails() {
-    const response = await request.GET_POST('v1/partner/3', 'GET')
+async function renderPartnerDetails(partnerId) {
+    const response = await request.GET_POST(`v1/partner/${partnerId}`, 'GET')
     const boxData = response.data;
     if (response.success) {
         const detailsBox = document.getElementById('partner-details-box')

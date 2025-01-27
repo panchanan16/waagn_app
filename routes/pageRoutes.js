@@ -30,6 +30,10 @@ pageRouter.get('/partners', async (req, res)=> {
     res.render('admin/partners.ejs')
 })
 
+pageRouter.get('/partners-orders', async (req, res)=> {
+    res.render('admin/partnerOrders.ejs')
+})
+
 pageRouter.get('/testing', async (req, res)=> {
     res.render('admin/test.ejs')
 })

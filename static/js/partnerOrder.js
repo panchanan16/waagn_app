@@ -1,19 +1,18 @@
-console.log('order connected')
-
 const request = new DataCall()
 
-
-async function renderAllOrder() {
-    const response = await request.GET_POST('v1/orders', 'GET')
+async function renderAllPartnerOrder() {
+    const response = await request.GET_POST('v1/assign/partners', 'GET')
     if (response.success) {
+        console.log(response)
         document.getElementById('order-table').innerHTML = ''
         response.data.forEach((item, ind) => {
-            const html = `<tr class="table-rows" onclick="openOrderDetails(${item.order_id})">
+            const html = `<tr class="table-rows" onclick="openPartnerOrderDetails(${item.order_id})">
             <td>${item.order_id}</td>
-            <td>${item.shipper_name}</td>
-            <td>${item.shipper_email_address}</td>
-            <td>${item.shipper_contact_number}</td>
-            <td>20/02/2024</td>
+            <td>${item.company_name}</td>
+            <td>${item.full_address}</td>
+            <td><span class="${item.order_status == 'delivered' ? 'status-green' : 'status-red'}">${item.order_status}</span></td>
+            <td>${item.contact_person_name}</td>
+            <td><button class="btn" onclick="acceptOrder(event)">Accept</button></td>
             </tr>`
             document.getElementById('order-table').innerHTML += html
         })
@@ -21,88 +20,9 @@ async function renderAllOrder() {
 }
 
 
-function openOrderDetails(orderid) {
-    renderOrderDetails(orderid)
-    openPopup('order-detail-popup')
-}
-
-async function createOrderFromAdmin(e) {
-    e.preventDefault()
-    const formData = new FormData(document.getElementById('order-create-form-admin'))
-    const response = await request.GET_POST('v1/orders', 'POST', formData, 'form')
-    if (response.success) { renderAllOrder() }
-
-}
-
-
-async function openAddPartnerForm(orderId) {
-    document.getElementById('order-id-input').value = orderId
-    const response = await request.GET_POST('v1/partners/drop', 'GET')
+async function renderPartnerOrderDetails(id) {
+    const response = await request.GET_POST(`v1/assign/partner/${id}`, 'GET')
     console.log(response)
-    if (response.success) {
-        document.getElementById('partner-dropdown').innerHTML = ''
-        response.data.forEach((item) => {
-            const html = `<option value="${item.company_id}">${item.company_name}</option>`
-            document.getElementById('partner-dropdown').innerHTML += html
-        })
-    }
-    openPopup('select-3pl-box')
-}
-
-async function openAddVehicleForm(orderId) {
-    document.getElementById('order-id-input-vh').value = orderId
-    const response = await request.GET_POST('v1/vehicles/drivers', 'GET')
-    console.log(response)
-    if (response.success) {
-        document.getElementById('search-list').innerHTML = ''
-        response.data.forEach((item) => {
-            const html = ` <li class="vh-num-li" onclick="selectVehicle(this, ${item.vehicle_id}, ${item.driver_id}, '${item.driver_name}')">${item.registration_number}</li>`
-            document.getElementById('search-list').innerHTML += html
-        })
-    }
-    openPopup('select-vehicle-box')
-}
-
-async function renderGodownLocationInForm() {
-    const partnerId = document.getElementById('partner-dropdown').value
-    const type = document.getElementById('godown-type-dropdown').value
-    if (partnerId && type) {
-        console.log(partnerId, type)
-        const response = await request.GET_POST(`v1/godowns/${partnerId}/${type}`, 'GET')
-        if (response.success) {
-            document.getElementById('godown-location-dropdown').innerHTML = '';
-            if (response.data.length > 0) {
-                response.data.forEach((item) => {
-                    document.getElementById('godown-location-dropdown').innerHTML += `<option value="${item.godown_id}">${item.full_address}</option>`;
-                })
-            } else {
-                document.getElementById('godown-location-dropdown').innerHTML = `<option value="" disable>No location added</option>`
-            }
-
-        }
-    }
-}
-
-
-async function renderVehiclesInForm() {
-    const partnerId = document.getElementById('partner-dropdown').value
-    const type = document.getElementById('godown-type-dropdown').value
-    if (partnerId && type) {
-        console.log(partnerId, type)
-        const response = await request.GET_POST(`v1/godowns/3/${type}`, 'GET')
-        if (response.success) {
-            document.getElementById('godown-location-dropdown').innerHTML = '';
-            response.data.forEach((item) => {
-                document.getElementById('godown-location-dropdown').innerHTML += `<option value="${item.godown_id}">${item.full_address}</option>`;
-            })
-        }
-    }
-}
-
-
-
-async function renderOrderDetails(id) {
-    const response = await request.GET_POST(`v1/order/${id}`, 'GET')
     if (response.success) {
         const data = response.data[0]
         const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
@@ -243,45 +163,40 @@ async function renderOrderDetails(id) {
         </div>
     </div>
     <div class="flex" style="gap: 1rem">
-        <button class="btn" onclick="openAddPartnerForm(${data.order_id})" ${data.partner_assign_status ? 'disabled' : ''}>  ${data.partner_assign_status ? '3PL Added' : 'Assign 3pl Partner'}
+        <button class="btn" onclick="openDispatchForm(${data.order_id}, ${data.partner_id})">  ${data.partner_assign_status ? '3PL Added' : 'Assign Now'}
         </button>
-
-        <button class="btn" onclick="openAddVehicleForm(${data.order_id})" ${data.vehicle_assign_status ? 'disabled' : ''}>
-          ${data.vehicle_assign_status ? 'Vehicle Added' : 'Assign Pickup Vehicle'}
-        </button>
-        <button class="btn">Download</button>
     </div>`
-        document.getElementById('order-details-box').innerHTML = html
+
+    document.getElementById('order-details-box').innerHTML = html
     }
 
 }
 
 
-async function assignPartnerToOrder(e) {
+function openPartnerOrderDetails(orderid) {
+    renderPartnerOrderDetails(orderid)
+    openPopup('order-detail-popup')
+}
+
+
+async function openDispatchForm(orderId, partnerId) {
+    document.getElementById('partner-id-input').value = partnerId
+    document.getElementById('order-id-input').value = orderId
+    openPopup('select-3pl-box')
+}
+
+
+async function addDispatchDetails(e) {
     e.preventDefault()
-    const formData = new FormData(document.getElementById('assign-partner-form'))
-    const response = await request.GET_POST(`v1/assign/partner`, 'POST', formData, 'form')
+    const formData = new FormData(document.getElementById('dispatch-details-form'))
+    const response = await request.GET_POST('v1/dispatch', 'POST', formData, 'form')
 }
 
 
-async function assignVehicleToOrder(e) {
-    e.preventDefault()
-    const formData = new FormData(document.getElementById('assign-vehicle-form'))
-    const response = await request.GET_POST(`v1/assign/vehicle`, 'POST', formData, 'form')
+function acceptOrder(e) {
+    e.stopPropagation();
+    alert("Accepted Successfully!")
+    
 }
 
-
-function selectVehicle(target, vehicleId, driverId, driverName) {
-    document.getElementById('vehicle-dropdown').value = target.textContent
-    document.getElementById('driver-name-inp').value = driverName
-    document.getElementById('driver-driverid-inp').value = driverId
-    document.getElementById('driver-vehicleid-inp').value = vehicleId
-    closePopup('search-input')
-}
-
-
-async function updateOrderStatus(target, orderId) {
-    const response = await request.DEL_UPD(`v1/order/status/${orderId}`, 'PUT', { order_status: target.value })
-}
-
-renderAllOrder();
+renderAllPartnerOrder()

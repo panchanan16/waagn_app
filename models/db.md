@@ -111,4 +111,17 @@ vehicle_id
 driver_id
 msg_for_driver
 
+### Assign delivery by 3pl table ---
+
+partner_assigned_orderid
+Assigned 3PL Partner
+ Delivery Godwon Adress:
+ Assigned Vehicle No.
+ Assigned Driver Name
+ Assigned Driver Number
+ E Way BIll NO.
+ Actual Weight: (it can be kg/ton)
+ Charged weights  (it can be kg/ton)
+ Amount:
+
 

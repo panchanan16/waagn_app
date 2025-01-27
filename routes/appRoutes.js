@@ -5,6 +5,9 @@ const ordersController = require('../controllers/orders/ordersControllers')
 const partnerController  = require('../controllers/partner/partnerControllers')
 const vehicleControllers = require('../controllers/vehicles/vehiclesController')
 const assignControllers = require('../controllers/assign/assignController')
+
+// Transactions ---
+const assignTransactions = require('../controllers/assign/assignTransaction')
 const multer = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
@@ -27,8 +30,9 @@ appRoutes.get('/vehicles/drivers', vehicleControllers.getAllVehiclesWithDriver)
 //Orders Api ---
 appRoutes.get('/orders', ordersController.getAll);  
 appRoutes.get('/order/:id', ordersController.getOne); 
-appRoutes.post('/orders', ordersController.create);    
-appRoutes.put('/orders/:id', ordersController.update);  // Update an order
+appRoutes.post('/orders', ordersController.create); 
+appRoutes.put('/order/status/:orderId', ordersController.updateOrderStatus);   
+appRoutes.put('/orders/:id', ordersController.update);
 appRoutes.delete('/orders/:id', ordersController.delete);
 
 
@@ -47,14 +51,21 @@ appRoutes.get('/godowns/:id/:type', partnerController.getAllGodownForDropdown);
 appRoutes.post('/godown', partnerController.createGodown);    
 appRoutes.put('/godown/:id', partnerController.updatePartnerGodown);
 
+
 //Partners Assign Api ---
-appRoutes.get('/assign/partners', assignControllers.getAllPartnerAssigns);  
-appRoutes.post('/assign/partner', assignControllers.createPartnerAssign);    
+appRoutes.get('/assign/partners', assignControllers.getAllPartnerAssigns); 
+appRoutes.get('/assign/partner/:orderId', assignControllers.getPartnerAssignById); 
+appRoutes.post('/assign/partner', assignTransactions.partnerAssign_StatusUpdate);    
 appRoutes.put('/assign/partner/:id', assignControllers.updatePartnerAssign);
+
 
 //Vehicles Assign Api ---
 // appRoutes.get('/assign/partners', assignControllers.createVehicleAssignment);  
-appRoutes.post('/assign/vehicle', assignControllers.createVehicleAssignment);    
+appRoutes.post('/assign/vehicle', assignTransactions.vehicleAssign_StatusUpdate);    
 // appRoutes.put('/assign/partner/:id', assignControllers.updatePartnerAssign);
+
+
+//Delivery Dispatch Api ---
+appRoutes.post('/dispatch', assignTransactions.dispatch_StatusUpdate);  
 
 module.exports = appRoutes

@@ -37,7 +37,10 @@ CREATE TABLE orders (
     payment_mode VARCHAR(80),
     payment_status VARCHAR(80),
     amount INT DEFAULT NULL,
-    order_status VARCHAR(100)
+    order_status VARCHAR(100),
+    order_date VARCHAR(80) DEFAULT NULL,
+    partner_assign_status TINYINT(1) DEFAULT 0,
+    vehicle_assign_status TINYINT(1) DEFAULT 0
 );
 
 -- Drivers Table
@@ -172,13 +175,31 @@ CREATE TABLE partner_assign (
 --- Vehicle assign table 
 CREATE TABLE vehicle_assignment (
     v_assign_id INT AUTO_INCREMENT PRIMARY KEY, 
-    orderid BIGINT DEFAULT NULL,                        
+    order_id BIGINT DEFAULT NULL,                        
     vehicle_id INT NOT NULL,                     
     driver_id INT NOT NULL,                     
     msg_for_driver TEXT,
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE SET NULL, 
     FOREIGN KEY (vehicle_id) REFERENCES vehicle_information(vehicle_id) ON DELETE CASCADE,  
     FOREIGN KEY (driver_id) REFERENCES drivers(driver_id) ON DELETE CASCADE                 
+);
+
+
+--- Partner Delivery details
+CREATE TABLE partner_delivery_details (
+    partner_assigned_orderid INT AUTO_INCREMENT PRIMARY KEY,
+    partner_id INT DEFAULT NULL,
+    order_id BIGINT NOT NULL,
+    delivery_godown_address INT DEFAULT NULL,
+    assigned_vehicle_no VARCHAR(100) DEFAULT NULL,
+    assigned_driver_name VARCHAR(100) DEFAULT NULL,
+    assigned_driver_number VARCHAR(20) DEFAULT NULL,
+    e_way_bill_no VARCHAR(100) DEFAULT NULL,
+    actual_weight DECIMAL(10, 2) DEFAULT NULL,  
+    charged_weight DECIMAL(10, 2) DEFAULT NULL, 
+    partner_amount DECIMAL(15, 2) DEFAULT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE CASCADE
 );
 
 
