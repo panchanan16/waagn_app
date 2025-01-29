@@ -12,7 +12,10 @@ async function renderAllPartnerOrder() {
             <td>${item.full_address}</td>
             <td><span class="${item.order_status == 'delivered' ? 'status-green' : 'status-red'}">${item.order_status}</span></td>
             <td>${item.contact_person_name}</td>
-            <td><button class="btn" onclick="acceptOrder(event)">Accept</button></td>
+            <td><button class="btn" onclick="acceptOrder(event, ${item.order_id})">
+            ${item.is_accepted == 'accepted' ? 'Accepted' : 'Accept Now'}
+            </button>
+            </td>
             </tr>`
             document.getElementById('order-table').innerHTML += html
         })
@@ -193,10 +196,11 @@ async function addDispatchDetails(e) {
 }
 
 
-function acceptOrder(e) {
+async function acceptOrder(e, orderID) {
     e.stopPropagation();
-    alert("Accepted Successfully!")
-    
+    alert(`Accepted Successfully For ${orderID}!`)
+    const response = await request.DEL_UPD(`v1/assign/partner/status/${orderID}`, 'PUT', {id:'4'})
+    if (response.success) { renderAllPartnerOrder() }
 }
 
 renderAllPartnerOrder()

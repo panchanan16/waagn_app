@@ -19,7 +19,7 @@ exports.createPartnerAssign = (req, res) => {
 
 // Get all partner assignments
 exports.getAllPartnerAssigns = (req, res) => {
-  const query = 'SELECT partner_assign.order_id, orders.order_status, company_name, full_address, contact_person_name FROM partner_assign INNER JOIN orders ON orders.order_id = partner_assign.order_id INNER JOIN partner_companies ON partner_companies.company_id = partner_assign.partner_id INNER JOIN partner_godown ON partner_assign.partner_id = partner_godown.partner_id AND partner_assign.godown_id = partner_godown.godown_id;';
+  const query = 'SELECT partner_assign.order_id, partner_assign.is_accepted, orders.order_status, company_name, full_address, contact_person_name FROM partner_assign INNER JOIN orders ON orders.order_id = partner_assign.order_id INNER JOIN partner_companies ON partner_companies.company_id = partner_assign.partner_id INNER JOIN partner_godown ON partner_assign.partner_id = partner_godown.partner_id AND partner_assign.godown_id = partner_godown.godown_id;';
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching records:', err);
@@ -105,6 +105,7 @@ exports.createVehicleAssignment = (req, res) => {
     return res.status(201).json({ success: true, message: 'Vehicle assignment created successfully' });
   });
 };
+
 
 
 // ---------------------- 3pl Assigned to orders Controllers ---------------------------
@@ -233,6 +234,23 @@ exports.deletePartnerDeliveryDetails = (req, res) => {
     res.status(200).json({ success: true });
   });
 };
+
+
+exports.updateOrderAcceptStatus = (req, res) => {
+  const { orderId } = req.params
+  const query = `UPDATE partner_assign SET is_accepted = ? WHERE order_id = ?`;
+
+  db.query(query, ['accepted', orderId], (err, result) => {
+    if (err) {
+      return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
+    }
+    console.log(result)
+    if (result.changedRows === 0) {
+      return res.status(404).json({ sucess: false, error: 'Order Already Accepted!' });
+    }
+    res.status(200).json({ success: true, message: 'Order Accepted Successfully!' });
+  });
+}
 
 
 

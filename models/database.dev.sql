@@ -165,6 +165,7 @@ CREATE TABLE partner_assign (
     godown_id INT DEFAULT NULL,
     datetime VARCHAR(100) DEFAULT NULL,
     msg_for_partner TEXT DEFAULT NULL,
+    is_accepted ENUM("accepted", "notaccepted") DEFAULT 'notaccepted',
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE SET NULL,
     FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE CASCADE,
     FOREIGN KEY (godown_id) REFERENCES partner_godown(godown_id) ON DELETE CASCADE,

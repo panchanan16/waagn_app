@@ -125,3 +125,18 @@ Assigned 3PL Partner
  Amount:
 
 
+### Details Order Query ---
+SELECT orders.order_id, orders.shipper_name, orders.amount,
+partner_companies.company_name, 
+partner_assign.is_accepted AS partner_accepted, vehicle_information.registration_number, drivers.driver_name,  
+partner_assign.godown_id, partner_godown.full_address,
+partner_delivery_details.assigned_vehicle_no AS partner_cart
+FROM orders 
+LEFT JOIN partner_assign ON partner_assign.order_id = orders.order_id
+LEFT JOIN partner_godown ON partner_godown.godown_id = partner_assign.godown_id
+LEFT JOIN partner_companies ON partner_companies.company_id = partner_assign.partner_id
+LEFT JOIN vehicle_assignment ON vehicle_assignment.order_id = orders.order_id
+LEFT JOIN drivers ON drivers.driver_id = vehicle_assignment.driver_id
+LEFT JOIN vehicle_information ON vehicle_information.vehicle_id = vehicle_assignment.vehicle_id
+LEFT JOIN partner_delivery_details ON partner_delivery_details.order_id = orders.order_id
+

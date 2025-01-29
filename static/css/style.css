@@ -195,8 +195,15 @@ a {
 
 .service-cards {
     display: grid;
-    gap: 1rem;
+    gap: 1rem;    
+}
+
+.grid-col-3 {
     grid-template-columns: repeat(3, auto);
+}
+
+.grid-col-4 {
+    grid-template-columns: repeat(4, auto);
 }
 
 .service-card {
@@ -651,3 +658,23 @@ form textarea {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
 }
+
+
+/* New menu design  */
+.sidebar-item {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: rgb(20, 19, 19);
+    display: block;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+
+  .submenu {
+    display: none;
+    padding-left: 20px;
+  }
+
+  .menu-item:hover .submenu {
+    display: block;
+  }

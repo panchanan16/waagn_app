@@ -57,6 +57,7 @@ appRoutes.get('/assign/partners', assignControllers.getAllPartnerAssigns);
 appRoutes.get('/assign/partner/:orderId', assignControllers.getPartnerAssignById); 
 appRoutes.post('/assign/partner', assignTransactions.partnerAssign_StatusUpdate);    
 appRoutes.put('/assign/partner/:id', assignControllers.updatePartnerAssign);
+appRoutes.put('/assign/partner/status/:orderId', assignControllers.updateOrderAcceptStatus);
 
 
 //Vehicles Assign Api ---

@@ -51,7 +51,7 @@ async function setIdAndOpenPartnerDetails(partnerId) {
 
 async function getIdAndOpenGodownForm(target) {
     const partnerId = document.getElementById('company_id').textContent
-    document.getElementById('partner_id').value = partnerId
+    document.getElementById('partner-id-inp').value = partnerId
     openPopup('sub-popup')
 }
 
@@ -123,7 +123,7 @@ async function renderPartnerDetails(partnerId) {
                             </div>
                             <div class="key-value-pair">
                                 <strong>Locations of Warehouses:</strong>
-                                <button class="btn" onclick="renderGodownList()">View all</button>
+                                <button class="btn" onclick="renderGodownList(${boxData.company_id})">View all</button>
                             </div>
                             <div class="key-value-pair">
                                 <strong>Logistics Area:</strong>
@@ -219,8 +219,8 @@ async function createGodown(e) {
 }
 
 
-async function renderGodownList() {
-    const response = await request.GET_POST('v1/godown/3', 'GET')
+async function renderGodownList(partnerId) {
+    const response = await request.GET_POST(`v1/godown/${partnerId}`, 'GET')
     console.log(response)
     if (response.success) {
         document.getElementById('godown-location-box').innerHTML = '';

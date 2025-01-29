@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waagn App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/request.module.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <%- include('../partials/aside.ejs') %>
+        <div class="content">
+            <div class="header">
+                <div class="flex search-bar">
+                    <input type="text" placeholder="search you query here...">
+                    <button><i class="material-icons">search</i></button>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600;">Panchanan Deka</span>
+                    <i class="material-icons" style="font-size:30px;">account_circle</i>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <div class="flex form-header">
+                    <h2>Calculate Shipping Cost</h2>                   
+                </div>
+                <form id="order-create-form-admin" style="margin-top: 1.5rem;">                                
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="actual_weight_of_consignment">FROM:</label>
+                            <input type="text" step="0.01" id="actual_weight_of_consignment"
+                                name="actual_weight_of_consignment">
+                        </div>               
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="length_of_box">TO:</label>
+                            <input type="text" id="length_of_box" name="length_of_box">
+                        </div>                 
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="tax_invoice_number">Weight (in kg):</label>
+                            <input type="text" id="tax_invoice_number" name="tax_invoice_number">
+                        </div>
+                        <div class="form-field">                           
+                        </div>
+                    </div>  
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="delivery_datetime">Length (in cm):</label>
+                            <input type="text" id="delivery_datetime" name="delivery_datetime">
+                        </div>
+                        <div class="form-field">
+                            <label for="insurance">Breadth (in cm):</label>
+                            <input type="text" id="insurance" name="insurance">
+                        </div>
+                    </div>                  
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="tax_invoice_number">Height (in cm):</label>
+                            <input type="text" id="tax_invoice_number" name="tax_invoice_number">
+                        </div>
+                        <div class="form-field">
+                            <label for="insurance">Qnt:</label>
+                            <input type="text" id="insurance" name="insurance">
+                        </div>
+                    </div>                
+
+                    <div class="full-width">
+                        <button type="button"class="btn">Calculate</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+
+        
+   
+
+
+
+        <script src="/js/common.js"></script>
+        <script src="/js/order.js"></script>
+</body>
+
+</html>
