@@ -16,6 +16,7 @@ const upload = multer({ storage: storage })
 //Drivers Api ---
 appRoutes.post('/driver/register', upload.single('driver_photo'), driverControllers.registerDriver)
 appRoutes.get('/drivers', driverControllers.getAllDrivers)
+appRoutes.get('/driver/:id', driverControllers.getOneDriver)
 appRoutes.get('/drivers/drop', driverControllers.getAllDriversForDropdown)
 appRoutes.put('/driver/update', driverControllers.updateDriver)
 

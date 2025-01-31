@@ -292,74 +292,131 @@
         </div>
 
 
-        <!-- order details popup box -->
-        <div class="flex popup-container order-detail-popup hide">
+        <!-- Vehicles details popup box -->
+        <div class="flex popup-container hide vehicle-detail-popup">
             <div class="info-box" style="background-color: #fff;">
-                <button class="close-button" onclick="closePopup('order-detail-popup')">
+                <button class="close-button" onclick="closePopup('vehicle-detail-popup')">
                     <span class="material-icons">close</span> <!-- Material Icon for Close -->
                 </button>
-                <div class="key-value-box" style="justify-content: space-around; margin-block: 1rem;">
-                    <div class="key-value">
-                        <div class="key-value-pair">
-                            <strong>OrderId:</strong> 983774784
+                <div id="order-details-box">
+                    <div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
+                        <div class="key-value">
+                            <h2 class="flex details-heading">VEHICLES DETAILS</h2>
+                            <div class="key-value-pair">
+                                <strong>Vehicle Status:</strong> <span class="status-green">delivered</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Vehicle Name:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Vehicle ID:</strong><span class=""></span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Registration Number:</strong> Los Angeles, CA
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Vehicle Type:</strong> Los Angeles, CA
+                            </div>
                         </div>
-                        <div class="key-value-pair">
-                            <strong>Name:</strong> John Doe
+                        <div class="key-value">
+                            <h2 class="flex details-heading">OWNER DETAILS</h2>                           
+                            <div class="key-value-pair">
+                                <strong>Owner name:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Owner Contact:</strong><span class=""></span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Company affiliation:</strong> Los Angeles, CA
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>DL Number:</strong> Los Angeles, CA
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Vehicle Registration:</strong> Los Angeles, CA
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Pollution Certificate:</strong> Los Angeles, CA
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Fitness Certificate:</strong> Los Angeles, CA
+                            </div>
                         </div>
-                        <div class="key-value-pair">
-                            <strong>Pickup Location:</strong> New York, NY
+                        <div class="key-value">
+                            <h2 class="flex details-heading">TECHNOLOGY</h2>
+                            <div class="key-value-pair">
+                                <strong>GPS Integration:</strong> <span class="status-green">delivered</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Compatibility With Software:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Temparature Control:</strong><span class=""> </span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Online Availibility Status:</strong> Los Angeles, CA
+                            </div>
                         </div>
-                        <div class="key-value-pair">
-                            <strong>Drop Location:</strong> Los Angeles, CA
+                        <div class="key-value">
+                            <h2 class="flex details-heading">MAINTENANCE</h2>
+                            <div class="key-value-pair">
+                                <strong>Last Service date:</strong> <span class="status-green">delivered</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Maitenance Schedule:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Major Repairs:</strong><span class="">/span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Insurance Provider:</strong> Los Angeles, CA
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Policy details:</strong> Los Angeles, CA
+                            </div>
+                        </div>                   
+
+                        <div class="key-value">
+                            <h2 class="flex details-heading">CAPAPIBILITY</h2>                         
+                            <div class="key-value-pair">
+                                <strong>Cost per Kilometer:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Preffered Routes:</strong><span class=""> New York, NY, 90001, lkrb path nabin
+                                    nagar,
+                                    near police point, paltan bazar</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Availability Schedule:</strong> Los Angeles, CA
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Special handling Capabilities:</strong> Los Angeles, CA
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Road Permit:</strong> Los Angeles, CA
+                            </div>
                         </div>
-                        <div class="key-value-pair">
-                            <strong>Goods:</strong> Electronics
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Description:</strong> Fragile items
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Quantity:</strong> 5
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Rate:</strong> $150
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Date:</strong> 20/02/2025
-                        </div>
-                    </div>
-                    <div class="key-value">
-                        <div class="key-value-pair">
-                            <strong>Order Status:</strong> <span class="status-green">delivered</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Name:</strong> John Doe
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                                near police point, paltan bazar</span>
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Drop Location:</strong> Los Angeles, CA
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Goods:</strong> Electronics
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Description:</strong> Fragile items
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Quantity:</strong> 5
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Rate:</strong> $150
-                        </div>
-                        <div class="key-value-pair">
-                            <strong>Date:</strong> 20/02/2025
-                        </div>
-                    </div>
+
+                        <div class="key-value">
+                            <h2 class="flex details-heading">Delivery Adress</h2>
+                            <div class="key-value-pair">
+                                <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Name:</strong> John Doe
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin
+                                    nagar,
+                                    near police point, paltan bazar</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Drop Location:</strong> Los Angeles, CA
+                            </div>
+                        </div>                       
+                    </div>                 
                 </div>
-            </div>
+            </div>        
         </div>
 
         <script src="/js/common.js"></script>

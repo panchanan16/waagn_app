@@ -33,6 +33,19 @@ function getAllDrivers(req, res) {
     });
 }
 
+// Read One driver ---
+function getOneDriver(req, res) {
+    const query = 'SELECT drivers.*, vehicle_information.registration_number FROM drivers LEFT JOIN vehicle_information ON vehicle_information.driver_details = drivers.driver_id WHERE driver_id = ?';
+
+    db.query(query, [req.params.id], (error, results) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ success: false,error: 'Failed to retrieve drivers data' });
+        }
+        res.status(200).json({success: true, data: results});
+    });
+}
+
 
 // Read drivers for dropdown ---
 function getAllDriversForDropdown(req, res) {
@@ -72,4 +85,4 @@ function updateDriver(req, res) {
     });
 }
 
-module.exports = {registerDriver, updateDriver, getAllDrivers, getAllDriversForDropdown}
+module.exports = {registerDriver, updateDriver, getAllDrivers, getOneDriver, getAllDriversForDropdown}

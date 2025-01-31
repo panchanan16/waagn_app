@@ -9,6 +9,10 @@ pageRouter.get('/', async (req, res)=> {
     res.render('admin/login.ejs')
 })
 
+pageRouter.get('/dashboard', async (req, res)=> {
+    res.render('admin/dashboard.ejs')
+})
+
 pageRouter.get('/orders', async (req, res)=> {
     res.render('admin/orders.ejs')
 })
@@ -36,6 +40,10 @@ pageRouter.get('/partners-orders', async (req, res)=> {
 
 pageRouter.get('/calculate-rate', async (req, res)=> {
     res.render('admin/rateCalculator.ejs')
+})
+
+pageRouter.get('/generate-lr', async (req, res)=> {
+    res.render('admin/generateLr.ejs')
 })
 
 pageRouter.get('/testing', async (req, res)=> {

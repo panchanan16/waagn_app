@@ -198,6 +198,10 @@ a {
     gap: 1rem;    
 }
 
+.grid {
+    display: grid;
+}
+
 .grid-col-3 {
     grid-template-columns: repeat(3, auto);
 }
@@ -677,4 +681,34 @@ form textarea {
 
   .menu-item:hover .submenu {
     display: block;
+  }
+
+  /* pdf design */
+
+  .pdf {
+    width: 196mm;
+    height: 280mm;
+    padding: .5rem;
+    border: 1px solid rgb(102, 102, 102);
+  }
+
+  /* dashboard design */
+
+  .summary {
+    gap: 2rem;
+  }
+  
+  .sum-box {
+    background-color: #e0d9f3;
+    height: 10rem;
+    border-radius: 8px;
+    box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .d-value {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 10px;
   }

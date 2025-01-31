@@ -27,7 +27,7 @@ async function renderVehicleList() {
     if (response.success) {
         table.innerHTML = ''
         response.data.forEach((item, ind)=> {
-            const html = `<tr class="table-rows">
+            const html = `<tr class="table-rows" onclick="renderVehicleDetails()">
             <td>${ind + 1}</td>
             <td><select class="status-green" onchange="changeStatus(this)">
                     <option value="Active">Active</option>
@@ -40,6 +40,11 @@ async function renderVehicleList() {
             table.innerHTML += html
         })
     }
+}
+
+
+async function renderVehicleDetails(vehicleID) {
+    openPopup('vehicle-detail-popup')
 }
 
 renderVehicleList() 
