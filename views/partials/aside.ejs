@@ -1,33 +1,26 @@
 <div class="sidebar">
     <h1>WAAGN APP</h1>
-    <ul>
+    <ul class="main-link">
         <li><a href="/dashboard"><i class="material-icons">dashboard</i>Dashboard</a></li>
         <li><a href="/orders"><i class="material-icons">sync_alt</i>Orders</a></li>
         <li><a href="/vehicles"><i class="material-icons">local_shipping</i>Vehicles</a></li>
         <li><a href="/drivers"><i class="material-icons">engineering</i>Drivers</a></li>
         <li><a href="/partners"><i class="material-icons">swap_horiz</i>3PL Partners</a></li>
         <li><a href="/partners-orders"><i class="material-icons">social_distance</i>fleet management</a></li>
-        <li><i class="material-icons">currency_exchange</i>Invoice</li>
         <li><a href="/generate-lr"><i class="material-icons">receipt</i>Generate LR</a></li>
+        <li class="sub-drop">
+            <button class="drop-btn" onclick="toggleAsideSubmenu(this)">
+                <i class="material-icons">social_distance</i>
+                <span>Fleet Management</span>
+                <i class="material-icons">keyboard_arrow_right</i>
+                <!-- <i class="material-icons">keyboard_arrow_down</i> -->
+            </button>
+            <ul class="drop-down-aside hide">
+                <li><a href="/">Overview</a></li>
+                <li><a href="/">3pl partner</a></li>
+                <li><a href="/">Orders</a></li>
+            </ul>
+        </li>
         <li><i class="material-icons">logout</i>LogOut</li>
     </ul>
-    <!-- <div class="sidebar-item">Dashboard</div>
-    <div class="menu-item">
-        <div class="sidebar-item">Order Management</div>
-        <div class="submenu">
-            <div class="sidebar-item"><a href="/orders">Overview</a></div>
-            <div class="sidebar-item">App Development</div>
-            <div class="sidebar-item">SEO</div>
-        </div>
-    </div>
-    <div class="menu-item">
-        <div class="sidebar-item">Fleet Management</div>
-        <div class="submenu">
-            <div class="sidebar-item">Web Development</div>
-            <div class="sidebar-item">App Development</div>
-            <div class="sidebar-item">SEO</div>
-        </div>
-    </div>
-    <div class="sidebar-item">Generate LR</div>
-    <div class="sidebar-item">LogOut</div> -->
 </div>

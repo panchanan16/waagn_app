@@ -25,18 +25,16 @@
     background-color: #555;
 }
 
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #F9F9F9;
-    color: #2E2E2E;
+    background-color: #f9f9f9;
+    color: #2e2e2e;
     margin: 0;
     display: flex;
     min-height: 100vh;
@@ -49,8 +47,8 @@ body {
 .btn {
     padding: 10px;
     min-width: max-content;
-    background-color: #1C1C1C;
-    color: #FFFFFF;
+    background-color: #1c1c1c;
+    color: #ffffff;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -74,7 +72,7 @@ a {
     text-decoration: none;
     display: flex;
     align-items: center;
-    color: #1C1C1C;
+    color: #1c1c1c;
 }
 
 .close-button .material-icons {
@@ -107,7 +105,6 @@ a {
     color: rgb(126, 85, 15);
 }
 
-
 .search-bar {
     width: 25rem;
     align-items: center;
@@ -115,7 +112,7 @@ a {
     border-radius: 8px;
 }
 
-.search-bar button{
+.search-bar button {
     background: transparent;
     border: none;
     padding: 6px;
@@ -123,23 +120,24 @@ a {
     cursor: pointer;
 }
 
-.search-bar input{
-   padding: 12px;
-   font-size: 14px;
-   outline: none;
-   border: none;
-   width: 90%;
-   border-top-left-radius: 8px;
-   border-bottom-left-radius: 8px;
+.search-bar input {
+    padding: 12px;
+    font-size: 14px;
+    outline: none;
+    border: none;
+    width: 90%;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
-
-
 
 .sidebar {
     width: 250px;
-    background-color: #EFEFEF;
-    padding: 20px;
+    height: 100vh;
+    background-color: #efefef;
     flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    align-self: start;
 }
 
 .sidebar h1 {
@@ -150,25 +148,35 @@ a {
 
 .sidebar ul {
     list-style: none;
-    padding: 0;
 }
 
-.sidebar li {
-    margin-bottom: 15px;
+.sidebar ul li {
+    padding: 0.8rem;
+    border-radius: 4px;
+}
+
+.sidebar a,
+.drop-btn {
+    text-decoration: none;
     display: flex;
     align-items: center;
-    padding: 10px;
-    transition: background-color 0.3s;
-    border-radius: 8px;
+    gap: 0.6rem;
 }
 
-.sidebar li a{
-    width: 100%; 
+.drop-down-aside {
+    border-left: 1px solid rgb(204, 204, 204);
+    margin-left: 1.3rem;
+    margin-top: 1rem;
 }
 
-.sidebar li:hover {
-    background-color: #D3D3D3;
+
+.sidebar .drop-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
     cursor: pointer;
+    font: inherit;
 }
 
 .sidebar li i {
@@ -195,7 +203,7 @@ a {
 
 .service-cards {
     display: grid;
-    gap: 1rem;    
+    gap: 1rem;
 }
 
 .grid {
@@ -212,7 +220,7 @@ a {
 
 .service-card {
     background-color: #4269bd;
-    color: #FFFFFF;
+    color: #ffffff;
     padding: 8px;
     padding-inline: 20px;
     border-radius: 5px;
@@ -237,7 +245,7 @@ a {
 .transfer {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #E0E0E0;
+    border-top: 1px solid #e0e0e0;
     padding: 10px 0;
 }
 
@@ -287,7 +295,6 @@ tbody tr:nth-child(even) {
     /* Zebra striping */
 }
 
-
 /* pop up box */
 
 .popup-container {
@@ -315,7 +322,6 @@ tbody tr:nth-child(even) {
     margin-block: 1.5rem;
 }
 
-
 .list-box {
     border: 1px solid rgb(167, 165, 165);
     padding: 15px;
@@ -323,7 +329,6 @@ tbody tr:nth-child(even) {
     height: 30rem;
     overflow-y: scroll;
 }
-
 
 .list-box ul {
     display: flex;
@@ -343,7 +348,6 @@ tbody tr:nth-child(even) {
     overflow-y: scroll;
 }
 
-
 .key-value {
     font-size: 14px;
     line-height: 1.6;
@@ -351,7 +355,7 @@ tbody tr:nth-child(even) {
 
 .key-value-pair {
     margin-bottom: 10px;
-    gap: .5rem;
+    gap: 0.5rem;
 }
 
 .key-value-pair strong {
@@ -374,7 +378,7 @@ tbody tr:nth-child(even) {
 }
 
 .unactive {
-  color: #7a7a7a;
+    color: #7a7a7a;
 }
 
 /* form design */
@@ -386,7 +390,6 @@ tbody tr:nth-child(even) {
     width: 80%;
     margin-block: 1.5rem;
 }
-
 
 .form-row {
     display: flex;
@@ -450,27 +453,25 @@ form textarea {
 }
 
 .search-input {
-  background-color: #ededed;
-  height: 6rem;
-  overflow-y: scroll;
-  border-radius: 5px;
-  position: absolute;
-  width: 100%;
+    background-color: #ededed;
+    height: 6rem;
+    overflow-y: scroll;
+    border-radius: 5px;
+    position: absolute;
+    width: 100%;
 }
 
-
-.search-input ul li{
+.search-input ul li {
     list-style: none;
     padding: 5px;
     border-bottom: 1px solid gray;
     margin-top: 5px;
     font-size: 14px;
-  }
+}
 
-  .search-input ul li:hover {
+.search-input ul li:hover {
     background-color: #fff;
-  }
-
+}
 
 /* tabs design */
 
@@ -479,7 +480,6 @@ form textarea {
     margin: 0 auto;
     position: relative;
 }
-
 
 .tabs {
     position: relative;
@@ -587,7 +587,6 @@ form textarea {
     align-items: center;
 }
 
-
 /* checkbox list design */
 
 .checkbox-list {
@@ -611,7 +610,7 @@ form textarea {
 .list-item div span {
     font-size: 18px;
     color: #333;
-    display: inline-block
+    display: inline-block;
 }
 
 .checkbox {
@@ -663,7 +662,6 @@ form textarea {
     border-radius: 6px;
 }
 
-
 /* New menu design  */
 .sidebar-item {
     padding: 15px 20px;
@@ -672,43 +670,44 @@ form textarea {
     display: block;
     transition: background-color 0.3s;
     cursor: pointer;
-  }
+}
 
-  .submenu {
+.submenu {
     display: none;
     padding-left: 20px;
-  }
+}
 
-  .menu-item:hover .submenu {
+.menu-item:hover .submenu {
     display: block;
-  }
+}
 
-  /* pdf design */
+/* pdf design */
 
-  .pdf {
+.pdf {
     width: 196mm;
-    height: 280mm;
-    padding: .5rem;
+    height: 260mm;
+    padding: 0.5rem;
     border: 1px solid rgb(102, 102, 102);
-  }
+    font-size: 10px;
+}
 
-  /* dashboard design */
+/* dashboard design */
 
-  .summary {
+.summary {
     gap: 2rem;
-  }
-  
-  .sum-box {
+}
+
+.sum-box {
     background-color: #e0d9f3;
     height: 10rem;
     border-radius: 8px;
     box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.1);
     align-items: center;
     justify-content: center;
-  }
+}
 
-  .d-value {
+.d-value {
     font-size: 30px;
     font-weight: 600;
     margin-top: 10px;
-  }
+}

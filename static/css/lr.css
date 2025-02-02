@@ -1,0 +1,49 @@
+.section {
+    margin-bottom: 1rem;
+    font-size: 9px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid gray;
+}
+
+.column {
+    border: 1px solid gray;
+    padding: 0.5rem;
+    flex: 1;
+    min-width: 80px;
+    box-sizing: border-box;
+}
+
+.bg-blue-light {
+    background-color: #c3d1f3;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.checkbox {
+    display: inline-block;
+    width: .5rem;
+    height: .5rem;
+    border: 1px solid black;
+    margin-right: 0.5rem;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .column {
+        font-size: 0.8rem;
+    }
+    .checkbox {
+        width: 0.8rem;
+        height: 0.8rem;
+    }
+}
