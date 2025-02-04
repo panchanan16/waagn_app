@@ -38,6 +38,17 @@
     box-sizing: border-box;
 }
 
+.checked {
+    background-color: black;
+}
+
+.item-display {
+    min-width: 120px;
+    height: 3rem;
+    padding: .8rem;
+    border: 1px solid rgb(173, 173, 173);
+}
+
 @media (max-width: 768px) {
     .column {
         font-size: 0.8rem;

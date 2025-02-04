@@ -25,6 +25,10 @@ pageRouter.get('/drivers', async (req, res)=> {
     res.render('admin/drivers.ejs')
 })
 
+pageRouter.get('/our-godowns', async (req, res)=> {
+    res.render('admin/ourGodown.ejs')
+})
+
 pageRouter.get('/assign', async (req, res)=> {
     res.render('admin/assign.ejs')
 })

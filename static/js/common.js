@@ -58,6 +58,6 @@ function searchItems(target, searchId) {
 function toggleAsideSubmenu(target) {
     const targetUl = target.parentNode.childNodes[3]
     targetUl.classList.toggle('hide')
-    // target.parentNode.childNodes[1].childNodes[5].classList.add('hide')
-    // target.parentNode.childNodes[1].childNodes[7].style.display = 'block'
+    target.parentNode.querySelector('.arr-right').classList.toggle('hide')
+    target.parentNode.querySelector('.arr-down').classList.toggle('hide')
 }

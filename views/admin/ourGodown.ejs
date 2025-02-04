@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waagn App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/request.module.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <%- include('../partials/aside.ejs') %>
+        <div class="content">
+            <div class="header">
+                <div>
+                    <span>Overview</span>
+                    <span>Payments</span>
+                    <span>Cards</span>
+                    <span>Account</span>
+                    <span>System</span>
+                    <span>Business</span>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600;">Panchanan Deka</span>
+                    <i class="material-icons" style="font-size:30px;">account_circle</i>
+                </div>
+            </div>
+
+            <div class="service-cards grid-col-3">
+                <div class="service-card">
+                    <h3>13</h3>
+                    <p>Today's Orders</p>
+                </div>
+                <div class="service-card" style="background-color: #c4c443;">
+                    <h3>8</h3>
+                    <p>Order In Progress</p>
+                </div>
+                <div class="service-card" style="background-color: #89c867;">
+                    <h3>50</h3>
+                    <p>Completed Orders</p>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="flex table-header" style="justify-content: space-between;">
+                    <h1>Our Godown List</h1>
+                    <button class="btn" onclick="openPopup('create-ourgodown-form-popup')">Add a location</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Godown ID</th>
+                            <th>Contact Person</th>
+                            <th>City</th>
+                            <th>Partner Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ourgodown-table">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- create ourgodown popup form -->
+        <div class="flex popup-container create-ourgodown-form-popup hide">
+            <div class="form-container">
+                <div class="flex form-header">
+                    <h2>Godown Information Form</h2>
+                    <span class="material-icons" style="cursor: pointer; color: #c11717;" onclick="closePopup('create-ourgodown-form-popup')">close</span>
+                </div>
+                <form id="ourgodown-register-form" style="margin-top: 1.5rem;">
+                    <div class="form-row">                     
+                        <div class="form-field">
+                            <label for="town">Town:</label>
+                            <input type="text" id="town" name="town" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="type_of_godown">Type of Godown:</label>
+                            <input type="text" id="type_of_godown" name="type_of_godown" required>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">                      
+                        <div class="form-field">
+                            <label for="full_address">Full Address:</label>
+                            <input type="text" id="full_address" name="full_address" required>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="contact_person_name">Contact Person Name:</label>
+                            <input type="text" id="contact_person_name" name="contact_person_name" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="number">Contact Number:</label>
+                            <input type="text" id="number" name="number" required>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="alt_number">Alternate Number:</label>
+                            <input type="text" id="alt_number" name="alt_number">
+                        </div>
+                        <div class="form-field">
+                            <label for="rate">Rate:</label>
+                            <input type="number" id="rate" name="rate" step="0.01" required>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="oda_number">ODA Number:</label>
+                            <input type="text" id="oda_number" name="oda_number">
+                        </div>
+                        <div class="form-field">
+                            <label for="partner_name">Partner Name:</label>
+                            <input type="text" id="partner_name" name="partner_name">
+                        </div>
+                    </div>
+            
+                    <div class="full-width">
+                        <button type="button" onclick="createOurGodown(event)" class="btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+
+        <!-- ourgodown details popup box -->
+        <div class="flex popup-container ourgodown-detail-popup hide">
+            <div class="info-box" style="background-color: #fff;">
+                <button class="close-button" onclick="closePopup('ourgodown-detail-popup')">
+                    <span class="material-icons">close</span> <!-- Material Icon for Close -->
+                </button>
+                <div class="key-value-box"  id="ourgodown-details-box" style="justify-content: space-around; margin-block: 1rem;">
+                  
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/common.js"></script>
+        <script src="/js/ourGodown.js"></script>
+</body>
+
+</html>

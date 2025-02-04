@@ -157,6 +157,24 @@ CREATE TABLE partner_godown (
 );
 
 
+--- Our godowns table 
+
+CREATE TABLE our_godown (
+    godown_id INT AUTO_INCREMENT PRIMARY KEY,
+    town VARCHAR(150) DEFAULT NULL,
+    type_of_godown VARCHAR(50) DEFAULT NULL,
+    full_address TEXT DEFAULT NULL,
+    contact_person_name VARCHAR(150) DEFAULT NULL,
+    number VARCHAR(20) DEFAULT NULL,
+    alt_number VARCHAR(20) DEFAULT NULL,
+    rate DECIMAL(10, 2) DEFAULT NULL,
+    oda_number VARCHAR(255) DEFAULT NULL,
+    partner_name VARCHAR(100) DEFAULT NULL,
+    is_active ENUM('active', 'notactive') DEFAULT 'active'
+);
+
+
+
 --- 3PL assign table 
 CREATE TABLE partner_assign (
     p_assign_id BIGINT AUTO_INCREMENT PRIMARY KEY,

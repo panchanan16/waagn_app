@@ -5,6 +5,7 @@ const ordersController = require('../controllers/orders/ordersControllers')
 const partnerController  = require('../controllers/partner/partnerControllers')
 const vehicleControllers = require('../controllers/vehicles/vehiclesController')
 const assignControllers = require('../controllers/assign/assignController')
+const ourGodownControllers = require('../controllers/godowns/ourGodownControllers')
 
 // Transactions ---
 const assignTransactions = require('../controllers/assign/assignTransaction')
@@ -31,6 +32,7 @@ appRoutes.get('/vehicles/drivers', vehicleControllers.getAllVehiclesWithDriver)
 //Orders Api ---
 appRoutes.get('/orders', ordersController.getAll);  
 appRoutes.get('/order/:id', ordersController.getOne); 
+appRoutes.get('/order/update/:id', ordersController.getOneForUpdate); 
 appRoutes.post('/orders', ordersController.create); 
 appRoutes.put('/order/status/:orderId', ordersController.updateOrderStatus);   
 appRoutes.put('/orders/:id', ordersController.update);
@@ -52,6 +54,11 @@ appRoutes.get('/godowns/:id/:type', partnerController.getAllGodownForDropdown);
 appRoutes.post('/godown', partnerController.createGodown);    
 appRoutes.put('/godown/:id', partnerController.updatePartnerGodown);
 
+//Our godown Api ---
+appRoutes.post('/ourgodown', ourGodownControllers.createGodown);    
+appRoutes.get('/ourgodowns', ourGodownControllers.getAllGodown);  
+appRoutes.get('/ourgodown/:id', ourGodownControllers.getOneGodown);
+
 
 //Partners Assign Api ---
 appRoutes.get('/assign/partners', assignControllers.getAllPartnerAssigns); 
@@ -61,10 +68,9 @@ appRoutes.put('/assign/partner/:id', assignControllers.updatePartnerAssign);
 appRoutes.put('/assign/partner/status/:orderId', assignControllers.updateOrderAcceptStatus);
 
 
-//Vehicles Assign Api ---
-// appRoutes.get('/assign/partners', assignControllers.createVehicleAssignment);  
+//Vehicles Assign Api --- 
 appRoutes.post('/assign/vehicle', assignTransactions.vehicleAssign_StatusUpdate);    
-// appRoutes.put('/assign/partner/:id', assignControllers.updatePartnerAssign);
+appRoutes.put('/assign/vehicle/:id', assignControllers.updateVehicleAssign);
 
 
 //Delivery Dispatch Api ---

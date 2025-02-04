@@ -39,25 +39,178 @@
 
         <div>
           <input type="text" name="" id="" placeholder="Enter order ID..." />
-          <button class="btn">Generate</button>
+          <button class="btn">Start</button>
           <button class="btn" id="downloadPdf">Download</button>
-          <button class="btn" onclick="addItemRow()">Add Item</button>
+          <button class="btn">Add Item</button>
         </div>
       </div>
 
-      <div class="flex" style="justify-content: center">
+      <div class="lr-form">
+        <div class="form-container" style="width: 100%;">
+          <div class="flex form-header">
+            <h2>LR Generation Form</h2>
+            <span class="material-icons" style="cursor: pointer; color: #c11717"
+              onclick="closePopup('create-driver-form-popup')">close</span>
+          </div>
+          <form id="generate-lr-form" method="POST" enctype="multipart/form-data" style="margin-top: 1.5rem">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="dl_number">Docket Number:</label>
+                <input type="text" id="dl_number" name="docket_number" required />
+              </div>
+              <div class="form-field">
+                <label for="contact_number">Reciever Name:</label>
+                <input type="text" id="contact_number" name="reciever_name" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="aadhaar_card_number">Invoice Number:</label>
+                <input type="text" id="aadhaar_card_number" name="invoice_number" required />
+              </div>
+              <div class="form-field">
+                <label for="dl_number">Declared Value:</label>
+                <input type="text" id="dl_number" name="declared_value" required />
+              </div>
+            </div>
+            <!-- radio inputs -->
+            <div class="form-row">
+              <div class="form-field">
+                <label>Payment Mode:</label>
+                <div class="flex" style="gap: 5rem">
+                   <div>
+                     <input type="radio" name="pay-mode" value="paid">
+                      <label for="">Paid</label>
+                   </div>                     
+                   <div>
+                    <input type="radio" name="pay-mode" value="topay">
+                     <label for="">To Pay</label>
+                  </div>  
+                  <div>
+                    <input type="radio" name="pay-mode" value="tbb">
+                     <label for="">TBB</label>
+                  </div>  
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="current_address">Liability:</label>
+                <div class="flex" style="gap: 5rem">
+                  <div>
+                    <input type="radio" name="risk" value="or">
+                     <label for="">Owner's Risk</label>
+                  </div>                     
+                  <div>
+                   <input type="radio" name="risk" value="cr">
+                    <label for="">Carrier's Risk</label>
+                 </div>       
+               </div>
+              </div>
+            </div>
+
+            <!-- Charges inputs -->
+            <h3 style="margin-top: 1.5rem;">Charges</h3>
+            <div id="charges-field">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="whatsapp_number">Freight Charges:</label>
+                  <input type="text" id="whatsapp_number" name="fr-chg" />
+                </div>
+                <div class="form-field">
+                  <label for="alt_number">Handling Charges:</label>
+                  <input type="text" id="alt_number" name="hnd-chg" />
+                </div>
+                <div class="form-field">
+                  <label for="alt_number">Statistical Charges:</label>
+                  <input type="text" id="alt_number" name="sts-chg" />
+                </div>
+                <div class="form-field">
+                  <label for="alt_number">Others:</label>
+                  <input type="text" id="alt_number" name="oth-chg" />
+                </div>
+                <div class="form-field">
+                  <label for="alt_number">GST @12%:</label>
+                  <input type="text" id="alt_number" name="gst-chg" />
+                </div>  
+                <div class="form-field">
+                  <label for="alt_number">Total:</label>
+                  <input type="text" id="alt_number" name="tot-chg" />
+                </div>                             
+              </div> 
+
+            </div>
+            <!-- item Description start here -->
+            <h3 style="margin-top: 1.5rem;">Item Description</h3>
+              <div id="item-desc-field">
+                <div class="form-row">
+                  <div class="form-field">
+                    <label for="whatsapp_number">Description Of goods:</label>
+                    <input type="text" id="whatsapp_number" name="whatsapp_number" />
+                  </div>
+                  <div class="form-field">
+                    <label for="alt_number">Actual Weight:</label>
+                    <input type="text" id="alt_number" name="alt_number" />
+                  </div>
+                  <div class="form-field">
+                    <label for="alt_number">Charged Weight:</label>
+                    <input type="text" id="alt_number" name="alt_number" />
+                  </div>
+                  <div class="form-field">
+                    <label for="alt_number">Rate / Kg:</label>
+                    <input type="text" id="alt_number" name="alt_number" />
+                  </div>
+                  <div class="form-field">
+                    <label for="alt_number">Comments:</label>
+                    <input type="text" id="alt_number" name="alt_number" />
+                  </div>
+                  <div class="form-field">
+                    <button class="btn" type="button" style="margin-top: 1.8rem;" onclick="addItemField(event)">Add Now</button>
+                  </div>                 
+                </div> 
+
+              </div>
+
+            <!-- item data -->
+             <div id="item-data-box">
+                
+             </div>
+            <div class="full-width">
+              <button type="button" onclick="generateLR(event)" class="btn">
+                Generate LR
+              </button>
+              <button type="button" onclick="previewLR(event)" class="btn">
+                Preview LR
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- Lr pdf format -->
+      <div class="flex hide" id="lr-pdf" style="justify-content: center">
         <div class="pdf" id="pdf-content">
-          <div class="section" style="margin-top: 3rem;">
+          <div class="section">
             <div class="row">
               <div class="column" style="flex: 0 0 50%" colspan="2">
-                <img src="/img/logo.png" alt="" height="70px" width="120px">
+                <div class="flex flex-col" style="justify-content: space-around; gap: 3px">
+                  <img src="/img/logo.png" alt="" height="50px" width="230px" />
+                  <h2>HAX TECHNOLOGIES PVT LTD</h2>
+                  <p>JL Bhawan, NH-37, Jalukbari, Guwahati-781013</p>
+                  <p>Email: contact@waagn.com</p>
+                  <p>CIN : U74999AS2016PTC017481</p>
+                </div>
               </div>
-              <div class="column" style="flex: 0 0 25%" colspan="2">
-                Docket No:
+              <div class="column" style="flex: 0 0 50%; padding: 0" colspan="2">
+                <div class="flex flex-col" style="gap: 1rem">
+                  <p style="padding: 1rem">Docket No: <span class="lr-field" id="docket_number"></span></p>
+                  <p style="border-top: 2px solid rgb(86, 86, 86); padding: 1rem">
+                    Order ID:
+                  </p>
+                </div>
               </div>
-              <div class="column" style="flex: 0 0 25%">Order ID:</div>
             </div>
-            <div class="row">
+            <div class="row"> 
               <div class="column" style="flex: 0 0 50%" colspan="2">Date</div>
               <div class="column" style="flex: 0 0 25%" colspan="2">
                 Origin:
@@ -69,38 +222,48 @@
             <div class="row">
               <div class="column font-bold" style="flex: 0 0 50%" colspan="2">
                 Consignor:
-              </div>       
+              </div>
               <div class="column font-bold" style="flex: 0 0 50%">
                 Consignee:
               </div>
             </div>
             <div class="row">
-              <div class="column" style="flex: 0 0 50%">Company Name:</div>            
-              <div class="column" style="flex: 0 0 50%">Company Name:</div>            
+              <div class="column" style="flex: 0 0 50%">Company Name:</div>
+              <div class="column" style="flex: 0 0 50%">Company Name:</div>
             </div>
             <div class="row">
-              <div class="column" style="flex: 0 0 50%">GST No:</div>            
-              <div class="column" style="flex: 0 0 50%">GST No:</div>                   
+              <div class="column" style="flex: 0 0 50%">GST No:</div>
+              <div class="column" style="flex: 0 0 50%">GST No:</div>
             </div>
             <div class="row">
-              <div class="column" style="flex: 0 0 50%">Address:</div>           
-              <div class="column" style="flex: 0 0 50%">Address:</div>           
+              <div class="column" style="flex: 0 0 50%">Address:</div>
+              <div class="column" style="flex: 0 0 50%">Address:</div>
             </div>
             <div class="row">
               <div class="column" style="flex: 0 0 50%">Contact:</div>
               <div class="column" style="flex: 0 0 50%">Contact:</div>
             </div>
             <div class="row">
-              <div class="column" style="flex: 0 0 50%">Pin Code:</div>         
-              <div class="column" style="flex: 0 0 50%">Pin Code:</div>         
-              <div class="column font-bold" style="flex: 0 0 12.5%">Payment Mode</div>
-              <div class="column" style="flex: 0 0 12.5%">Paid</div>
-              <div class="column" style="flex: 0 0 12.5%">To Pay</div>
-              <div class="column" style="flex: 0 0 12.5%; border-right: 1.5px solid black;">TBB</div>
-              <div class="column font-bold" style="flex: 0 0 12.5%">Liability</div>
-              <div class="column" style="flex: 0 0 19%"><span class="checkbox"></span>Owner's Risk</div>
-              <div class="column" style="flex: 0 0 18.5%"><span class="checkbox"></span>Carrier's Risk</div>
-            </div>        
+              <div class="column" style="flex: 0 0 50%">Pin Code:</div>
+              <div class="column" style="flex: 0 0 50%">Pin Code:</div>
+              <div class="column font-bold" style="flex: 0 0 12.5%">
+                Payment Mode
+              </div>
+              <div class="column" style="flex: 0 0 12.5%"><span class="checkbox lr-field" id="paid"></span>Paid</div>
+              <div class="column" style="flex: 0 0 12.5%"><span class="checkbox lr-field" id="topay"></span>To Pay</div>
+              <div class="column" style="flex: 0 0 12.5%; border-right: 1.5px solid black">
+                <span class="checkbox lr-field" id="tbb"></span>TBB  
+              </div>
+              <div class="column font-bold" style="flex: 0 0 12.5%">
+                Liability
+              </div>
+              <div class="column" style="flex: 0 0 19%">
+                <span class="checkbox lr-field" id="or"></span>Owner's Risk
+              </div>
+              <div class="column" style="flex: 0 0 18.5%">
+                <span class="checkbox lr-field" id="cr"></span>Carrier's Risk
+              </div>
+            </div>
           </div>
           <div class="section">
             <div class="row">
@@ -114,56 +277,37 @@
               <div class="column" style="flex: 0 0 16.65%">Comments</div>
             </div>
             <div id="item-add-row">
-              <div class="row">
-                <div class="column">1</div>
-                <div class="column"></div>
-                <div class="column"></div>
-                <div class="column"></div>
-                <div class="column"></div>
-                <div class="column"></div>
-              </div>         
-            </div>                 
+              <!-- dynamic data will render -->
+            </div>
           </div>
           <div class="section">
             <div class="row">
-              <div class="column font-bold">
-                Charges
-              </div>             
+              <div class="column font-bold">Charges</div>
             </div>
             <div class="row">
-              <div class="column">Freight Charges</div>
-              <div class="column" style="flex: 0 0 33.33%">              
+              <div class="column" style="flex: 0 0 16.66%">Freight Charges</div>
+              <div class="column" style="flex: 0 0 16.66%">Handling Charges</div>
+              <div class="column" style="flex: 0 0 16.66%">Statistical Charges</div>
+              <div class="column" style="flex: 0 0 16.66%">Others</div>
+              <div class="column" style="flex: 0 0 16.66%">GST @12%</div>
+              <div class="column" style="flex: 0 0 16.66%">Grand Total</div>
+            </div>
+            <div class="row" id="charges-box-lr">
+              <div class="column" style="flex: 0 0 16.66%" id="fr-chg"></div>
+              <div class="column" style="flex: 0 0 16.66%" id="hnd-chg"></div>
+              <div class="column" style="flex: 0 0 16.66%" id="sts-chg"></div>
+              <div class="column" style="flex: 0 0 16.66%" id="oth-chg"></div>
+              <div class="column" style="flex: 0 0 16.66%" id="gst-chg"></div>
+              <div class="column" style="flex: 0 0 16.66%" id="tot-chg"></div>
+            </div>
+            <div class="row">
+              <div class="column" style="flex: 0 0 50%" id="">
+                Invoice No: <span class="lr-field" id="invoice_number"></span>
               </div>
-              <div class="column" style="flex: 0 0 33.33%"></div>
-            </div>
-            <div class="row">
-              <div class="column">Handling Charges</div>
-              <div class="column" style="flex: 0 0 33.33%">          
+              <div class="column" style="flex: 0 0 50%" id="">
+                Declared Value: <span class="lr-field" id="declared_value"></span>
               </div>
-              <div class="column" style="flex: 0 0 33.33%"></div>
-            </div>
-            <div class="row">
-              <div class="column">Statistical Charges</div>
-              <div class="column" style="flex: 0 0 33.33%"></div>
-              <div class="column" style="flex: 0 0 33.33%"></div>
-            </div>
-            <div class="row">
-              <div class="column">Others</div>
-              <div class="column" style="flex: 0 0 33.33%"></div>
-              <div class="column" style="flex: 0 0 33.33%"></div>
-            </div>
-            <div class="row">
-              <div class="column">GST @12%</div>
-              <div class="column font-bold" style="flex: 0 0 33.33%">           
-              </div>
-              <div class="column" style="flex: 0 0 33.33%"></div>
-            </div>
-            <div class="row">
-              <div class="column">Grand Total</div>
-              <div class="column font-bold" style="flex: 0 0 33.33%">              
-              </div>
-              <div class="column" style="flex: 0 0 33.33%"></div>
-            </div>
+            </div>        
           </div>
           <div class="section">
             <div class="row">
@@ -174,17 +318,17 @@
                 We have received the goods in good condition
               </div>
             </div>
-            <div class="row">
-              <div class="column font-bold" style="flex: 0 0 33.33%">
-                Terms & Conditions:
+            <div class="row">              
+              <div class="column" style="flex: 0 0 50%" colspan="2">
+                Receiver's Name: <span class="lr-field" id="reciever_name"></span>
               </div>
-              <div class="column" style="flex: 0 0 33.33%" colspan="2">
-                Receiver's Name:
-              </div>
-              <div class="column" style="flex: 0 0 33.33%" colspan="2">
+              <div class="column" style="flex: 0 0 50%; padding: 1rem;" colspan="2">
                 Consignee Seal & Comments
               </div>
-              <div class="column" style="flex: 0 0 33.33%">Payment QR Code</div>
+              <div class="column" style="flex: 0 0 100%"><span class="font-bold">Terms & Conditions</span>: Goods are transported at owner's risk. The carrier is not liable for 
+                loss, damage, or delay due to unforeseen circumstances. Claims, 
+                if any, must be reported within 7 days of delivery. Freight charges 
+                are based on actual or volumetric weight, whichever is higher</div>
             </div>
           </div>
         </div>
@@ -322,7 +466,6 @@
             </tr>
           </table>
         </div> -->
-      
       </div>
     </div>
 
@@ -336,7 +479,7 @@
             margin: 5,
             filename: "Shipping_Details.pdf",
             image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2 },
+            html2canvas: { scale: 2, letterRendering: true },
             jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
           };
 

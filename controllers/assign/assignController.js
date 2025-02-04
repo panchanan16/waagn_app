@@ -48,11 +48,11 @@ exports.getPartnerAssignById = (req, res) => {
 
 // Update a partner assignment
 exports.updatePartnerAssign = (req, res) => {
-  const { p_assign_id } = req.params;
-  const { order_id, partner_id, godown_id, datetime, msg_for_partner } = req.body;
+  const { id } = req.params;
+  const { partner_id, godown_id, datetime } = req.body;
 
-  const query = 'UPDATE partner_assign SET order_id = ?, partner_id = ?, godown_id = ?, datetime = ?, msg_for_partner = ? WHERE p_assign_id = ?';
-  db.query(query, [order_id, partner_id, godown_id, datetime, msg_for_partner, p_assign_id], (err, result) => {
+  const query = 'UPDATE partner_assign SET partner_id = ?, godown_id = ?, datetime = ? WHERE p_assign_id = ?';
+  db.query(query, [partner_id, godown_id, datetime, id], (err, result) => {
     if (err) {
       console.error('Error updating record:', err);
       return res.status(500).send({ success: false, message: 'Failed to update partner assignment', error: err });
@@ -103,6 +103,25 @@ exports.createVehicleAssignment = (req, res) => {
     }
 
     return res.status(201).json({ success: true, message: 'Vehicle assignment created successfully' });
+  });
+};
+
+// Update vehicle Assign 
+exports.updateVehicleAssign = (req, res) => {
+  const { id } = req.params;
+  const { vehicle_id, driver_id, msg_for_driver } = req.body;
+  console.log(req.body)
+
+  const query = 'UPDATE vehicle_assignment SET vehicle_id = ?, driver_id = ?, msg_for_driver = ? WHERE v_assign_id = ?';
+  db.query(query, [ vehicle_id, driver_id, msg_for_driver, id], (err, result) => {
+    if (err) {
+      console.error('Error updating record:', err);
+      return res.status(500).send({ success: false, message: 'Failed to update partner assignment', error: err });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).send({ success: false, message: 'Partner assignment not found' });
+    }
+    res.status(200).send({ success: true, message: 'Partner assignment updated successfully', data: result });
   });
 };
 

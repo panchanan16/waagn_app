@@ -77,6 +77,7 @@
                             <th>Delivery Address</th>
                             <th>Name</th>
                             <th>Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="order-table">
@@ -157,7 +158,7 @@
                         </div>
                         <div class="form-field">
                             <label for="types_of_goods">Types of Goods:</label>
-                            <select name="types_of_goods">
+                            <select id="types_of_goods" name="types_of_goods">
                                 <option value="lquid">Liquid</option>
                                 <option value="solid">Solid</option>
                             </select>
@@ -459,12 +460,12 @@
                             </div>
                             <div class="form-field">
                                 <label for="town">Order ID:</label>
-                                <input type="text" name="order_id" value="2" id="order-id-input" required readonly>
+                                <input type="text" name="order_id" value="" id="order-id-input" required readonly>
                             </div>
                         </div>
 
                         <div style="margin-top: 1rem;">
-                            <button class="btn" type="button" onclick="assignPartnerToOrder(event)">Assign Now</button>
+                            <button class="btn" id="update-partner-btn" data-psid="" type="button" onclick="assignPartnerToOrder(event)">Assign Now</button>
                             <button class="btn" type="button" onclick="closePopup('select-3pl-box')">Cancel</button>
                         </div>
                     </form>
@@ -520,12 +521,12 @@
                         </div>
                         <div class="form-row" style="margin-top: 1rem;">
                             <div class="form-field">
-                                <label for="full_address">Comments for driver:</label>
-                                <textarea id="full_address" name="msg_for_driver" required></textarea>
+                                <label for="msg-for-driver-inp">Comments for driver:</label>
+                                <textarea id="msg-for-driver-inp" value="" name="msg_for_driver" required></textarea>
                             </div>
                         </div>
                         <div style="margin-top: 1rem;">
-                            <button class="btn" type="button" onclick="assignVehicleToOrder(event)">Assign Now</button>
+                            <button class="btn" id="update-vehicle-btn" data-vsid="" type="button" onclick="assignVehicleToOrder(event)">Assign Now</button>
                             <button class="btn" type="button" onclick="closePopup('select-vehicle-box')">Cancel</button>
                         </div>
                     </form>

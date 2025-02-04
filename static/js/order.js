@@ -1,5 +1,3 @@
-console.log('order connected')
-
 const request = new DataCall()
 
 
@@ -14,6 +12,11 @@ async function renderAllOrder() {
             <td>${item.shipper_email_address}</td>
             <td>${item.shipper_contact_number}</td>
             <td>20/02/2024</td>
+            <td>
+                <diV style="cursor: pointer;" onclick="editOrder(event, ${item.order_id})">
+                    <i class="material-icons">app_registration</i> 
+                </div>
+            </td>
             </tr>`
             document.getElementById('order-table').innerHTML += html
         })
@@ -30,12 +33,16 @@ async function createOrderFromAdmin(e) {
     e.preventDefault()
     const formData = new FormData(document.getElementById('order-create-form-admin'))
     const response = await request.GET_POST('v1/orders', 'POST', formData, 'form')
-    if (response.success) { renderAllOrder() }
+    console.log(response)
+    if (response.success) { 
+        renderAllOrder() 
+        document.getElementById('order-create-form-admin').reset()
+    }
 
 }
 
 
-async function openAddPartnerForm(orderId) {
+async function openAddPartnerForm(orderId, target) {
     document.getElementById('order-id-input').value = orderId
     const response = await request.GET_POST('v1/partners/drop', 'GET')
     console.log(response)
@@ -46,20 +53,25 @@ async function openAddPartnerForm(orderId) {
             document.getElementById('partner-dropdown').innerHTML += html
         })
     }
+    target.dataset.psid != "" ? document.getElementById('update-partner-btn').dataset.psid = target.dataset.psid : 
+    document.getElementById('update-vehicle-btn').dataset.psid = ""
     openPopup('select-3pl-box')
 }
 
-async function openAddVehicleForm(orderId) {
+async function openAddVehicleForm(orderId, target) {
     document.getElementById('order-id-input-vh').value = orderId
+    const msgTarget = document.getElementById('msg-for-driver')
+    msgTarget.textContent != 'null' ? document.getElementById('msg-for-driver-inp').value = msgTarget.textContent : ''
     const response = await request.GET_POST('v1/vehicles/drivers', 'GET')
-    console.log(response)
     if (response.success) {
         document.getElementById('search-list').innerHTML = ''
         response.data.forEach((item) => {
-            const html = ` <li class="vh-num-li" onclick="selectVehicle(this, ${item.vehicle_id}, ${item.driver_id}, '${item.driver_name}')">${item.registration_number}</li>`
+            const html = `<li class="vh-num-li" onclick="selectVehicle(this, ${item.vehicle_id}, ${item.driver_id}, '${item.driver_name}')">${item.registration_number}</li>`
             document.getElementById('search-list').innerHTML += html
         })
     }
+    target.dataset.vsid != "" ? document.getElementById('update-vehicle-btn').dataset.vsid = target.dataset.vsid : 
+    document.getElementById('update-vehicle-btn').dataset.vsid = ""
     openPopup('select-vehicle-box')
 }
 
@@ -105,6 +117,7 @@ async function renderOrderDetails(id) {
     const response = await request.GET_POST(`v1/order/${id}`, 'GET')
     if (response.success) {
         const data = response.data[0]
+        console.log(data)
         const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
         <div class="key-value">
             <h2 class="flex details-heading">BOOKING DETAILS</h2>
@@ -159,44 +172,37 @@ async function renderOrderDetails(id) {
             </div>
         </div>
         <div class="key-value">
-            <h2 class="flex details-heading"> PICKUP DETAILS</h2>
+            <h2 class="flex details-heading">PICKUP DETAILS</h2>
             <div class="key-value-pair">
-                <strong>Order Status:</strong> <span class="status-green">delivered</span>
+                <strong>Vehicle Number:</strong> 
+                <span data-vehicleid="${typeof data.vehicle_id == 'number' ? data.vehicle_id : ''}">
+                ${data.registration_number}
+                </span>
             </div>
             <div class="key-value-pair">
-                <strong>Name:</strong> John Doe
+                <strong>Driver Name:</strong>
+                <span data-driverid="${typeof data.driver_id == 'number' ? data.driver_id : ''}">
+                ${data.driver_name}
+                </span>
             </div>
             <div class="key-value-pair">
-                <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                    near police point, paltan bazar</span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Drop Location:</strong> Los Angeles, CA
-            </div>
+                <strong>Message for Driver:</strong> <span class="" id="msg-for-driver">${data.msg_for_driver}</span>
+            </div>      
         </div>
 
-        <div class="key-value flex flex-col" style="gap: 1rem;">
+        <div class="key-value">
             <h2 class="flex details-heading">3PL PARTNER</h2>
-            <div class="flex key-value-pair">
-                <div>
-                    <label for="order-lr" class="btn">Upload LR</label>
-                    <input type="file" name="order-lr" id="order-lr" class="hide">
-                </div>
-                <p class="view-doc">View</p>
+             <div class="key-value-pair">
+                <strong>3PL Name: </strong> ${data.company_name}
             </div>
-            <div class="flex key-value-pair">
-                <div>
-                    <label for="order-tax-invoice" class="btn">Upload Tax Invoice</label>
-                    <input type="file" name="order-tax-invoice" id="order-tax-invoice" class="hide">
-                </div>
-                <p class="view-doc">View</p>
+            <div class="key-value-pair">
+                <strong>Godown Location:</strong> <span class="">${data.full_address}</span>
             </div>
-            <div class="flex key-value-pair">
-                <div>
-                    <label for="goods-photos" class="btn">Goods Photo</label>
-                    <input type="file" name="goods-photos" id="goods-photos" class="hide">
-                </div>
-                <p class="view-doc unactive">View</p>
+            <div class="key-value-pair">
+                <strong>Godown Manager:</strong>${data.contact_person_name}
+            </div>
+            <div class="key-value-pair">
+                <strong>Godown Contact:</strong> ${data.godown_contact}
             </div>
         </div>
 
@@ -234,20 +240,51 @@ async function renderOrderDetails(id) {
             </div>
         </div>
 
-        <div class="key-value">
+        <div class="key-value flex flex-col" style="gap: 1rem;">
             <h2 class="flex details-heading">COMMENTS</h2>
             <div class="key-value-pair form-row">
                 <input type="text" name="amount" value="1000">
                 <button class="btn">Update</button>
             </div>
+             <div class="flex key-value-pair">
+                <div>
+                    <label for="order-lr" class="btn">Upload LR</label>
+                    <input type="file" name="order-lr" id="order-lr" class="hide">
+                </div>
+                <p class="view-doc">View</p>
+            </div>
+            <div class="flex key-value-pair">
+                <div>
+                    <label for="order-tax-invoice" class="btn">Upload Tax Invoice</label>
+                    <input type="file" name="order-tax-invoice" id="order-tax-invoice" class="hide">
+                </div>
+                <p class="view-doc">View</p>
+            </div>
+            <div class="flex key-value-pair">
+                <div>
+                    <label for="goods-photos" class="btn">Goods Photo</label>
+                    <input type="file" name="goods-photos" id="goods-photos" class="hide">
+                </div>
+                <p class="view-doc unactive">View</p>
+            </div>
         </div>
     </div>
     <div class="flex" style="gap: 1rem">
-        <button class="btn" onclick="openAddPartnerForm(${data.order_id})" ${data.partner_assign_status ? 'disabled' : ''}>  ${data.partner_assign_status ? '3PL Added' : 'Assign 3pl Partner'}
+        <button 
+        class="btn"
+        data-psid="${typeof data.p_assign_id == 'number' ? data.p_assign_id : ''}" 
+        onclick="openAddPartnerForm(${data.order_id}, this)"
+        >  
+        ${data.partner_assign_status ? 'Update Partner' : 'Assign 3pl Partner'}
         </button>
 
-        <button class="btn" onclick="openAddVehicleForm(${data.order_id})" ${data.vehicle_assign_status ? 'disabled' : ''}>
-          ${data.vehicle_assign_status ? 'Vehicle Added' : 'Assign Pickup Vehicle'}
+        <button 
+        class="btn"         
+        data-vsid="${typeof data.v_assign_id == 'number' ? data.v_assign_id : ''}"
+        onclick="openAddVehicleForm(${data.order_id}, this)"
+        data-vsid="${data.vehicle_assign_status ? data.v_assign_id : ''}"
+        >
+          ${data.vehicle_assign_status ? 'Update Vehicle' : 'Assign Pickup Vehicle'}
         </button>
         <button class="btn">Download</button>
     </div>`
@@ -260,14 +297,15 @@ async function renderOrderDetails(id) {
 async function assignPartnerToOrder(e) {
     e.preventDefault()
     const formData = new FormData(document.getElementById('assign-partner-form'))
-    const response = await request.GET_POST(`v1/assign/partner`, 'POST', formData, 'form')
+    e.target.dataset.psid != "" ? await request.GET_POST(`v1/assign/partner/${e.target.dataset.psid}`, 'PUT', formData, 'form') : await request.GET_POST(`v1/assign/partner`, 'POST', formData, 'form')    
 }
 
 
 async function assignVehicleToOrder(e) {
     e.preventDefault()
     const formData = new FormData(document.getElementById('assign-vehicle-form'))
-    const response = await request.GET_POST(`v1/assign/vehicle`, 'POST', formData, 'form')
+    e.target.dataset.vsid != "" ? await request.GET_POST(`v1/assign/vehicle/${e.target.dataset.vsid}`, 'PUT', formData, 'form') : await request.GET_POST(`v1/assign/vehicle`, 'POST', formData, 'form') 
+    
 }
 
 
@@ -282,6 +320,28 @@ function selectVehicle(target, vehicleId, driverId, driverName) {
 
 async function updateOrderStatus(target, orderId) {
     const response = await request.DEL_UPD(`v1/order/status/${orderId}`, 'PUT', { order_status: target.value })
+}
+
+
+
+async function editOrder(e, orderid) {
+    e.stopPropagation()
+    alert('Edited successfully!')
+    const form = document.getElementById('order-create-form-admin')
+    const inputs = form.getElementsByTagName('INPUT') 
+    const response = await request.GET_POST(`v1/order/update/${orderid}`, 'GET')
+    if (response.success) {
+        for (const key in response.data[0]) {
+            Array.from(inputs).forEach((item)=> {
+                if (key == item.id) {
+                    item.value = response.data[0][key]
+                }
+            })
+        }
+    } 
+    form.querySelector('#types_of_goods').value = response.data[0].types_of_goods
+    
+    openPopup('create-order-form-popup')
 }
 
 renderAllOrder();
