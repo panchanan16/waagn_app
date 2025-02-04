@@ -85,4 +85,19 @@ function updateDriver(req, res) {
     });
 }
 
-module.exports = {registerDriver, updateDriver, getAllDrivers, getOneDriver, getAllDriversForDropdown}
+
+
+// Function to Update a Driver Status ----
+function updateDriverStatus(req, res) {
+    const {id} = req.params
+    const query = 'UPDATE drivers SET driver_status = ? WHERE driver_id = ?';
+
+    db.query(query, [req.body.status, id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Driver Status Not Updated!', error: err });
+        }
+        return res.status(200).json({ success: true, message: 'Driver Status Updated Successfully!', data: results });
+    });
+}
+
+module.exports = {registerDriver, updateDriver, updateDriverStatus, getAllDrivers, getOneDriver, getAllDriversForDropdown}

@@ -115,7 +115,6 @@ class DataCall {
                     body: JSON.stringify(body)
                 })
                 const res = await fet.json()
-                console.log(fet)
                 if (fet.ok) {
                     // document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Updated Successfully', res.message, 'success')

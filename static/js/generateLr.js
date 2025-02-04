@@ -1,3 +1,21 @@
+const request = new DataCall()
+
+async function startLRGeneration() {
+  const orderId = document.getElementById('order-for-lr').value
+   const response = await request.GET_POST(`v1/order/update/${orderId}`, 'GET')
+   if (response.success) {
+      const space = Array.from(document.querySelectorAll('.db-data'))
+      for (const key in response.data[0]) {
+         space.forEach((item)=> {
+            if (key == item.id) {
+              item.textContent = response.data[0][key]
+            }
+         })
+      }
+   }
+}
+
+
 function addItemRow(data) {
   const html = `<div class="row" ondblclick="removeItemField(this, 'lr')">
                 <div class="column">2</div>

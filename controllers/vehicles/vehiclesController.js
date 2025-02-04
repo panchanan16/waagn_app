@@ -101,6 +101,22 @@ function updateVehicle(id, data) {
     });
 }
 
+
+// Function to Update a vehicle Status
+function updateVehicleStatus(req, res) {
+    const {id} = req.params
+    const query = 'UPDATE vehicle_information SET is_active = ? WHERE vehicle_id = ?';
+
+    db.query(query, [req.body.status, id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Vehicle Status Not Updated!', error: err });
+        }
+        return res.status(200).json({ success: true, message: 'Vehicle Status Updated Successfully!', data: results });
+    });
+}
+
+
+
 // Function to delete a vehicle by ID
 function deleteVehicle(id, callback) {
     const query = 'DELETE FROM vehicle_information WHERE vehicle_id = ?';
@@ -121,5 +137,6 @@ module.exports = {
     getAllVehicles,
     getAllVehiclesWithDriver,
     updateVehicle,
+    updateVehicleStatus,
     deleteVehicle
 };

@@ -102,7 +102,7 @@ exports.create = (req, res) => {
 
 // UPDATE an existing order
 exports.update = (req, res) => {
-  const orderId = req.params.id;
+  const {id} = req.params;
   const {
     pickup_location_address,
     delivery_location_address,
@@ -130,7 +130,7 @@ exports.update = (req, res) => {
     payment_mode,
     payment_status,
     amount,
-    order_status
+    order_date
   } = req.body;
 
   const query = `
@@ -141,7 +141,7 @@ exports.update = (req, res) => {
       types_of_goods = ?, actual_weight_of_consignment = ?, number_of_boxes = ?, length_of_box = ?, 
       height_of_box = ?, breadth_of_box = ?, volume_of_consignment = ?, consignment_risk = ?, 
       pickup_datetime = ?, delivery_datetime = ?, insurance = ?, tax_invoice_number = ?, 
-      payment_mode = ?, payment_status = ?, amount = ?, order_status = ?
+      payment_mode = ?, payment_status = ?, amount = ?, order_date = ?
     WHERE order_id = ?
   `;
 
@@ -151,7 +151,7 @@ exports.update = (req, res) => {
     receiver_contact_number, receiver_gst, receiver_email_address, types_of_goods,
     actual_weight_of_consignment, number_of_boxes, length_of_box, height_of_box, breadth_of_box,
     volume_of_consignment, consignment_risk, pickup_datetime, delivery_datetime, insurance,
-    tax_invoice_number, payment_mode, payment_status, amount, order_status, orderId
+    tax_invoice_number, payment_mode, payment_status, amount, order_date, id
   ], (err, result) => {
     if (err) {
       console.error('Error updating order:', err);

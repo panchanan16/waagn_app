@@ -20,12 +20,14 @@ appRoutes.get('/drivers', driverControllers.getAllDrivers)
 appRoutes.get('/driver/:id', driverControllers.getOneDriver)
 appRoutes.get('/drivers/drop', driverControllers.getAllDriversForDropdown)
 appRoutes.put('/driver/update', driverControllers.updateDriver)
+appRoutes.put('/driver/status/:id', driverControllers.updateDriverStatus)
 
 
 //Vehicles Api ---
 appRoutes.post('/vehicle', vehicleControllers.createVehicle)
 appRoutes.get('/vehicles', vehicleControllers.getAllVehicles)
 appRoutes.put('/vehicle', vehicleControllers.updateVehicle)
+appRoutes.put('/vehicle/status/:id', vehicleControllers.updateVehicleStatus)
 appRoutes.get('/vehicles/drivers', vehicleControllers.getAllVehiclesWithDriver)
 
 
@@ -33,10 +35,10 @@ appRoutes.get('/vehicles/drivers', vehicleControllers.getAllVehiclesWithDriver)
 appRoutes.get('/orders', ordersController.getAll);  
 appRoutes.get('/order/:id', ordersController.getOne); 
 appRoutes.get('/order/update/:id', ordersController.getOneForUpdate); 
-appRoutes.post('/orders', ordersController.create); 
+appRoutes.post('/order', ordersController.create); 
 appRoutes.put('/order/status/:orderId', ordersController.updateOrderStatus);   
-appRoutes.put('/orders/:id', ordersController.update);
-appRoutes.delete('/orders/:id', ordersController.delete);
+appRoutes.put('/order/:id', ordersController.update);
+appRoutes.delete('/order/:id', ordersController.delete);
 
 
 //Partners Api ---

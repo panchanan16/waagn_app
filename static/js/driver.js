@@ -8,13 +8,19 @@ async function renderDrivers() {
         response.forEach(item => {
             table.innerHTML += `<tr class="table-rows" onclick="renderDriverDetails(${item.driver_id})">
         <td>${item.driver_id}</td>
-        <td><select class="status-green" onchange="changeStatus(this)">
-                <option value="Active">Active</option>
-                <option value="Unactive">Unactive</option>
-            </select></td>
-        <td><span class="status-green">Active</span></td>
         <td>${item.driver_name}</td>
-        <td>20/02/2024</td>
+        <td>${item.contact_number}</td>
+        <td>${item.dl_number}</td>
+        <td>
+            <select onclick="prevent(event)" class="${item.driver_status ? 'status-green' : 'status-red'}" onchange="updateDriverStatus(this, ${item.driver_id})">
+                    <option value="1" ${item.driver_status ? 'selected' : ''}>
+                        Active
+                    </option>
+                    <option value="0" ${item.driver_status ? '' : 'selected'}>
+                        Unactive
+                    </option>
+            </select>
+        </td>
         </tr>`
         });
     }
@@ -81,4 +87,11 @@ async function registerDriver(e) {
     const formData = new FormData(document.getElementById('driver-register-form'))
     const response = await request.GET_POST('v1/driver/register', 'POST', formData, 'file')
     if (response.success) { renderDrivers() }
+}
+
+function prevent(e) { e.stopPropagation() }
+
+async function updateDriverStatus(target, driverId) {
+    changeStatus(target)
+    await request.DEL_UPD(`v1/driver/status/${driverId}`, 'PUT', {status: target.value})
 }

@@ -100,6 +100,7 @@ CREATE TABLE vehicle_information (
     references_from_previous_employers_clients TEXT,
     feedback_on_performance_and_reliability TEXT,
     driver_details INT DEFAULT NULL,
+    is_active TINYINT(1) DEFAULT 1,
     FOREIGN KEY (driver_details) REFERENCES drivers(driver_id) ON DELETE SET NULL
 );
 

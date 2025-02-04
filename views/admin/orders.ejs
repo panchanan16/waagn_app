@@ -93,7 +93,7 @@
                 <div class="flex form-header">
                     <h2>Order Information Form</h2>
                     <span class="material-icons" style="cursor: pointer;color: #c11717;"
-                        onclick="closePopup('create-order-form-popup')">close</span>
+                        onclick="closePopup('create-order-form-popup', 'form', 'order-update-btn', 'orderid', 'order-create-form-admin')">close</span>
                 </div>
                 <form id="order-create-form-admin" style="margin-top: 1.5rem;">
                     <div class="form-row">
@@ -202,7 +202,7 @@
                     <div class="form-row">
                         <div class="form-field">
                             <label for="consignment_risk">Consignment Risk:</label>
-                            <select name="consignment_risk">
+                            <select name="consignment_risk" id="consignment_risk">
                                 <option value="owner_risk">Owner Risk</option>
                                 <option value="carrier_risk">Carier Risk</option>
                             </select>
@@ -230,8 +230,8 @@
                             <input type="text" id="tax_invoice_number" name="tax_invoice_number">
                         </div>
                         <div class="form-field">
-                            <label for="payment_status">Payment Mode:</label>
-                            <select name="payment_mode">
+                            <label for="payment_mode">Payment Mode:</label>
+                            <select name="payment_mode" id="payment_mode">
                                 <option value="upi">UPI</option>
                                 <option value="cash">Cash</option>
                             </select>
@@ -245,8 +245,8 @@
                             <input type="number" id="amount" name="amount">
                         </div>
                         <div class="form-field">
-                            <label for="amount">Payment Status:</label>
-                            <select name="payment_status">
+                            <label for="payment_status">Payment Status:</label>
+                            <select name="payment_status" id="payment_status">
                                 <option value="topay">To pay</option>
                                 <option value="tobill">To be billed</option>
                                 <option value="paid">Paid</option>
@@ -264,7 +264,7 @@
                     </div>
 
                     <div class="full-width">
-                        <button type="button" onclick="createOrderFromAdmin(event)" class="btn">Submit</button>
+                        <button type="button" id="order-update-btn" data-orderid="" onclick="createOrderFromAdmin(event)" class="btn">Submit</button>
                     </div>
                 </form>
             </div>
