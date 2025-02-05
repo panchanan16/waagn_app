@@ -3,12 +3,12 @@ const request = new DataCall()
 async function renderDrivers() {
     const response = await request.GET_POST('v1/drivers', 'GET')
     const table = document.getElementById('driver-table')
-    if (response) {
+    if (response.success) {
         table.innerHTML = ''
-        response.forEach(item => {
+        response.data[0].forEach(item => {
             table.innerHTML += `<tr class="table-rows" onclick="renderDriverDetails(${item.driver_id})">
         <td>${item.driver_id}</td>
-        <td>${item.driver_name}</td>
+        <td class="search-item">${item.driver_name}</td>
         <td>${item.contact_number}</td>
         <td>${item.dl_number}</td>
         <td>
@@ -23,6 +23,10 @@ async function renderDrivers() {
         </td>
         </tr>`
         });
+
+        document.getElementById('total-driver').textContent = response.data[1][0].total
+        document.getElementById('active-driver').textContent = response.data[2][0].active
+        document.getElementById('unactive-driver').textContent = response.data[3][0].unactive
     }
 
 }
@@ -89,7 +93,6 @@ async function registerDriver(e) {
     if (response.success) { renderDrivers() }
 }
 
-function prevent(e) { e.stopPropagation() }
 
 async function updateDriverStatus(target, driverId) {
     changeStatus(target)

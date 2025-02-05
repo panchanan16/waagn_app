@@ -39,7 +39,7 @@ function createVehicle(req, res) {
 
 // Function to get all vehicles
 function getAllVehicles(req, res) {
-    const query = 'SELECT * FROM vehicle_information';
+    const query = 'SELECT * FROM vehicle_information;SELECT COUNT(*) AS total FROM vehicle_information;SELECT COUNT(*) AS active FROM vehicle_information WHERE is_active = 1;SELECT COUNT(*) AS unactive FROM vehicle_information WHERE is_active = 0;';
 
     db.query(query, (err, results) => {
         if (err) {

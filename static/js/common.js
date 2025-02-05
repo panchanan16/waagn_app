@@ -6,8 +6,8 @@ function openPopup(className) {
 
 function closePopup(className, type, id, key, formid) {
   if (type == "form") {
-    document.getElementById(id).dataset[key] = ""
-    document.getElementById(formid).reset()
+    document.getElementById(id).dataset[key] = "";
+    document.getElementById(formid).reset();
     document.querySelector(`.${className}`).classList.add("hide");
   } else {
     document.querySelector(`.${className}`).classList.add("hide");
@@ -43,8 +43,8 @@ function changeStatus(target) {
   }
 }
 
-function searchItems(target, searchId) {
-  const items = document.querySelectorAll(`.${searchId}`);
+function searchItems(target, searchIdOne) {
+  const items = document.querySelectorAll(`.${searchIdOne}`);
   const query = target.value.toLowerCase();
   for (let i = 0; i < items.length; i++) {
     const itemText = items[i].textContent.toLowerCase();
@@ -62,4 +62,25 @@ function toggleAsideSubmenu(target) {
   targetUl.classList.toggle("hide");
   target.parentNode.querySelector(".arr-right").classList.toggle("hide");
   target.parentNode.querySelector(".arr-down").classList.toggle("hide");
+}
+
+function prevent(e) {
+  e.stopPropagation();
+}
+
+function searchItemsGlobal(target, className, value, removeId) {
+  const items = Array.from(document.querySelectorAll(`.${className}`));
+  const query = value ? value.toLowerCase() : target.value.toLowerCase();
+  for (let i = 0; i < items.length; i++) {
+    Array.from(items[i].childNodes).forEach((item) => {
+      const itemText = items[i].textContent.toLowerCase() || items[i].innerText.toLowerCase();
+      if (itemText.indexOf(query) > -1) {
+        items[i].style.display = "table-row";
+      } else {
+        items[i].style.display = "none";
+      }
+    });
+  }
+
+  if (removeId) { document.getElementById(removeId).remove() }
 }

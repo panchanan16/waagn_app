@@ -15,13 +15,9 @@
     <%- include('../partials/aside.ejs') %>
         <div class="content">
             <div class="header">
-                <div>
-                    <span>Overview</span>
-                    <span>Payments</span>
-                    <span>Cards</span>
-                    <span>Account</span>
-                    <span>System</span>
-                    <span>Business</span>
+                <div class="flex search-bar">
+                    <input type="text" oninput="searchItemsGlobal(this, 'search-item')" placeholder="search you query here...">
+                    <button><i class="material-icons">search</i></button>
                 </div>
                 <div style="display: flex; align-items: center;">
                     <span style="font-weight: 600;">Panchanan Deka</span>
@@ -31,16 +27,16 @@
 
             <div class="service-cards grid-col-3">
                 <div class="service-card">
-                    <h3>13</h3>
-                    <p>Today's Orders</p>
+                    <h3 id="total-driver">13</h3>
+                    <p>Total Drivers</p>
                 </div>
                 <div class="service-card" style="background-color: #c4c443;">
-                    <h3>8</h3>
-                    <p>Order In Progress</p>
+                    <h3 id="active-driver">8</h3>
+                    <p>Active Drivers</p>
                 </div>
                 <div class="service-card" style="background-color: #89c867;">
-                    <h3>50</h3>
-                    <p>Completed Orders</p>
+                    <h3 id="unactive-driver">50</h3>
+                    <p>Unactive drivers</p>
                 </div>
             </div>
 
@@ -147,6 +143,12 @@
                 <div class="key-value-box"  id="driver-details-box" style="justify-content: space-around; margin-block: 1rem;">
                   
                 </div>
+            </div>
+        </div>
+
+        <div class="flex loader-bg hide" id="loading-container">
+            <div>
+                <span class="loader">Loading</span>
             </div>
         </div>
 

@@ -26,7 +26,7 @@ async function renderVehicleList() {
     const table = document.getElementById('vehicle-table')
     if (response.success) {
         table.innerHTML = ''
-        response.data.forEach((item, ind)=> {
+        response.data[0].forEach((item, ind)=> {
             const html = `<tr class="table-rows" onclick="renderVehicleDetails()">
             <td>${ind + 1}</td>
             <td>
@@ -47,6 +47,10 @@ async function renderVehicleList() {
             </tr>`
             table.innerHTML += html
         })
+
+        document.getElementById('total-vehicle').textContent = response.data[1][0].total
+        document.getElementById('active-vehicle').textContent = response.data[2][0].active
+        document.getElementById('unactive-vehicle').textContent = response.data[3][0].unactive
     }
 }
 
@@ -54,9 +58,6 @@ async function renderVehicleList() {
 async function renderVehicleDetails(vehicleID) {
     openPopup('vehicle-detail-popup')
 }
-
-
-function prevent(e) { e.stopPropagation() }
 
 
 async function updateVehicleStatus(target, vehicleID) {

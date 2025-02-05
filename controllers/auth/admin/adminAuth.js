@@ -41,6 +41,11 @@ exports.loginAdmin = async (req, res) => {
             if (err) {
                 return res.status(500).json({ message: 'Error saving token in database', error: err });
             }
+            res.cookie('adminToken', token, {
+                // httpOnly: true,   
+                // sameSite: 'Strict',
+                maxAge: 3600000
+              });
             res.status(200).json({ success: true, redirect: '/orders', message: 'Login successful', token });
         });
     });

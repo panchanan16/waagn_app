@@ -16,12 +16,17 @@ CREATE TABLE orders (
     shipper_company_name VARCHAR(255),
     shipper_name VARCHAR(100),
     shipper_contact_number VARCHAR(20),
+    shipper_gst VARCHAR(100) DEFAULT NULL,
     shipper_email_address VARCHAR(100),
+    shipper_pincode VARCHAR(10) DEFAULT NULL,
+    shipper_town VARCHAR(100) DEFAULT NULL,
     receiver_company_name VARCHAR(150),
     receiver_name VARCHAR(100),
     receiver_contact_number VARCHAR(20),
     receiver_gst VARCHAR(20),
     receiver_email_address VARCHAR(100),
+    receiver_pincode VARCHAR(10) DEFAULT NULL,
+    receiver_town VARCHAR(100) DEFAULT NULL,
     types_of_goods VARCHAR(150),
     actual_weight_of_consignment DECIMAL(10, 2),
     number_of_boxes INT,
@@ -40,7 +45,8 @@ CREATE TABLE orders (
     order_status VARCHAR(100),
     order_date VARCHAR(80) DEFAULT NULL,
     partner_assign_status TINYINT(1) DEFAULT 0,
-    vehicle_assign_status TINYINT(1) DEFAULT 0
+    vehicle_assign_status TINYINT(1) DEFAULT 0,
+    is_partner_accepted TINYINT(1) DEFAULT 0
 );
 
 -- Drivers Table
@@ -154,7 +160,7 @@ CREATE TABLE partner_godown (
     rate DECIMAL(10, 2) DEFAULT NULL,
     oda_number VARCHAR(255) DEFAULT NULL,
     partner_id INT DEFAULT NULL,
-    FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE SET NULL
+    FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE CASCADE
 );
 
 
@@ -171,7 +177,7 @@ CREATE TABLE our_godown (
     rate DECIMAL(10, 2) DEFAULT NULL,
     oda_number VARCHAR(255) DEFAULT NULL,
     partner_name VARCHAR(100) DEFAULT NULL,
-    is_active ENUM('active', 'notactive') DEFAULT 'active'
+    is_active TINYINT(1) DEFAULT 1
 );
 
 

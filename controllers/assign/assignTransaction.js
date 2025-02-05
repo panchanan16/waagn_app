@@ -168,7 +168,7 @@ async function dispatch_StatusUpdate(req, res) {
 
         //2nd transaction ---
         const statusQuery = `UPDATE orders SET order_status = ? WHERE order_id = ?`;
-        connection.query(statusQuery, ['transit', order_id], (err, result) => {
+        connection.query(statusQuery, ['outfordelivery', order_id], (err, result) => {
           if (err) {
             return connection.rollback(() => {
               console.error('Error updating status: ' + err.stack);

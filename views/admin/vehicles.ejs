@@ -31,16 +31,16 @@
 
             <div class="service-cards grid-col-3">
                 <div class="service-card">
-                    <h3>13</h3>
-                    <p>Today's Orders</p>
+                    <h3 id="total-vehicle">13</h3>
+                    <p>Total Vehicle</p>
                 </div>
                 <div class="service-card" style="background-color: #c4c443;">
-                    <h3>8</h3>
-                    <p>Order In Progress</p>
+                    <h3 id="active-vehicle">8</h3>
+                    <p>Active Vehicle</p>
                 </div>
                 <div class="service-card" style="background-color: #89c867;">
-                    <h3>50</h3>
-                    <p>Completed Orders</p>
+                    <h3 id="unactive-vehicle">50</h3>
+                    <p>Unactive Vehicle</p>
                 </div>
             </div>
 
@@ -417,6 +417,12 @@
                     </div>                 
                 </div>
             </div>        
+        </div>
+
+        <div class="flex loader-bg hide" id="loading-container">
+            <div>
+                <span class="loader">Loading</span>
+            </div>
         </div>
 
         <script src="/js/common.js"></script>

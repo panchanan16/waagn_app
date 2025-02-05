@@ -29,7 +29,16 @@ async function renderOurGodowns() {
         <td>${item.town}</td>
         <td>${item.partner_name}</td>
         <td>${item.type_of_godown}</td>
-        <td><span class="status-green">${item.is_active}</span></td>  
+        <td>
+          <select onclick="prevent(event)" class="${item.is_active ? 'status-green' : 'status-red'}" onchange="updateDriverStatus(this, ${item.driver_id})">
+                    <option value="1" ${item.is_active ? 'selected' : ''}>
+                        Active
+                    </option>
+                    <option value="0" ${item.is_active ? '' : 'selected'}>
+                        Unactive
+                    </option>
+            </select>
+        </td>  
         </tr>`;
       table.innerHTML += html;
     });
@@ -76,8 +85,8 @@ async function renderGodownDetails(godownId) {
             </div>
         <div class="key-value-pair">
             <strong>Status :</strong> 
-            <span class="${data.is_active == 'active' ? "status-green" : "status-red"}">
-                 ${data.is_active == 'active' ? "Active" : "Not Active"}
+            <span class="${data.is_active? "status-green" : "status-red"}">
+                 ${data.is_active ? "Active" : "Not Active"}
             </span>
         </div>                       
     </div>`;

@@ -12,12 +12,11 @@
 </head>
 
 <body>
-    <%- include('../partials/aside.ejs') %>
         <div class="content">
             <div class="header">
                 <div class="flex search-bar">
-                    <input type="text" oninput="searchItemsGlobal(this, 'table-rows')" placeholder="search you query here...">
-                    <button onclick="searchOrder(this, 'search-item', 'db')"><i class="material-icons">search</i></button>
+                    <input type="text" placeholder="search you query here...">
+                    <button><i class="material-icons">search</i></button>
                 </div>
                 <div style="display: flex; align-items: center;">
                     <span style="font-weight: 600;">Panchanan Deka</span>
@@ -25,26 +24,29 @@
                 </div>
             </div>
 
-            <div class="service-cards grid-col-3">
+            <div class="service-cards grid-col-4">
                 <div class="service-card">
                     <h3>13</h3>
-                    <p>Today's Orders</p>
+                    <p>Total Orders</p>
                 </div>
                 <div class="service-card" style="background-color: #c4c443;">
                     <h3>8</h3>
+                    <p>Order Accepted</p>
+                </div>
+                <div class="service-card" style="background-color: #89c867;">
+                    <h3>50</h3>
                     <p>Order In Progress</p>
                 </div>
                 <div class="service-card" style="background-color: #89c867;">
                     <h3>50</h3>
-                    <p>Completed Orders</p>
+                    <p>Delivered Orders</p>
                 </div>
             </div>
 
             <div class="table-container">
                 <div class="flex table-header" style="justify-content: space-between;">
-                    <h1>Latest Order</h1>
-                    <div class="flex" style="gap:1rem;">
-                        <button class="btn" onclick="openPopup('create-order-form-popup')">Create Order</button>
+                    <h1>3PL Partner's Order</h1>
+                    <div class="flex" style="gap:1rem;">        
                         <button class="btn" onclick="openPopup('filter-box')"><i style="font-size: 16px;"
                                 class="material-icons">tune</i></button>
                     </div>
@@ -74,11 +76,11 @@
                         <thead>
                             <tr>
                                 <th>Order ID</th>
-                                <th>Shipper Name</th>
-                                <th>Reciever Name</th>
-                                <th>Name</th>
-                                <th>Date</th>
-                                <th>Action</th>
+                                <th>3PL name</th>
+                                <th>Godown adress</th>
+                                <th>Order Status</th>
+                                <th>Name</th>    
+                                <th>Action</th>     
                             </tr>
                         </thead>
                         <tbody id="order-table">
@@ -86,7 +88,7 @@
                         </tbody>
                     </table>
                 </div>
-               
+                
             </div>
 
         </div>
@@ -96,7 +98,7 @@
                 <div class="flex form-header">
                     <h2>Order Information Form</h2>
                     <span class="material-icons" style="cursor: pointer;color: #c11717;"
-                        onclick="closePopup('create-order-form-popup', 'form', 'order-update-btn', 'orderid', 'order-create-form-admin')">close</span>
+                        onclick="closePopup('create-order-form-popup')">close</span>
                 </div>
                 <form id="order-create-form-admin" style="margin-top: 1.5rem;">
                     <div class="form-row">
@@ -125,31 +127,11 @@
                         <div class="form-field">
                             <label for="shipper_contact_number">Shipper Contact Number:</label>
                             <input type="text" id="shipper_contact_number" name="shipper_contact_number">
-                        </div>                        
-                        <div class="form-field">
-                            <label for="shipper_gst">Shipper GST:</label>
-                            <input type="text" id="shipper_gst" name="shipper_gst">
-                        </div> 
-                    </div>
-
-                    <div class="form-row">
+                        </div>
                         <div class="form-field">
                             <label for="shipper_email_address">Shipper Email Address:</label>
                             <input type="email" id="shipper_email_address" name="shipper_email_address">
-                        </div>  
-                        <div class="form-field">
-                            <label for="shipper_pincode">Shipper PINCODE:</label>
-                            <input type="email" id="shipper_pincode" name="shipper_pincode">
                         </div>
-                        <div class="form-field">
-                            <label for="shipper_town">Shipper City:</label>
-                            <select  id="shipper_town" name="shipper_town">
-                                <option value="Guwahati">Guwahati</option>
-                                <option value="Jorhat">Jorhat</option>
-                                <option value="Nagaon">Nagaon</option>
-                                <option value="Golaghat">Golaghat</option>
-                            </select>
-                        </div>                    
                     </div>
 
                     <div class="form-row">
@@ -176,28 +158,12 @@
 
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="reciever_pincode">Receiver PINCODE:</label>
-                            <input type="text" id="receiver_pincode" name="receiver_pincode">
-                        </div>
-                        <div class="form-field">
-                            <label for="receiver_town">Receiver City:</label>
-                            <select  id="receiver_town" name="receiver_town">
-                                <option value="Guwahati">Guwahati</option>
-                                <option value="Jorhat">Jorhat</option>
-                                <option value="Nagaon">Nagaon</option>
-                                <option value="Golaghat">Golaghat</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-field">
                             <label for="receiver_email_address">Receiver Email Address:</label>
                             <input type="email" id="receiver_email_address" name="receiver_email_address">
                         </div>
                         <div class="form-field">
                             <label for="types_of_goods">Types of Goods:</label>
-                            <select id="types_of_goods" name="types_of_goods">
+                            <select name="types_of_goods">
                                 <option value="lquid">Liquid</option>
                                 <option value="solid">Solid</option>
                             </select>
@@ -222,34 +188,37 @@
                             <input type="text" id="length_of_box" name="length_of_box">
                         </div>
                         <div class="form-field">
-                            <label for="breadth_of_box">Breadth of Box:</label>
-                            <input type="text" id="breadth_of_box" name="breadth_of_box">
-                        </div>
-                        <div class="form-field">
                             <label for="height_of_box">Height of Box:</label>
                             <input type="text" id="height_of_box" name="height_of_box">
                         </div>
                     </div>
 
-                    <div class="form-row">                        
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="breadth_of_box">Breadth of Box:</label>
+                            <input type="text" id="breadth_of_box" name="breadth_of_box">
+                        </div>
                         <div class="form-field">
                             <label for="volume_of_consignment">Volume of Consignment:</label>
                             <input type="text" id="volume_of_consignment" name="volume_of_consignment">
                         </div>
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-field">
                             <label for="consignment_risk">Consignment Risk:</label>
-                            <select name="consignment_risk" id="consignment_risk">
+                            <select name="consignment_risk">
                                 <option value="owner_risk">Owner Risk</option>
                                 <option value="carrier_risk">Carier Risk</option>
                             </select>
                         </div>
-                    </div>             
-
-                    <div class="form-row">
                         <div class="form-field">
                             <label for="pickup_datetime">Pickup Date and Time:</label>
                             <input type="datetime-local" id="pickup_datetime" name="pickup_datetime">
                         </div>
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-field">
                             <label for="delivery_datetime">Delivery Date and Time:</label>
                             <input type="datetime-local" id="delivery_datetime" name="delivery_datetime">
@@ -266,8 +235,8 @@
                             <input type="text" id="tax_invoice_number" name="tax_invoice_number">
                         </div>
                         <div class="form-field">
-                            <label for="payment_mode">Payment Mode:</label>
-                            <select name="payment_mode" id="payment_mode">
+                            <label for="payment_status">Payment Mode:</label>
+                            <select name="payment_mode">
                                 <option value="upi">UPI</option>
                                 <option value="cash">Cash</option>
                             </select>
@@ -277,24 +246,30 @@
 
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="order_date">Date:</label>
-                            <input type="date" id="order_date" name="order_date" required>
-                        </div>
-                        <div class="form-field">
                             <label for="amount">Amount:</label>
                             <input type="number" id="amount" name="amount">
                         </div>
                         <div class="form-field">
-                            <label for="payment_status">Payment Status:</label>
-                            <select name="payment_status" id="payment_status">
+                            <label for="amount">Payment Status:</label>
+                            <select name="payment_status">
                                 <option value="topay">To pay</option>
                                 <option value="tobill">To be billed</option>
                                 <option value="paid">Paid</option>
                             </select>
                         </div>
-                    </div>                    
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="order_date">Date:</label>
+                            <input type="date" id="order_date" name="order_date" required>
+                        </div>
+                        <div class="form-field">                           
+                        </div>                         
+                    </div>
+
                     <div class="full-width">
-                        <button type="button" id="order-update-btn" data-orderid="" onclick="createOrderFromAdmin(event)" class="btn">Submit</button>
+                        <button type="button" onclick="createOrderFromAdmin(event)" class="btn">Submit</button>
                     </div>
                 </form>
             </div>
@@ -462,40 +437,64 @@
              <div class="flex sub-popup hide select-3pl-box">
                 <div class="sub-form-box scroll-box">
                     <div class="flex" style="align-items: center; gap:1rem">
-                        <h3>Assign 3PL Partner</h3>
+                        <h3>Dispatch Details Form</h3>
                     </div>
-                    <form id="assign-partner-form" style="margin-top: 1rem;">
+                    <form id="dispatch-details-form" style="margin-top: 1rem;">
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="partner-dropdown">Select 3PL Partner:</label>
-                                <select name="partner_id" id="partner-dropdown"
-                                    onchange="renderGodownLocationInForm(this)">
-                                    <!-- rendering dynamic -->
-                                </select>
+                                <label for="partner-dropdown">Partner Id:</label>
+                                <input type="text" name="partner_id" value="" id="partner-id-input" required readonly>
                             </div>
                             <div class="form-field">
-                                <label for="godown-type-dropdown">Select Location Type:</label>
-                                <select name="godown_type" id="godown-type-dropdown"
-                                    onchange="renderGodownLocationInForm()">
+                                <label for="godown-type-dropdown">Delivery Godown Location:</label>
+                                <select name="delivery_godown_address" id="godown-type-dropdown">
                                     <option value="" disabled selected>Select here</option>
                                     <option value="src">Source</option>
                                     <option value="dest">Destination</option>
                                 </select>
                             </div>
                             <div class="form-field">
-                                <label for="godown-location-dropdown">Select Gowdown Location:</label>
-                                <select name="godown_id" id="godown-location-dropdown">
-                                    <option value="" disabled selected>Select from here</option>
-                                </select>
+                                <label for="assigned_vehicle_no">Vehicle Number:</label>
+                                <input type="text" name="assigned_vehicle_no" value="" id="assigned_vehicle_no" required>
                             </div>
                             <div class="form-field">
-                                <label for="town">Order ID:</label>
-                                <input type="text" name="order_id" value="" id="order-id-input" required readonly>
+                                <label for="assigned_driver_name">Driver Name:</label>
+                                <input type="text" name="assigned_driver_name" id="assigned_driver_name" required>
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="assigned_driver_number">Driver Number:</label>
+                                <input type="text" name="assigned_driver_number" id="assigned_driver_number" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="e_way_bill_no">E Way Bill Number:</label>
+                                <input type="text" name="e_way_bill_no" id="e_way_bill_no" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="actual_weight">Actual Weight:</label>
+                                <input type="text" name="actual_weight" id="actual_weight" required>
+                            </div>                          
+                            <div class="form-field">
+                                <label for="charged_weight">Charged Weight:</label>
+                                <input type="text" name="charged_weight" value="" id="charged_weight" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="partner_amount">Amount:</label>
+                                <input type="text" name="partner_amount" id="partner_amount" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="order_id">Order ID:</label>
+                                <input type="text" name="order_id" id="order-id-input" required readonly>
+                            </div>                            
+                        </div>
+
                         <div style="margin-top: 1rem;">
-                            <button class="btn" id="update-partner-btn" data-psid="" type="button" onclick="assignPartnerToOrder(event)">Assign Now</button>
+                            <button class="btn" type="button" onclick="addDispatchDetails(event)">Assign Now</button>
                             <button class="btn" type="button" onclick="closePopup('select-3pl-box')">Cancel</button>
                         </div>
                     </form>
@@ -551,17 +550,19 @@
                         </div>
                         <div class="form-row" style="margin-top: 1rem;">
                             <div class="form-field">
-                                <label for="msg-for-driver-inp">Comments for driver:</label>
-                                <textarea id="msg-for-driver-inp" value="" name="msg_for_driver" required></textarea>
+                                <label for="full_address">Comments for driver:</label>
+                                <textarea id="full_address" name="msg_for_driver" required></textarea>
                             </div>
                         </div>
                         <div style="margin-top: 1rem;">
-                            <button class="btn" id="update-vehicle-btn" data-vsid="" type="button" onclick="assignVehicleToOrder(event)">Assign Now</button>
+                            <button class="btn" type="button" onclick="assignVehicleToOrder(event)">Assign Now</button>
                             <button class="btn" type="button" onclick="closePopup('select-vehicle-box')">Cancel</button>
                         </div>
                     </form>
                 </div>
             </div>
+
+           
         </div>
 
         <div class="flex loader-bg hide" id="loading-container">
@@ -570,9 +571,9 @@
             </div>
         </div>
 
-
         <script src="/js/common.js"></script>
-        <script src="/js/order.js"></script>
+        <!-- <script src="/js/order.js"></script> -->
+        <script src="/js/partnerOrder.js"></script>
 </body>
 
 </html>

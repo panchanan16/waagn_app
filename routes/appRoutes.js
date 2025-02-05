@@ -6,6 +6,7 @@ const partnerController  = require('../controllers/partner/partnerControllers')
 const vehicleControllers = require('../controllers/vehicles/vehiclesController')
 const assignControllers = require('../controllers/assign/assignController')
 const ourGodownControllers = require('../controllers/godowns/ourGodownControllers')
+const summaryControllers = require('../controllers/summary/summaryControllers')
 
 // Transactions ---
 const assignTransactions = require('../controllers/assign/assignTransaction')
@@ -77,5 +78,11 @@ appRoutes.put('/assign/vehicle/:id', assignControllers.updateVehicleAssign);
 
 //Delivery Dispatch Api ---
 appRoutes.post('/dispatch', assignTransactions.dispatch_StatusUpdate);  
+appRoutes.get('/dispatch/:id', assignControllers.getOneDispatchOrderDetails); 
+
+
+// Dashboard API
+
+appRoutes.get('/dashboard/data', summaryControllers.getDashBoardSummary);  
 
 module.exports = appRoutes

@@ -1,34 +1,38 @@
-const request = new DataCall()
+const request = new DataCall();
 
 async function renderAllPartnerOrder() {
-    const response = await request.GET_POST('v1/assign/partners', 'GET')
-    if (response.success) {
-        console.log(response)
-        document.getElementById('order-table').innerHTML = ''
-        response.data.forEach((item, ind) => {
-            const html = `<tr class="table-rows" onclick="openPartnerOrderDetails(${item.order_id})">
+  const response = await request.GET_POST("v1/assign/partners", "GET");
+  if (response.success) {
+    document.getElementById("order-table").innerHTML = "";
+    response.data.forEach((item, ind) => {
+      const html = `<tr class="table-rows" onclick="openPartnerOrderDetails(${
+        item.order_id
+      })">
             <td>${item.order_id}</td>
             <td>${item.company_name}</td>
             <td>${item.full_address}</td>
-            <td><span class="${item.order_status == 'delivered' ? 'status-green' : 'status-red'}">${item.order_status}</span></td>
+            <td><span class="${
+              item.order_status == "delivered" ? "status-green" : "status-red"
+            }">${item.order_status}</span></td>
             <td>${item.contact_person_name}</td>
-            <td><button class="btn" onclick="acceptOrder(event, ${item.order_id})">
-            ${item.is_accepted == 'accepted' ? 'Accepted' : 'Accept Now'}
+            <td><button class="btn" onclick="acceptOrder(event, ${
+              item.order_id
+            })">
+            ${item.is_accepted == "accepted" ? "Accepted" : "Accept Now"}
             </button>
             </td>
-            </tr>`
-            document.getElementById('order-table').innerHTML += html
-        })
-    }
+            </tr>`;
+      document.getElementById("order-table").innerHTML += html;
+    });
+  }
 }
 
-
 async function renderPartnerOrderDetails(id) {
-    const response = await request.GET_POST(`v1/assign/partner/${id}`, 'GET')
-    console.log(response)
-    if (response.success) {
-        const data = response.data[0]
-        const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
+  const response = await request.GET_POST(`v1/order/${id}`, "GET");
+  console.log(response);
+  if (response.success) {
+    const data = response.data[0];
+    const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
         <div class="key-value">
             <h2 class="flex details-heading">BOOKING DETAILS</h2>
             <div class="key-value-pair">
@@ -38,7 +42,9 @@ async function renderPartnerOrderDetails(id) {
                 <strong>Name:</strong>  ${data.shipper_name}
             </div>
             <div class="key-value-pair">
-                <strong>Pickup Location:</strong> ${data.pickup_location_address}
+                <strong>Pickup Location:</strong> ${
+                  data.pickup_location_address
+                }
             </div>
             <div class="key-value-pair">
                 <strong>Drop Location:</strong>${data.delivery_location_address}
@@ -48,10 +54,18 @@ async function renderPartnerOrderDetails(id) {
             <h2 class="flex details-heading">CONSIGNOR/CONSIGNEE</h2>
             <div class="key-value-pair">
                 <strong>Order Status:</strong>
-                <select class="status-red" onchange="updateOrderStatus(this, ${data.order_id})">
-                    <option value="pending" ${data.order_status == 'pending' ? 'selected' : ''}>Pending</option>
-                    <option value="transit" ${data.order_status == 'transit' ? 'selected' : ''}>In transit</option>
-                    <option value="delivered" ${data.order_status == 'delivered' ? 'selected' : ''}>Delivered</option>
+                <select class="status-red" onchange="updateOrderStatus(this, ${
+                  data.order_id
+                })">
+                    <option value="pending" ${
+                      data.order_status == "pending" ? "selected" : ""
+                    }>Pending</option>
+                    <option value="transit" ${
+                      data.order_status == "transit" ? "selected" : ""
+                    }>In transit</option>
+                    <option value="delivered" ${
+                      data.order_status == "delivered" ? "selected" : ""
+                    }>Delivered</option>
                 </select>
             </div>
             <div class="key-value-pair">
@@ -166,41 +180,64 @@ async function renderPartnerOrderDetails(id) {
         </div>
     </div>
     <div class="flex" style="gap: 1rem">
-        <button class="btn" onclick="openDispatchForm(${data.order_id}, ${data.partner_id})">  ${data.partner_assign_status ? '3PL Added' : 'Assign Now'}
+        <button 
+        class="btn ${data.is_partner_accepted ? "" : "hide"}" 
+        onclick="openDispatchForm(${data.order_id}, '${data.e_way_bill_no}')"
+        >  
+         ${data.e_way_bill_no != null ? 'Update Dispatch' : 'Assign Now' }
         </button>
-    </div>`
+    </div>`;
 
-    document.getElementById('order-details-box').innerHTML = html
-    }
-
+    document.getElementById("order-details-box").innerHTML = html;
+  }
 }
-
 
 function openPartnerOrderDetails(orderid) {
-    renderPartnerOrderDetails(orderid)
-    openPopup('order-detail-popup')
+  renderPartnerOrderDetails(orderid);
+  openPopup("order-detail-popup");
 }
 
-
-async function openDispatchForm(orderId, partnerId) {
-    document.getElementById('partner-id-input').value = partnerId
-    document.getElementById('order-id-input').value = orderId
-    openPopup('select-3pl-box')
+async function openDispatchForm(orderId, ewayId) {
+    if (ewayId != null) {
+        const response = await request.GET_POST(`v1/dispatch/${orderId}`, "GET");
+        console.log(response)
+        openPopup("select-3pl-box");
+    } else {
+        const response = await request.GET_POST(`v1/assign/partner/${orderId}`, "GET");
+        if (response.success) {
+          document.getElementById("partner-id-input").value = response.data[0].partner_id;
+          document.getElementById("order-id-input").value = orderId;
+          openPopup("select-3pl-box");
+        } else {
+           alert('Something Went Wrong!')
+        }
+    }
 }
-
 
 async function addDispatchDetails(e) {
-    e.preventDefault()
-    const formData = new FormData(document.getElementById('dispatch-details-form'))
-    const response = await request.GET_POST('v1/dispatch', 'POST', formData, 'form')
+  e.preventDefault();
+  const formData = new FormData(
+    document.getElementById("dispatch-details-form")
+  );
+  const response = await request.GET_POST(
+    "v1/dispatch",
+    "POST",
+    formData,
+    "form"
+  );
 }
-
 
 async function acceptOrder(e, orderID) {
-    e.stopPropagation();
-    alert(`Accepted Successfully For ${orderID}!`)
-    const response = await request.DEL_UPD(`v1/assign/partner/status/${orderID}`, 'PUT', {id:'4'})
-    if (response.success) { renderAllPartnerOrder() }
+  e.stopPropagation();
+  alert(`Accepted Successfully For ${orderID}!`);
+  const response = await request.DEL_UPD(
+    `v1/assign/partner/status/${orderID}`,
+    "PUT",
+    { id: "4" }
+  );
+  if (response.success) {
+    renderAllPartnerOrder();
+  }
 }
 
-renderAllPartnerOrder()
+renderAllPartnerOrder();

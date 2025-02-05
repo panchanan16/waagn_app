@@ -211,10 +211,10 @@
             <div class="row">
               <div class="column" style="flex: 0 0 50%" colspan="2">Date: <span class="db-data" id="order_date"></span></div>
               <div class="column" style="flex: 0 0 25%" colspan="2">
-                Origin: <span class="db-data"></span>
+                Origin: <span class="db-data" id="shipper_town"></span>
               </div>
               <div class="column" style="flex: 0 0 25%" colspan="2">
-                Destination: <span class="db-data"></span>
+                Destination: <span class="db-data" id="receiver_town"></span>
               </div>
             </div>
             <div class="row">
@@ -236,18 +236,18 @@
             </div>
             <div class="row">
               <div class="column" style="flex: 0 0 50%">
-                GST No: <span class="db-data"></span>
+                GST No: <span class="db-data" id="shipper_gst"></span>
               </div>
               <div class="column" style="flex: 0 0 50%">
-                GST No: <span class="db-data"></span>
+                GST No: <span class="db-data" id="receiver_gst"></span>
               </div>
             </div>
             <div class="row">
               <div class="column" style="flex: 0 0 50%">
-                Address: <span class="db-data"></span>
+                Address: <span class="db-data" id="pickup_location_address"></span>
               </div>
               <div class="column" style="flex: 0 0 50%">
-                Address: <span class="db-data"></span>
+                Address: <span class="db-data" id="delivery_location_address"></span>
               </div>
             </div>
             <div class="row">
@@ -260,10 +260,10 @@
             </div>
             <div class="row">
               <div class="column" style="flex: 0 0 50%">
-                Pin Code: <span class="db-data"></span>
+                Pin Code: <span class="db-data" id="shipper_pincode"></span>
               </div>
               <div class="column" style="flex: 0 0 50%">
-                Pin Code: <span class="db-data"></span>
+                Pin Code: <span class="db-data" id="receiver_pincode"></span>
               </div>
               <div class="column font-bold" style="flex: 0 0 12.5%">
                 Payment Mode
@@ -498,6 +498,12 @@
             </tr>
           </table>
         </div> -->
+      </div>
+    </div>
+
+    <div class="flex loader-bg hide" id="loading-container">
+      <div>
+          <span class="loader">Loading</span>
       </div>
     </div>
 

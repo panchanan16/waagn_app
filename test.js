@@ -5,8 +5,8 @@
 // console.log(hashedPassword)
 
 async function sendMsg(params) {
-    const fet = await fetch(this.urlHead + url, {
-        method: method,
+    const fet = await fetch(``, {
+        method: 'https://wapapp.tittu.in/api/v1/campaigns',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     })

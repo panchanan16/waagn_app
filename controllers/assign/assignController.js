@@ -263,13 +263,38 @@ exports.updateOrderAcceptStatus = (req, res) => {
     if (err) {
       return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
     }
-    console.log(result)
-    if (result.changedRows === 0) {
-      return res.status(404).json({ sucess: false, error: 'Order Already Accepted!' });
-    }
-    res.status(200).json({ success: true, message: 'Order Accepted Successfully!' });
+
+      const queryToUpdateOrder = `UPDATE orders SET is_partner_accepted = ? WHERE order_id = ?`
+      db.query(queryToUpdateOrder, [1, orderId], (err2, result2)=> {
+          if (err2) {
+            return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
+          }
+
+          return res.status(200).json({ success: true, message: 'Order Accepted Successfully!' });
+      })
+
+    
   });
 }
+
+
+
+// Dispatch order table controllers ---
+
+exports.getOneDispatchOrderDetails = (req, res) => {
+  const { id } = req.params;
+  const query = 'SELECT * FROM partner_delivery_details WHERE order_id = ?';
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error fetching records:', err);
+      return res.status(500).send({ success: false, message: 'Failed to fetch partner assignments', error: err });
+    }
+    return res.status(200).send({ success: true, message: 'Fetched all partner assignments', data: results });
+  });
+};
+
+
+
 
 
 

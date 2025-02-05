@@ -72,21 +72,24 @@
                     </div>
 
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>3PL name</th>
-                            <th>Godown adress</th>
-                            <th>Order Status</th>
-                            <th>Name</th>    
-                            <th>Action</th>     
-                        </tr>
-                    </thead>
-                    <tbody id="order-table">
-                        <!-- rendering dynamic value  -->
-                    </tbody>
-                </table>
+                <div class="table-box scroll-box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>3PL name</th>
+                                <th>Godown adress</th>
+                                <th>Order Status</th>
+                                <th>Name</th>    
+                                <th>Action</th>     
+                            </tr>
+                        </thead>
+                        <tbody id="order-table">
+                            <!-- rendering dynamic value  -->
+                        </tbody>
+                    </table>
+                </div>
+                
             </div>
 
         </div>
@@ -563,7 +566,11 @@
            
         </div>
 
-
+        <div class="flex loader-bg hide" id="loading-container">
+            <div>
+                <span class="loader">Loading</span>
+            </div>
+        </div>
 
         <script src="/js/common.js"></script>
         <!-- <script src="/js/order.js"></script> -->

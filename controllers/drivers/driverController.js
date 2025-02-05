@@ -22,14 +22,14 @@ async function registerDriver(req, res) {
 
 // Read all drivers
 function getAllDrivers(req, res) {
-    const query = 'SELECT * FROM drivers';
+    const query = 'SELECT * FROM drivers;SELECT COUNT(*) AS total FROM drivers;SELECT COUNT(*) AS active FROM drivers WHERE driver_status = 1;SELECT COUNT(*) AS unactive FROM drivers WHERE driver_status = 0;';
 
     db.query(query, (error, results) => {
         if (error) {
             console.error(error);
-            return res.status(500).json({ error: 'Failed to retrieve drivers data' });
+            return res.status(500).json({ success: false, error: 'Failed to retrieve drivers data' });
         }
-        res.status(200).json(results);
+        res.status(200).json({success: true, data: results});
     });
 }
 
