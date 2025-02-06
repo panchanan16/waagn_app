@@ -84,3 +84,16 @@ function searchItemsGlobal(target, className, value, removeId) {
 
   if (removeId) { document.getElementById(removeId).remove() }
 }
+
+
+async function logOutAdmin() {
+    const response = await fetch('v1/auth/admin/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({user: 'admin'})
+  })
+    const json = await response.json()
+    if (json.success) {
+      window.location.href = location.origin + json.redirect;
+  }
+}

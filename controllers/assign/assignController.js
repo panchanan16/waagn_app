@@ -113,7 +113,7 @@ exports.updateVehicleAssign = (req, res) => {
   console.log(req.body)
 
   const query = 'UPDATE vehicle_assignment SET vehicle_id = ?, driver_id = ?, msg_for_driver = ? WHERE v_assign_id = ?';
-  db.query(query, [ vehicle_id, driver_id, msg_for_driver, id], (err, result) => {
+  db.query(query, [vehicle_id, driver_id, msg_for_driver, id], (err, result) => {
     if (err) {
       console.error('Error updating record:', err);
       return res.status(500).send({ success: false, message: 'Failed to update partner assignment', error: err });
@@ -191,50 +191,6 @@ exports.getPartnerDeliveryDetailsById = (req, res) => {
   });
 };
 
-// Update Partner Delivery Details
-exports.updatePartnerDeliveryDetails = (req, res) => {
-  const { id } = req.params;
-  const {
-    partner_id,
-    delivery_godown_address,
-    assigned_vehicle_no,
-    assigned_driver_name,
-    assigned_driver_number,
-    e_way_bill_no,
-    actual_weight,
-    charged_weight,
-    partner_amount
-  } = req.body;
-
-  const query = `
-    UPDATE partner_delivery_details
-    SET partner_id = ?, delivery_godown_address = ?, assigned_vehicle_no = ?, 
-    assigned_driver_name = ?, assigned_driver_number = ?, e_way_bill_no = ?, 
-    actual_weight = ?, charged_weight = ?, partner_amount = ?
-    WHERE partner_assigned_orderid = ?`;
-
-  connection.query(query, [
-    partner_id,
-    delivery_godown_address,
-    assigned_vehicle_no,
-    assigned_driver_name,
-    assigned_driver_number,
-    e_way_bill_no,
-    actual_weight,
-    charged_weight,
-    partner_amount,
-    id
-  ], (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Failed to update partner delivery details' });
-    }
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: 'Partner delivery details not found' });
-    }
-    res.status(200).json({ success: true });
-  });
-};
 
 // Delete Partner Delivery Details
 exports.deletePartnerDeliveryDetails = (req, res) => {
@@ -255,6 +211,7 @@ exports.deletePartnerDeliveryDetails = (req, res) => {
 };
 
 
+// Update Order Accepted by Partner ---
 exports.updateOrderAcceptStatus = (req, res) => {
   const { orderId } = req.params
   const query = `UPDATE partner_assign SET is_accepted = ? WHERE order_id = ?`;
@@ -264,16 +221,16 @@ exports.updateOrderAcceptStatus = (req, res) => {
       return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
     }
 
-      const queryToUpdateOrder = `UPDATE orders SET is_partner_accepted = ? WHERE order_id = ?`
-      db.query(queryToUpdateOrder, [1, orderId], (err2, result2)=> {
-          if (err2) {
-            return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
-          }
+    const queryToUpdateOrder = `UPDATE orders SET is_partner_accepted = ? WHERE order_id = ?`
+    db.query(queryToUpdateOrder, [1, orderId], (err2, result2) => {
+      if (err2) {
+        return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
+      }
 
-          return res.status(200).json({ success: true, message: 'Order Accepted Successfully!' });
-      })
+      return res.status(200).json({ success: true, message: 'Order Accepted Successfully!' });
+    })
 
-    
+
   });
 }
 
@@ -292,6 +249,51 @@ exports.getOneDispatchOrderDetails = (req, res) => {
     return res.status(200).send({ success: true, message: 'Fetched all partner assignments', data: results });
   });
 };
+
+
+// Update dispatch table controllers ---
+exports.updateDispatchDetails = (req, res) => {
+  const { id } = req.params
+  const {
+    partner_id,
+    order_id,
+    delivery_godown_address,
+    assigned_vehicle_no,
+    assigned_driver_name,
+    assigned_driver_number,
+    e_way_bill_no,
+    actual_weight,
+    charged_weight,
+    partner_amount
+  } = req.body;
+
+  const query = `
+    UPDATE partner_delivery_details SET partner_id = ?, order_id = ?, delivery_godown_address = ?, assigned_vehicle_no = ?, assigned_driver_name = ?, assigned_driver_number = ?, e_way_bill_no = ?, actual_weight = ?, charged_weight = ?, partner_amount = ? WHERE partner_assigned_orderid = ?;
+  `;
+
+  try {
+    db.query(query, [
+      partner_id,
+      order_id,
+      delivery_godown_address,
+      assigned_vehicle_no,
+      assigned_driver_name,
+      assigned_driver_number,
+      e_way_bill_no,
+      actual_weight,
+      charged_weight,
+      partner_amount,
+      id
+    ], (error, result) => {
+      if (error) { throw error; }
+      
+      return res.status(200).json({ success: true, message: 'Dispatch Details Updated successfully', data: result });
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Failed to Update details', error: error.message });
+  }
+};
+
 
 
 

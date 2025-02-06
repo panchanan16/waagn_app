@@ -30,7 +30,7 @@ async function renderOurGodowns() {
         <td>${item.partner_name}</td>
         <td>${item.type_of_godown}</td>
         <td>
-          <select onclick="prevent(event)" class="${item.is_active ? 'status-green' : 'status-red'}" onchange="updateDriverStatus(this, ${item.driver_id})">
+          <select onclick="prevent(event)" class="${item.is_active ? 'status-green' : 'status-red'}" onchange="updateOurLocationStatus(this, ${item.godown_id})">
                     <option value="1" ${item.is_active ? 'selected' : ''}>
                         Active
                     </option>
@@ -93,6 +93,12 @@ async function renderGodownDetails(godownId) {
     document.getElementById("ourgodown-details-box").innerHTML = html;
   }
   openPopup("ourgodown-detail-popup");
+}
+
+
+async function updateOurLocationStatus(target, godownId) {
+  changeStatus(target)
+  await request.DEL_UPD(`v1/ourgodown/status/${godownId}`, 'PUT', {status: target.value})
 }
 
 renderOurGodowns();

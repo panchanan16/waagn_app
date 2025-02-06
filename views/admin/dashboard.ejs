@@ -31,7 +31,7 @@
         <div class="summary grid grid-col-3">
             <div class="flex flex-col sum-box">
                 <h3>Total order</h3>
-                <p class="d-value">300</p>
+                <p class="d-value" id="total-order">300</p>
             </div>
             <div class="flex flex-col sum-box">
                 <h3>Pending Pickup</h3>
@@ -39,7 +39,7 @@
             </div>
             <div class="flex flex-col sum-box">
                 <h3>Available Vehicle for Pickup</h3>
-                <p class="d-value">300</p>
+                <p class="d-value" id="active-vehicles">300</p>
             </div>
             <div class="flex flex-col sum-box">
                 <h3>Waiting for 3PL Confirmation</h3>
@@ -56,6 +56,13 @@
         </div>
       </div>
 
+      <div class="flex loader-bg hide" id="loading-container">
+        <div>
+            <span class="loader">Loading</span>
+        </div>
+      </div>
+
     <script src="/js/common.js"></script>
+    <script src="/js/dashboard.js"></script>
   </body>
 </html>

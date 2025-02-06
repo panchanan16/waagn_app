@@ -1,38 +1,35 @@
 const request = new DataCall();
 
 async function renderAllPartnerOrder() {
-  const response = await request.GET_POST("v1/assign/partners", "GET");
-  if (response.success) {
-    document.getElementById("order-table").innerHTML = "";
-    response.data.forEach((item, ind) => {
-      const html = `<tr class="table-rows" onclick="openPartnerOrderDetails(${
-        item.order_id
-      })">
+    const response = await request.GET_POST("v1/assign/partners", "GET");
+    if (response.success) {
+        document.getElementById("order-table").innerHTML = "";
+        response.data.forEach((item, ind) => {
+            const html = `<tr class="table-rows" onclick="openPartnerOrderDetails(${item.order_id
+                })">
             <td>${item.order_id}</td>
             <td>${item.company_name}</td>
             <td>${item.full_address}</td>
-            <td><span class="${
-              item.order_status == "delivered" ? "status-green" : "status-red"
-            }">${item.order_status}</span></td>
+            <td><span class="${item.order_status == "delivered" ? "status-green" : "status-red"
+                }">${item.order_status}</span></td>
             <td>${item.contact_person_name}</td>
-            <td><button class="btn" onclick="acceptOrder(event, ${
-              item.order_id
-            })">
+            <td><button class="btn" onclick="acceptOrder(event, ${item.order_id
+                })">
             ${item.is_accepted == "accepted" ? "Accepted" : "Accept Now"}
             </button>
             </td>
             </tr>`;
-      document.getElementById("order-table").innerHTML += html;
-    });
-  }
+            document.getElementById("order-table").innerHTML += html;
+        });
+    }
 }
 
 async function renderPartnerOrderDetails(id) {
-  const response = await request.GET_POST(`v1/order/${id}`, "GET");
-  console.log(response);
-  if (response.success) {
-    const data = response.data[0];
-    const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
+    const response = await request.GET_POST(`v1/order/${id}`, "GET");
+    console.log(response);
+    if (response.success) {
+        const data = response.data[0];
+        const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
         <div class="key-value">
             <h2 class="flex details-heading">BOOKING DETAILS</h2>
             <div class="key-value-pair">
@@ -42,9 +39,8 @@ async function renderPartnerOrderDetails(id) {
                 <strong>Name:</strong>  ${data.shipper_name}
             </div>
             <div class="key-value-pair">
-                <strong>Pickup Location:</strong> ${
-                  data.pickup_location_address
-                }
+                <strong>Pickup Location:</strong> ${data.pickup_location_address
+            }
             </div>
             <div class="key-value-pair">
                 <strong>Drop Location:</strong>${data.delivery_location_address}
@@ -54,18 +50,14 @@ async function renderPartnerOrderDetails(id) {
             <h2 class="flex details-heading">CONSIGNOR/CONSIGNEE</h2>
             <div class="key-value-pair">
                 <strong>Order Status:</strong>
-                <select class="status-red" onchange="updateOrderStatus(this, ${
-                  data.order_id
-                })">
-                    <option value="pending" ${
-                      data.order_status == "pending" ? "selected" : ""
-                    }>Pending</option>
-                    <option value="transit" ${
-                      data.order_status == "transit" ? "selected" : ""
-                    }>In transit</option>
-                    <option value="delivered" ${
-                      data.order_status == "delivered" ? "selected" : ""
-                    }>Delivered</option>
+                <select class="status-red" onchange="updateOrderStatus(this, ${data.order_id
+            })">
+                    <option value="pending" ${data.order_status == "pending" ? "selected" : ""
+            }>Pending</option>
+                    <option value="transit" ${data.order_status == "transit" ? "selected" : ""
+            }>In transit</option>
+                    <option value="delivered" ${data.order_status == "delivered" ? "selected" : ""
+            }>Delivered</option>
                 </select>
             </div>
             <div class="key-value-pair">
@@ -182,62 +174,69 @@ async function renderPartnerOrderDetails(id) {
     <div class="flex" style="gap: 1rem">
         <button 
         class="btn ${data.is_partner_accepted ? "" : "hide"}" 
-        onclick="openDispatchForm(${data.order_id}, '${data.e_way_bill_no}')"
+        onclick="openDispatchForm(${data.order_id}, ${data.dispatchId})"
         >  
-         ${data.e_way_bill_no != null ? 'Update Dispatch' : 'Assign Now' }
+         ${data.dispatchId != null ? 'Update Dispatch' : 'Assign Now'}
         </button>
     </div>`;
 
-    document.getElementById("order-details-box").innerHTML = html;
-  }
+        document.getElementById("order-details-box").innerHTML = html;
+    }
 }
 
 function openPartnerOrderDetails(orderid) {
-  renderPartnerOrderDetails(orderid);
-  openPopup("order-detail-popup");
+    renderPartnerOrderDetails(orderid);
+    openPopup("order-detail-popup");
 }
 
-async function openDispatchForm(orderId, ewayId) {
-    if (ewayId != null) {
+async function openDispatchForm(orderId, dispatchId) {
+    if (dispatchId !== null) {
         const response = await request.GET_POST(`v1/dispatch/${orderId}`, "GET");
-        console.log(response)
+        const from = document.getElementById('dispatch-details-form')
+        const inputs = Array.from(from.getElementsByTagName('INPUT')).concat(Array.from(from.getElementsByTagName('SELECT')))
+        for (const key in response.data[0]) {
+            inputs.forEach((item) => {
+                if (item.id === key) {
+                    item.value = response.data[0][key]
+                }
+            })
+        }
+        document.getElementById('dispatch-btn').dataset.dispatchid = response.data[0].partner_assigned_orderid
         openPopup("select-3pl-box");
     } else {
         const response = await request.GET_POST(`v1/assign/partner/${orderId}`, "GET");
         if (response.success) {
-          document.getElementById("partner-id-input").value = response.data[0].partner_id;
-          document.getElementById("order-id-input").value = orderId;
-          openPopup("select-3pl-box");
+            document.getElementById("partner_id").value = response.data[0].partner_id;
+            document.getElementById("order_id").value = orderId;
+            openPopup("select-3pl-box");
         } else {
-           alert('Something Went Wrong!')
+            alert('Something Went Wrong!')
         }
     }
 }
 
 async function addDispatchDetails(e) {
-  e.preventDefault();
-  const formData = new FormData(
-    document.getElementById("dispatch-details-form")
-  );
-  const response = await request.GET_POST(
-    "v1/dispatch",
-    "POST",
-    formData,
-    "form"
-  );
+    e.preventDefault();
+    const formData = new FormData(
+        document.getElementById("dispatch-details-form")
+    );
+
+    const response = e.target.dataset.dispatchid != "" ? await request.GET_POST(`v1/dispatch/${e.target.dataset.dispatchid}`, "PUT", formData, "form") : await request.GET_POST("v1/dispatch", "POST", formData, "form");
+    if (response.success) { closePopup('select-3pl-box', 'form', 'dispatch-btn', 'dispatchid', 'dispatch-details-form') }
+
 }
 
 async function acceptOrder(e, orderID) {
-  e.stopPropagation();
-  alert(`Accepted Successfully For ${orderID}!`);
-  const response = await request.DEL_UPD(
-    `v1/assign/partner/status/${orderID}`,
-    "PUT",
-    { id: "4" }
-  );
-  if (response.success) {
-    renderAllPartnerOrder();
-  }
+    e.stopPropagation();
+    alert(`Accepted Successfully For ${orderID}!`);
+    const response = await request.DEL_UPD(
+        `v1/assign/partner/status/${orderID}`,
+        "PUT",
+        { id: "4" }
+    );
+    if (response.success) {
+        renderAllPartnerOrder();
+    }
 }
 
 renderAllPartnerOrder();

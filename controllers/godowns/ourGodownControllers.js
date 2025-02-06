@@ -43,3 +43,16 @@ exports.getOneGodown = (req, res) => {
         res.status(200).json({ success: true, data: rows });
     });
 };
+
+// Function to Update a location Status
+exports.updateOurLocationStatus = (req, res) => {
+    const {id} = req.params
+    const query = 'UPDATE our_godown SET is_active = ? WHERE godown_id = ?';
+
+    db.query(query, [req.body.status, id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Godown Status Not Updated!', error: err });
+        }
+        return res.status(200).json({ success: true, message: 'Godown Status Updated Successfully!', data: results });
+    });
+}

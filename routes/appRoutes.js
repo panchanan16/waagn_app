@@ -61,6 +61,7 @@ appRoutes.put('/godown/:id', partnerController.updatePartnerGodown);
 appRoutes.post('/ourgodown', ourGodownControllers.createGodown);    
 appRoutes.get('/ourgodowns', ourGodownControllers.getAllGodown);  
 appRoutes.get('/ourgodown/:id', ourGodownControllers.getOneGodown);
+appRoutes.put('/ourgodown/status/:id', ourGodownControllers.updateOurLocationStatus); 
 
 
 //Partners Assign Api ---
@@ -79,10 +80,11 @@ appRoutes.put('/assign/vehicle/:id', assignControllers.updateVehicleAssign);
 //Delivery Dispatch Api ---
 appRoutes.post('/dispatch', assignTransactions.dispatch_StatusUpdate);  
 appRoutes.get('/dispatch/:id', assignControllers.getOneDispatchOrderDetails); 
+appRoutes.put('/dispatch/:id', assignControllers.updateDispatchDetails); 
 
 
-// Dashboard API
+// Dashboard API ---
+appRoutes.get('/dashboard/data', summaryControllers.getDashBoardSummary); 
 
-appRoutes.get('/dashboard/data', summaryControllers.getDashBoardSummary);  
 
 module.exports = appRoutes

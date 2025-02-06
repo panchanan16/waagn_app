@@ -50,3 +50,21 @@ exports.loginAdmin = async (req, res) => {
         });
     });
 };
+
+
+exports.adminLogout = (req, res) => {
+    const token = req.cookies.adminToken;
+    const query = 'UPDATE admin_auth SET token = NULL WHERE admin_id = ?;';
+  
+    db.query(query, [req.user.id], (err, result) => {
+      if (err) {
+        console.error('Error blacklisting token:', err);
+        return res.status(500).send('Error logging out');
+      }
+  
+      // Send a response after successful logout
+      res.clearCookie('adminToken');
+      res.status(200).json({success: true, redirect: '/'})
+    });
+
+}

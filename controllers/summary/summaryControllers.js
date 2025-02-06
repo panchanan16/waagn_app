@@ -1,7 +1,7 @@
 const db = require('../../config/dbConfig');
 
 exports.getDashBoardSummary = (req, res) => {
-    const query = 'SELECT COUNT(*) AS totalOrders FROM orders';
+    const query = 'SELECT COUNT(*) AS totalOrders FROM orders; SELECT COUNT(*) AS active_vehicles FROM vehicle_information WHERE is_active = 1;';
   
     db.query(query, (err, results) => {
       if (err) {

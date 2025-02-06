@@ -400,7 +400,9 @@ async function renderOrderDetails(id) {
               : "Assign Pickup Vehicle"
           }
         </button>
-        <button class="btn">Download</button>
+        <a href="/testing" target="_blank">
+          <button class="btn">Download</button>
+        </a>
     </div>`;
     document.getElementById("order-details-box").innerHTML = html;
   }
@@ -409,7 +411,7 @@ async function renderOrderDetails(id) {
 async function assignPartnerToOrder(e) {
   e.preventDefault();
   const formData = new FormData(document.getElementById("assign-partner-form"));
-  e.target.dataset.psid != ""
+  const response = e.target.dataset.psid != ""
     ? await request.GET_POST(
         `v1/assign/partner/${e.target.dataset.psid}`,
         "PUT",
@@ -417,12 +419,15 @@ async function assignPartnerToOrder(e) {
         "form"
       )
     : await request.GET_POST(`v1/assign/partner`, "POST", formData, "form");
+    if (response.success) {
+      closePopup('select-3pl-box', 'form', 'update-partner-btn', 'psid', 'assign-partner-form')
+    }
 }
 
 async function assignVehicleToOrder(e) {
   e.preventDefault();
   const formData = new FormData(document.getElementById("assign-vehicle-form"));
-  e.target.dataset.vsid != ""
+  const response = e.target.dataset.vsid != ""
     ? await request.GET_POST(
         `v1/assign/vehicle/${e.target.dataset.vsid}`,
         "PUT",
@@ -430,6 +435,9 @@ async function assignVehicleToOrder(e) {
         "form"
       )
     : await request.GET_POST(`v1/assign/vehicle`, "POST", formData, "form");
+    if (response.success) {
+      closePopup('select-vehicle-box', 'form', 'update-vehicle-btn', 'vsid', 'assign-vehicle-form')
+    }
 }
 
 function selectVehicle(target, vehicleId, driverId, driverName) {

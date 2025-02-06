@@ -4,7 +4,6 @@ const db = require('../config/dbConfig');
 
 const authenticate = (req, res, next) => {
     const token = req.cookies.adminToken;
-
     if (!token) {
         return res.status(401).redirect('/');
     }
@@ -13,7 +12,6 @@ const authenticate = (req, res, next) => {
         if (err) {
             return res.status(403).json({ message: 'Invalid token.' });
         }
-        console.log(decoded)
 
         db.query('SELECT * FROM admin_auth WHERE admin_id = ?', [decoded.id], (error, results) => {
             if (error || results.length === 0) {

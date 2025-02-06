@@ -434,7 +434,7 @@
                 </div>
             </div>
 
-             <!-- assign 3pl partner -->
+             <!-- assign dispatch details -->
              <div class="flex sub-popup hide select-3pl-box">
                 <div class="sub-form-box scroll-box">
                     <div class="flex" style="align-items: center; gap:1rem">
@@ -444,7 +444,7 @@
                         <div class="form-row">
                             <div class="form-field">
                                 <label for="partner-dropdown">Partner Id:</label>
-                                <input type="text" name="partner_id" value="" id="partner-id-input" required readonly>
+                                <input type="text" name="partner_id" value="" id="partner_id" required readonly>
                             </div>
                             <div class="form-field">
                                 <label for="godown-type-dropdown">Delivery Godown Location:</label>
@@ -490,74 +490,13 @@
                             </div>
                             <div class="form-field">
                                 <label for="order_id">Order ID:</label>
-                                <input type="text" name="order_id" id="order-id-input" required readonly>
+                                <input type="text" name="order_id" id="order_id" required readonly>
                             </div>                            
                         </div>
 
                         <div style="margin-top: 1rem;">
-                            <button class="btn" type="button" onclick="addDispatchDetails(event)">Assign Now</button>
-                            <button class="btn" type="button" onclick="closePopup('select-3pl-box')">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- assign pickup vehicle -->
-            <div class="flex sub-popup hide select-vehicle-box">
-                <div class="sub-form-box scroll-box">
-                    <div class="flex" style="align-items: center; gap:1rem">
-                        <h3>Assign Pickup Vehicle</h3>
-                    </div>
-                    <form id="assign-vehicle-form" style="margin-top: 1rem;">
-                        <div class="form-row">
-                            <div class="form-field" style="position: relative;">
-                                <div>
-                                    <label for="town">Select vehicle:</label>
-                                    <input placeholder="Seach Vh. Number..." type="text"
-                                        onfocus="openPopup('search-input')" name="town" id="vehicle-dropdown" oninput="searchItems(this, 'vh-num-li')">
-                                </div>
-                                <div class="search-input scroll-box hide">
-                                    <ul id="search-list">
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">DL 1C 2345</li>
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">MH 04 AB 5678</li>
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">KA 03 P 1234</li>
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">TN 22 AZ 9876</li>
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">UP 16 AB 4321</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="form-field">
-                                <label for="contact_person_name">Order Id:</label>
-                                <input type="text" value="" id="order-id-input-vh" name="order_id" maxlength="150"
-                                    required readonly>
-                            </div>
-                            <div class="form-field">
-                                <label for="driver-name-inp">Driver Name:</label>
-                                <input type="text" id="driver-name-inp" name="contact_person_name" maxlength="150"
-                                    required>
-                            </div>                           
-                        </div>
-                        <div class="form-row" style="margin-top: 1rem;">
-                            <div class="form-field">
-                                <label for="driver-vehicleid-inp">Vehicle Id:</label>
-                                <input type="text" value="not-set" id="driver-vehicleid-inp" name="vehicle_id" maxlength="150"
-                                    required readonly>
-                            </div>
-                            <div class="form-field">
-                                <label for="contact_person_name">Driver Id:</label>
-                                <input type="text" value="" id="driver-driverid-inp" name="driver_id" maxlength="150"
-                                    required readonly>
-                            </div>
-                        </div>
-                        <div class="form-row" style="margin-top: 1rem;">
-                            <div class="form-field">
-                                <label for="full_address">Comments for driver:</label>
-                                <textarea id="full_address" name="msg_for_driver" required></textarea>
-                            </div>
-                        </div>
-                        <div style="margin-top: 1rem;">
-                            <button class="btn" type="button" onclick="assignVehicleToOrder(event)">Assign Now</button>
-                            <button class="btn" type="button" onclick="closePopup('select-vehicle-box')">Cancel</button>
+                            <button class="btn" id="dispatch-btn" data-dispatchid="" type="button" onclick="addDispatchDetails(event)">Assign Now</button>
+                            <button class="btn" type="button" onclick="closePopup('select-3pl-box', 'form', 'dispatch-btn', 'dispatchid', 'dispatch-details-form')">Cancel</button>
                         </div>
                     </form>
                 </div>

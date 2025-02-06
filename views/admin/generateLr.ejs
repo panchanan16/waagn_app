@@ -40,7 +40,7 @@
         <div>
           <input type="text" name="" id="order-for-lr" placeholder="Enter order ID..." />
           <button class="btn" onclick="startLRGeneration()">Start</button>
-          <button class="btn" id="downloadPdf">Download</button>
+          <button class="btn" id="downloadPdf" onclick="generatePDF()">Download</button>
         </div>
       </div>
 
@@ -507,22 +507,42 @@
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type='text/javascript' src='https://html2canvas.hertzen.com/dist/html2canvas.js'></script>
     <script>
-      document
-        .getElementById("downloadPdf")
-        .addEventListener("click", function () {
-          const element = document.getElementById("pdf-content"); // The HTML content to convert
-          const options = {
-            margin: 5,
-            filename: "Shipping_Details.pdf",
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2, letterRendering: true },
-            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-          };
+      // document
+      //   .getElementById("downloadPdf")
+      //   .addEventListener("click", function () {
+      //     const element = document.getElementById("pdf-content"); // The HTML content to convert
+      //     const options = {
+      //       margin: 5,
+      //       filename: "Shipping_Details.pdf",
+      //       image: { type: "jpeg", quality: 0.98 },
+      //       html2canvas: { scale: 2, letterRendering: true },
+      //       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      //     };
 
-          html2pdf().from(element).set(options).save();
-        });
+      //     html2pdf().from(element).set(options).save();
+      //   });
+
+      function generatePDF() {
+      window.jsPDF = window.jspdf.jsPDF;
+      var doc = new jsPDF();
+      var elementHTML = document.querySelector("#pdf-content");
+      doc.html(elementHTML, {
+        callback: function(doc) {
+          doc.save('Shipping_Details.pdf');
+        },
+        margin: [2, 2, 2, 2],
+        autoPaging: 'text',
+        x: 0,
+        y: 0,
+        width: 187.5,
+        windowWidth: 675,
+        height: 200
+      });
+    }
     </script>
 
     <script src="/js/common.js"></script>
