@@ -48,6 +48,7 @@ appRoutes.get('/partner/:partner_id', partnerController.getPartnerCompanyById);
 appRoutes.get('/partners/drop', partnerController.getAllPartnerCompaniesForDropdown); 
 appRoutes.post('/partner', partnerController.createPartnerCompany);    
 appRoutes.put('/partner/:id', partnerController.updatePartnerCompany);
+appRoutes.put('/partner/status/:id', partnerController.updatePartnerStatus);
 appRoutes.delete('/partner/:id', partnerController.deletePartnerCompany);
 
 
@@ -56,6 +57,7 @@ appRoutes.get('/godown/:id', partnerController.getAllGodown);
 appRoutes.get('/godowns/:id/:type', partnerController.getAllGodownForDropdown);  
 appRoutes.post('/godown', partnerController.createGodown);    
 appRoutes.put('/godown/:id', partnerController.updatePartnerGodown);
+appRoutes.delete('/godown/:gid/partner/:pid', partnerController.deletePartnerGodown);
 
 //Our godown Api ---
 appRoutes.post('/ourgodown', ourGodownControllers.createGodown);    

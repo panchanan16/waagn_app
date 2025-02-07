@@ -134,7 +134,6 @@ async function renderOrderDetails(id) {
   const response = await request.GET_POST(`v1/order/${id}`, "GET");
   if (response.success) {
     const data = response.data[0];
-    console.log(data)
     const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
         <div class="key-value">
             <h2 class="flex details-heading">BOOKING DETAILS</h2>
@@ -161,7 +160,7 @@ async function renderOrderDetails(id) {
 
              <div class="key-value-pair">
                 <strong>Order Status:</strong>
-                <select class="status-red" onchange="updateOrderStatus(this, ${
+                <select class="${data.order_status == "delivered" ? "status-green" : "status-red"}" onchange="updateOrderStatus(this, ${
                   data.order_id
                 })">
                     <option value="pending" ${

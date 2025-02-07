@@ -14,7 +14,7 @@ async function renderPartners() {
         const table = document.getElementById('partners-display-table')
         table.innerHTML = ''
         response.data.forEach((item, ind) => {
-            const html = `<tr  data-partnerid="${item.company_id}" class="table-rows" ondblclick="setIdAndOpenPartnerDetails(${item.company_id})">
+            const html = `<tr data-partnerid="${item.company_id}" class="table-rows" ondblclick="setIdAndOpenPartnerDetails(${item.company_id})">
         <td>${ind + 1}</td>
         <td>${item.company_name}</td>
         <td>${item.contact_details}</td>
@@ -22,7 +22,7 @@ async function renderPartners() {
         <td>01/09/2002</td>
         <td>09/09/2024</td>
         <td>
-            <select class="status-green">
+            <select class="${item.is_active ? 'status-green' : 'status-red'}" onchange="updatePartnerStatus(this, ${item.company_id})">
                 <option value="1" ${item.is_active ? 'selected' : ''}>Active</option>
                 <option value="0" ${item.is_active ? '' : 'selected'}>Unactive</option>
             </select>
@@ -221,7 +221,6 @@ async function createGodown(e) {
 
 async function renderGodownList(partnerId) {
     const response = await request.GET_POST(`v1/godown/${partnerId}`, 'GET')
-    console.log(response)
     if (response.success) {
         document.getElementById('godown-location-box').innerHTML = '';
         response.data.forEach((item)=> {
@@ -254,13 +253,44 @@ async function renderGodownList(partnerId) {
                     <strong>ODA number:</strong> ${item.
                     oda_number}
                 </div>
+                 <div onclick="deletePartnerGodown(this)" data-gid="${item.godown_id}" data-pid="${item.partner_id}">
+                    <i class="material-icons" style="color: red; cursor: pointer; font-size: 35px">delete_forever</i>
+                 </div>
             </div>
+           
         </div>`
         document.getElementById('godown-location-box').innerHTML += html;
         })
     }
     openPopup('godown-list-popup')
 
+}
+
+
+async function deletePartnerGodown(target) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true,
+        confirmButtonColor: '#E3242B',
+        cancelButtonColor: '#1b1b1b'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+            const response = await request.DEL_UPD(`v1/godown/${target.dataset.gid}/partner/${target.dataset.pid}`, 'DELETE')
+            if (response.success) { target.parentNode.parentNode.remove() } 
+        } else {
+          return;
+        }
+      });
+}
+
+async function updatePartnerStatus(target, partnerID) {
+    changeStatus(target)
+    await request.DEL_UPD(`v1/partner/status/${partnerID}`, 'PUT', {status: target.value})
 }
 
 

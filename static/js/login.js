@@ -7,6 +7,8 @@ async function login_admin(formId, e) {
     const formData = new FormData(document.getElementById(formId));
     const response = await request_modal.GET_POST('v1/auth/admin/login', 'POST', formData, 'form')
     if (response.success) {
+        console.log(response)
+        window.sessionStorage.setItem('username', response.username);
         window.location.href = location.origin + response.redirect;
     }
 }

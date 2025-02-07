@@ -177,6 +177,26 @@ exports.updatePartnerCompany = (req, res) => {
     });
 };
 
+
+// Update 3PL status ---
+exports.updatePartnerStatus = (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+  
+    const query = `UPDATE partner_companies SET is_active = ? WHERE company_id = ?`;
+  
+    db.query(query, [status, id ], (err, result) => {
+      if (err) {
+        console.error('Error updating order:', err);
+        return res.status(500).json({ message: 'Failed to update partner status', success: false });
+      }
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: 'Partner not found', success: false });
+      }
+      return res.status(200).json({ message: 'Partner Status Updated successfully!', success: true });
+    });
+  };
+
 // Delete Partner Company
 exports.deletePartnerCompany = (req, res) => {
     const { id } = req.params;
@@ -263,5 +283,24 @@ exports.updatePartnerGodown = (req, res) => {
         }
 
         res.status(200).json({ success: true, message: "Partner Godown updated successfully" });
+    });
+};
+
+
+// DELETE Partner Address by ID
+exports.deletePartnerGodown = (req, res) => {
+    const { gid, pid } = req.params;
+    const query = `DELETE FROM partner_godown WHERE godown_id = ? AND partner_id = ?`;
+
+    db.query(query, [gid, pid], (err, result) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: "Error in deleting partner godown", error: err.message });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ success: false, message: "Partner Godown not found" });
+        }
+
+        res.status(200).json({ success: true, message: "Partner Godown deleted successfully" });
     });
 };

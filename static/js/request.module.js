@@ -87,15 +87,14 @@ class DataCall {
         if (method == 'DELETE') {
             if (!body) {
                 try {
-                    // document.getElementById('loading-container').classList.remove('hide')
+                    document.getElementById('loading-container').classList.remove('hide')
                     const fet = await fetch(this.urlHead + url, { method: method })
-                    const res = await fet.json()
-                    console.log(fet)
+                    const res = await fet.json()                    
                     if (fet.ok) {
-                        // document.getElementById('loading-container').classList.add('hide')
-                        this.GET_Notify('Removed Successfully', 'Successfull', 'success')
+                        document.getElementById('loading-container').classList.add('hide')
+                        this.GET_Notify('Removed Successfully', res.message, 'success')
                     } else {
-                        // document.getElementById('loading-container').classList.add('hide')
+                        document.getElementById('loading-container').classList.add('hide')
                         this.GET_Notify('Error Recognized', 'Something Error', 'error')
                     }
                     return res;

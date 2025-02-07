@@ -46,7 +46,7 @@ exports.loginAdmin = async (req, res) => {
                 // sameSite: 'Strict',
                 maxAge: 3600000
               });
-            res.status(200).json({ success: true, redirect: '/orders', message: 'Login successful', token });
+            res.status(200).json({ success: true, redirect: '/orders', message: 'Login successful', token, username: user.name });
         });
     });
 };
