@@ -4,7 +4,7 @@ const path = require('path')
 const ejs = require('ejs')
 const cookieParser = require('cookie-parser')
 const compression = require('compression')
-require('dotenv').config({ path: ['.env.development'] })
+require('dotenv').config({ path: [`.env.${process.env.NODE_ENV}`] })
 
 require('./config/dbConfig')
 
