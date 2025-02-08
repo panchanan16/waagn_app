@@ -4,11 +4,11 @@ let con = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     idleTimeout: 60000,
-    host: process.env.MySQL_host,
-    user: process.env.MySQL_user,
-    password: process.env.MySQL_pass,
+    host: 'localhost',
+    user: 'admin',
+    password: '6ba174c00f780a69',
     port: 3306,
-    database: process.env.MySQL_db,
+    database: 'waagn_app',
     multipleStatements: true,
 })
 con.getConnection((error) => {
