@@ -1,5 +1,5 @@
 <div class="sidebar">
-  <h1 style="margin-top: 1rem; margin-left: 1rem;">WAAGN APP</h1>
+  <h1 style="margin-top: 1rem; margin-left: 1rem">WAAGN APP</h1>
   <ul class="main-link">
     <li>
       <a href="/dashboard"><i class="material-icons">dashboard</i>Dashboard</a>
@@ -22,7 +22,7 @@
     </li>
     <li>
       <a href="/partners-orders"
-        ><i class="material-icons">social_distance</i>fleet management</a
+        ><i class="material-icons">social_distance</i>3PL Dashboard</a
       >
     </li>
     <li>
@@ -31,20 +31,20 @@
       >
     </li>
     <li>
-        <a href="/our-godowns"
-          ><i class="material-icons">push_pin</i>Our Locations</a
-        >
-      </li>
+      <a href="/our-godowns"
+        ><i class="material-icons">push_pin</i>3PL Warehouse</a
+      >
+    </li>
     <li class="sub-drop">
       <button class="drop-btn" onclick="toggleAsideSubmenu(this)">
         <i class="material-icons">social_distance</i>
         <span>Fleet Management</span>
         <span class="arr-right">
-            <i class="material-icons">keyboard_arrow_right</i>
+          <i class="material-icons">keyboard_arrow_right</i>
         </span>
         <span class="arr-down hide">
           <i class="material-icons">keyboard_arrow_down</i>
-        </span> 
+        </span>
       </button>
       <ul class="drop-down-aside hide">
         <li><a href="/partners-orders">Overview</a></li>
@@ -52,6 +52,13 @@
         <li><a href="/">Orders</a></li>
       </ul>
     </li>
-    <li onclick="logOutAdmin()" style="cursor: pointer;"><i class="material-icons">logout</i>LogOut</li>
+    <li>
+      <a href="/our-godowns"
+        ><i class="material-icons">report_problem</i>Raise a Query</a
+      >
+    </li>
+    <li onclick="logOutAdmin()" style="cursor: pointer">
+      <i class="material-icons">logout</i>LogOut
+    </li>
   </ul>
 </div>

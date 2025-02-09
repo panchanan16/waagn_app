@@ -54,43 +54,23 @@ async function renderPartnerOrderDetails(id) {
             <div class="key-value-pair">
                 <strong>Tax Invoice No. :</strong> ${data.tax_invoice_number}
             </div>
+             <div class="key-value-pair">
+                <strong>Order Status :</strong> 
+                <span class="${data.order_status == "delivered" ? "status-green" : "status-red"}">
+                    ${data.order_status}
+                </span>
+            </div>
 
              <div class="key-value-pair">
-                <strong>Order Status:</strong>
+                <strong>Update Status:</strong>
                 <select class="${data.order_status == "delivered" ? "status-green" : "status-red"}" onchange="updateOrderStatus(this, ${
                   data.order_id
-                })">
-                    <option value="pending" ${
-                      data.order_status == "pending" ? "selected" : ""
-                    }>Pending</option>
-
-                    <option value="driver" ${
-                      data.order_status == "driver" ? "selected" : ""
-                    }>Driver Assigned</option>
-
-                    <option value="pickupprogress" ${
-                      data.order_status == "pickupprogress" ? "selected" : ""
-                    }>Pickup In Progress</option>
-
-                    <option value="pickupcompleted" ${
-                      data.order_status == "pickupcompleted" ? "selected" : ""
-                    }>Pickup Completed</option>
-
-                    <option value="transit" ${
-                      data.order_status == "transit" ? "selected" : ""
-                    }>In transit to 3PL</option>      
-
-                    <option value="arrived" ${
-                      data.order_status == "arrived" ? "selected" : ""
-                    }>Arrived At Destination</option>
-
-                    <option value="outfordelivery" ${
-                      data.order_status == "outfordelivery" ? "selected" : ""
-                    }>Out For Delivery</option> 
-
-                    <option value="delivered" ${
-                      data.order_status == "delivered" ? "selected" : ""
-                    }>Delivered</option>
+                })">    
+                    <option value="" selected disabled>Update Status</option>                   
+                    <option value="arrived">Arrived At Destination</option>
+                    <option value="outfordelivery">Out For Delivery</option> 
+                    <option value="delivered">Delivered</option>
+                    <option value="notdelivered">Not Delivered</option>
                 </select>
             </div>
         </div>
@@ -243,17 +223,30 @@ async function renderPartnerOrderDetails(id) {
             <div class="key-value-pair">
                 <strong>Charged Weight:</strong> ${data.charged_weight}
             </div>
-             <div class="key-value-pair">
+            <div class="key-value-pair">
                 <strong>Amount By Partner:</strong> ${data.partner_amount}
+            </div>
+            <div class="key-value-pair">
+                <strong>Amount collected:</strong> ${data.collected_amount}
             </div>
         </div>
 
         <div class="key-value flex flex-col" style="gap: 1rem;">
             <h2 class="flex details-heading">COMMENTS</h2>
-            <div class="key-value-pair form-row">
-                <input type="text" name="amount" value="1000">
-                <button class="btn">Update</button>
+            <div class="key-value-pair">
+                <strong>Reason Of Fail Delivery :</strong>
+                <span> ${data.reason_of_fail_delivery}</span>
             </div>
+            <div class="key-value-pair flex flex-col hide" id="reason-box">
+                <textarea style="padding: .8rem" id="reason_of_fail_delivery" placeholder="Reason for not delivered..." name="reason_of_fail_delivery" required></textarea>
+                <button class="btn" onclick="updateReasonOfDeliveryFail(this, ${data.order_id})">Update</button>
+            </div>
+           
+            <div class="key-value-pair form-row hide" id="collected-amount-box">
+                <input type="text" name="collected_amount" id="collected_amount" placeholder="Update collected amount...">
+                <button class="btn" onclick="updateAmountCollected(this, ${data.order_id})">Update</button>
+            </div>
+
              <div class="flex key-value-pair">
                 <div>
                     <label for="order-lr" class="btn">Upload LR</label>
@@ -342,6 +335,35 @@ async function acceptOrder(e, orderID) {
     );
     if (response.success) {
         renderAllPartnerOrder();
+    }
+}
+
+
+async function updateOrderStatus(target, orderId) {
+    const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", {
+      order_status: target.value,
+    });
+    if (target.value == "notdelivered") {
+       document.getElementById('reason-box').classList.remove('hide')
+    }
+  }
+
+async function updateReasonOfDeliveryFail(target, id) {
+    const text = target.parentNode.querySelector('#reason_of_fail_delivery').value
+    if (text != "") {
+        const response = await request.DEL_UPD(`v1/assign/partner/fail/${id}`, 'PUT', {text})
+    } else {
+        alert('Type the reason First then update!')
+    }
+}
+
+
+async function updateAmountCollected(target, id) {
+    const collectedAmount = target.parentNode.querySelector('#collected_amount').value
+    if (collectedAmount != "") {
+        const response = await request.DEL_UPD(`v1/dispatch/amount/${id}`, 'PUT', {collectedAmount})
+    } else {
+        alert('Type the reason First then update!')
     }
 }
 

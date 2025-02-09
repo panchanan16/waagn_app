@@ -218,6 +218,10 @@ a {
     grid-template-columns: repeat(4, auto);
 }
 
+.grid-col-5 {
+    grid-template-columns: repeat(5, auto);
+}
+
 .service-card {
     background-color: #4269bd;
     color: #ffffff;
@@ -691,7 +695,7 @@ form textarea {
 
 .pdf {
     width: 196mm;
-    height: 260mm;
+    height: 275mm;
     padding: 0.5rem;
     border: 1px solid rgb(102, 102, 102);
     font-size: 10px;

@@ -235,6 +235,25 @@ exports.updateOrderAcceptStatus = (req, res) => {
 }
 
 
+// Update reason of failed delivery ---
+exports.updateDeliveryFailReason = (req, res) => {
+  const { id } = req.params
+  const query = `UPDATE partner_assign SET reason_of_fail_delivery = ? WHERE order_id = ?`;
+
+  db.query(query, [req.body.text, id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ success: false, error: 'Failed to Upadate the Reason' });
+    }
+
+    if (result.changedRows == 0) {
+      return res.status(404).json({ success: false, message: 'Order Not Found!' })
+    }
+
+    return res.status(200).json({ success: true, message: 'Reason Updated Successfully!' });
+    })
+}
+
+
 
 // Dispatch order table controllers ---
 
@@ -293,6 +312,25 @@ exports.updateDispatchDetails = (req, res) => {
     return res.status(500).json({ success: false, message: 'Failed to Update details', error: error.message });
   }
 };
+
+
+// Update Collected Amount ---
+exports.updateCollectedAmount = (req, res) => {
+  const { id } = req.params
+  const query = `UPDATE partner_delivery_details SET collected_amount = ? WHERE order_id = ?`;
+
+  db.query(query, [req.body.collectedAmount, id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ success: false, error: 'Failed to Upadate the Amount' });
+    }
+
+    if (result.changedRows == 0) {
+      return res.status(404).json({ success: false, message: 'Order Not Found!' })
+    }
+
+    return res.status(200).json({ success: true, message: 'Collected Amount Updated Successfully!' });
+    })
+}
 
 
 

@@ -9,8 +9,11 @@ async function renderAllOrder() {
             <td class="search-item">${item.order_id}</td>
             <td class="search-item">${item.shipper_company_name}</td>
             <td >${item.receiver_company_name}</td>
-            <td>${item.shipper_contact_number}</td>
+            <td>${item.company_name ? item.company_name : 'not assigned'}</td>
             <td>${item.order_date}</td>
+            <td>
+              <span class="${item.order_status == 'delivered' ? 'status-green' : 'status-red'}">${item.order_status}</span>
+            </td>
             <td>
                 <diV style="cursor: pointer;" onclick="editOrder(event, ${item.order_id})">
                     <i class="material-icons">app_registration</i> 
@@ -34,7 +37,7 @@ async function createOrderFromAdmin(e) {
   );
   const response =
     e.target.dataset.orderid != ""
-      ? await request.GET_POST(
+      ? await request.DEL_UPD(
           `v1/order/${e.target.dataset.orderid}`,
           `PUT`,
           formData,
@@ -197,6 +200,10 @@ async function renderOrderDetails(id) {
                     <option value="delivered" ${
                       data.order_status == "delivered" ? "selected" : ""
                     }>Delivered</option>
+                    
+                    <option value="notdelivered" ${
+                      data.order_status == "notdelivered" ? "selected" : ""
+                    }>Not Delivered</option>
                 </select>
             </div>
         </div>
@@ -352,10 +359,17 @@ async function renderOrderDetails(id) {
              <div class="key-value-pair">
                 <strong>Amount By Partner:</strong> ${data.partner_amount}
             </div>
+             <div class="key-value-pair">
+                <strong>Amount collected:</strong> ${data.collected_amount}
+            </div>
         </div>
 
         <div class="key-value flex flex-col" style="gap: 1rem;">
             <h2 class="flex details-heading">COMMENTS</h2>
+            <div class="key-value-pair">
+                <strong>Reason Of Fail Delivery :</strong>
+                <span> ${data.reason_of_fail_delivery}</span>
+            </div>
             <div class="key-value-pair form-row">
                 <input type="text" name="amount" value="1000">
                 <button class="btn">Update</button>
@@ -464,7 +478,7 @@ async function updateOrderStatus(target, orderId) {
 
 async function editOrder(e, orderid) {
   e.stopPropagation();
-  alert("Edited successfully!");
+  alert("Do you want to edit ??");
   const form = document.getElementById("order-create-form-admin");
   const inputs = Array.from(form.getElementsByTagName("INPUT"));
   const inputArray = inputs.concat(

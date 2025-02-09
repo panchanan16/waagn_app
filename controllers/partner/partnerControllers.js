@@ -12,6 +12,8 @@ exports.createPartnerCompany = (req, res) => {
         specialization,
         type_of_services,
         fleet_size,
+        frequency_of_loads,
+        oda_areas,
         types_of_vehicles,
         average_age_of_vehicles,
         number_of_warehouses,
@@ -33,24 +35,23 @@ exports.createPartnerCompany = (req, res) => {
         market_reputation_reviews
     } = req.body;
 
-    console.log(req.body)
 
     const query = `
     INSERT INTO partner_companies 
     (company_name, years_of_experience, contact_details, certifications, operational_capability, 
-    types_of_goods_handled, specialization, type_of_services, fleet_size, types_of_vehicles, 
+    types_of_goods_handled, specialization, type_of_services, fleet_size, frequency_of_loads, oda_areas, types_of_vehicles, 
     average_age_of_vehicles, number_of_warehouses, area_type_of_logistics, compliance_with_transportation_laws, 
     driver_certifications, cost_structure, payment_terms, additional_charges_for_specialized_services, 
     real_time_tracking_availability, integration_with_logistics_software, online_booking_systems, 
     customer_support_24_7, emergency_point_of_contact, insurance_coverage_for_cargo, 
     liability_in_case_of_damage_or_loss, claim_processing_time, references_from_previous_clients, 
     market_reputation_reviews) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
     db.query(query, [
         company_name, years_of_experience, contact_details, certifications, operational_capability,
-        types_of_goods_handled, specialization, type_of_services, fleet_size, types_of_vehicles,
+        types_of_goods_handled, specialization, type_of_services, fleet_size, frequency_of_loads, oda_areas, types_of_vehicles,
         average_age_of_vehicles, number_of_warehouses, area_type_of_logistics, compliance_with_transportation_laws,
         driver_certifications, cost_structure, payment_terms, additional_charges_for_specialized_services,
         real_time_tracking_availability, integration_with_logistics_software, online_booking_systems,
@@ -126,6 +127,8 @@ exports.updatePartnerCompany = (req, res) => {
         specialization,
         type_of_services,
         fleet_size,
+        frequency_of_loads,
+        oda_areas,
         types_of_vehicles,
         average_age_of_vehicles,
         number_of_warehouses,
@@ -138,10 +141,10 @@ exports.updatePartnerCompany = (req, res) => {
         real_time_tracking_availability,
         integration_with_logistics_software,
         online_booking_systems,
-        customer_support_24_7,
+        customer_support,
         emergency_point_of_contact,
         insurance_coverage_for_cargo,
-        liability_in_case_of_damage_or_loss,
+        liability_in_case_of_damage_loss,
         claim_processing_time,
         references_from_previous_clients,
         market_reputation_reviews
@@ -150,8 +153,7 @@ exports.updatePartnerCompany = (req, res) => {
     const query = `
     UPDATE partner_companies SET
     company_name = ?, years_of_experience = ?, contact_details = ?, certifications = ?, operational_capability = ?,
-    types_of_goods_handled = ?, specialization = ?, type_of_services = ?, fleet_size = ?, types_of_vehicles = ?,
-    average_age_of_vehicles = ?, number_of_warehouses = ?, area_type_of_logistics = ?, compliance_with_transportation_laws = ?,
+    types_of_goods_handled = ?, specialization = ?, type_of_services = ?, fleet_size = ?, frequency_of_loads=?, oda_areas = ?, types_of_vehicles = ?, average_age_of_vehicles = ?, number_of_warehouses = ?, area_type_of_logistics = ?, compliance_with_transportation_laws = ?,
     driver_certifications = ?, cost_structure = ?, payment_terms = ?, additional_charges_for_specialized_services = ?,
     real_time_tracking_availability = ?, integration_with_logistics_software = ?, online_booking_systems = ?,
     customer_support_24_7 = ?, emergency_point_of_contact = ?, insurance_coverage_for_cargo = ?,
@@ -162,12 +164,12 @@ exports.updatePartnerCompany = (req, res) => {
 
     db.query(query, [
         company_name, years_of_experience, contact_details, certifications, operational_capability,
-        types_of_goods_handled, specialization, type_of_services, fleet_size, types_of_vehicles,
+        types_of_goods_handled, specialization, type_of_services, fleet_size, frequency_of_loads, oda_areas, types_of_vehicles,
         average_age_of_vehicles, number_of_warehouses, area_type_of_logistics, compliance_with_transportation_laws,
         driver_certifications, cost_structure, payment_terms, additional_charges_for_specialized_services,
         real_time_tracking_availability, integration_with_logistics_software, online_booking_systems,
-        customer_support_24_7, emergency_point_of_contact, insurance_coverage_for_cargo,
-        liability_in_case_of_damage_or_loss, claim_processing_time, references_from_previous_clients,
+        customer_support, emergency_point_of_contact, insurance_coverage_for_cargo,
+        liability_in_case_of_damage_loss, claim_processing_time, references_from_previous_clients,
         market_reputation_reviews, id
     ], (error, result) => {
         if (error) {
@@ -223,12 +225,12 @@ exports.deletePartnerCompany = (req, res) => {
 
 // CREATE Partner gowdown
 exports.createGodown = (req, res) => {
-    const { town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id } = req.body;
+    const { town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id, godown_pincode } = req.body;
 
-    const query = `INSERT INTO partner_godown (town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO partner_godown (town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id, godown_pincode) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    db.query(query, [town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id], (err, result) => {
+    db.query(query, [town, type_of_godown, full_address, contact_person_name, number, alt_number, rate, oda_number, partner_id, godown_pincode], (err, result) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Error inserting partner address", error: err.message });
         }

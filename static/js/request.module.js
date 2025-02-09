@@ -129,7 +129,7 @@ class DataCall {
             }
         } else if (type && type == 'form' && body != undefined) {
             try {
-                // document.getElementById('loading-container').classList.remove('hide')
+                document.getElementById('loading-container').classList.remove('hide')
                 const payload = new URLSearchParams(body);
                 const fet = await fetch(this.urlHead + url, {
                     method: method,
@@ -137,15 +137,15 @@ class DataCall {
                 })
                 const res = await fet.json()
                 if (fet.ok) {
-                    // document.getElementById('loading-container').classList.add('hide')
-                    this.GET_Notify('Successfully Done', 'Successfull', 'success')
+                    document.getElementById('loading-container').classList.add('hide')
+                    this.GET_Notify('Successfully Done', res.message, 'success')
                 } else {
-                    // document.getElementById('loading-container').classList.add('hide')
+                    document.getElementById('loading-container').classList.add('hide')
                     this.GET_Notify('Error Recognized', 'Something Error', 'error')
                 }
                 return res;
             } catch (err) {
-                // document.getElementById('loading-container').classList.add('hide')
+                document.getElementById('loading-container').classList.add('hide')
                 this.GET_Notify('Something Error', 'Invalid Request!', 'error')
                 throw new Error('request not proceed !' + err.message)
             }

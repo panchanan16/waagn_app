@@ -26,6 +26,7 @@ appRoutes.put('/driver/status/:id', driverControllers.updateDriverStatus)
 
 //Vehicles Api ---
 appRoutes.post('/vehicle', vehicleControllers.createVehicle)
+appRoutes.get('/vehicle/:id', vehicleControllers.getOneVehicle)
 appRoutes.get('/vehicles', vehicleControllers.getAllVehicles)
 appRoutes.put('/vehicle', vehicleControllers.updateVehicle)
 appRoutes.put('/vehicle/status/:id', vehicleControllers.updateVehicleStatus)
@@ -72,6 +73,7 @@ appRoutes.get('/assign/partner/:orderId', assignControllers.getPartnerAssignById
 appRoutes.post('/assign/partner', assignTransactions.partnerAssign_StatusUpdate);    
 appRoutes.put('/assign/partner/:id', assignControllers.updatePartnerAssign);
 appRoutes.put('/assign/partner/status/:orderId', assignControllers.updateOrderAcceptStatus);
+appRoutes.put('/assign/partner/fail/:id', assignControllers.updateDeliveryFailReason);
 
 
 //Vehicles Assign Api --- 
@@ -83,6 +85,7 @@ appRoutes.put('/assign/vehicle/:id', assignControllers.updateVehicleAssign);
 appRoutes.post('/dispatch', assignTransactions.dispatch_StatusUpdate);  
 appRoutes.get('/dispatch/:id', assignControllers.getOneDispatchOrderDetails); 
 appRoutes.put('/dispatch/:id', assignControllers.updateDispatchDetails); 
+appRoutes.put('/dispatch/amount/:id', assignControllers.updateCollectedAmount); 
 
 
 // Dashboard API ---

@@ -50,6 +50,21 @@ function getAllVehicles(req, res) {
 }
 
 
+// Function to get One vehicle
+function getOneVehicle(req, res) {
+    const { id } = req.params
+    const query = 'SELECT * FROM vehicle_information WHERE vehicle_id = ?';
+
+    db.query(query, [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Database error', error: err });
+        }
+        return res.status(200).json({ success: true, data: results });
+    });
+}
+
+
+
 // Function to get vehicles with driver name ---
 function getAllVehiclesWithDriver(req, res) {
     const query = `SELECT vehicle_id, registration_number, driver_id, driver_name FROM vehicle_information INNER JOIN drivers ON vehicle_information.driver_details = drivers.driver_id;`
@@ -135,6 +150,7 @@ function deleteVehicle(id, callback) {
 module.exports = {
     createVehicle,
     getAllVehicles,
+    getOneVehicle,
     getAllVehiclesWithDriver,
     updateVehicle,
     updateVehicleStatus,

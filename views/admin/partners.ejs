@@ -32,11 +32,11 @@
             <div class="service-cards grid-col-3">
                 <div class="service-card">
                     <h3>13</h3>
-                    <p>Today's Orders</p>
+                    <p>Total Partners</p>
                 </div>
                 <div class="service-card" style="background-color: #c4c443;">
                     <h3>8</h3>
-                    <p>Order In Progress</p>
+                    <p>Available Partners</p>
                 </div>
                 <div class="service-card" style="background-color: #89c867;">
                     <h3>50</h3>
@@ -56,9 +56,9 @@
                             <th>3PL name</th>
                             <th>Contact</th>
                             <th>Experience</th>
-                            <th>Pickup Date</th>
-                            <th>Delivery Date</th>
+                            <th>Frequency of Loads</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="partners-display-table">
@@ -73,7 +73,7 @@
                 <div class="flex form-header">
                     <h2>3PL partner Information Form</h2>
                     <span class="material-icons" style="cursor: pointer;color: #c11717;"
-                        onclick="closePopup('partner-add-form-popup')">close</span>
+                        onclick="closePopup('partner-add-form-popup', 'form', 'partner-update-btn', 'partnerid', 'partner-create-form')">close</span>
                 </div>
                 <form id="partner-create-form" style="margin-top: 1rem;">
                     <div class="form-row">
@@ -138,6 +138,10 @@
 
                     <div class="form-row">
                         <div class="form-field">
+                            <label for="frequency_of_loads">Frequency Of Loads:</label>
+                            <input type="text" id="frequency_of_loads" name="frequency_of_loads" required>
+                        </div>
+                        <div class="form-field">
                             <label for="logistics_type">Intercity, Interstate, or Cross-Border Logistics:</label>
                             <select id="logistics_type" name="area_type_of_logistics">
                                 <option value="Intercity">Intercity</option>
@@ -149,8 +153,8 @@
                             <label for="compliance_with_transportation_laws">Compliance with Transportation
                                 Laws:</label>
                             <select id="compliance_with_transportation_laws" name="compliance_with_transportation_laws">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                     </div>
@@ -180,16 +184,16 @@
                         <div class="form-field">
                             <label for="real_time_tracking_availability">Real-Time Tracking Availability:</label>
                             <select id="real_time_tracking_availability" name="real_time_tracking_availability">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                         <div class="form-field">
                             <label for="integration_with_logistics_software">Integration with Logistics
                                 Software:</label>
                             <select id="integration_with_logistics_software" name="integration_with_logistics_software">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                     </div>
@@ -198,8 +202,8 @@
                         <div class="form-field">
                             <label for="online_booking_systems">Online Booking Systems:</label>
                             <select id="online_booking_systems" name="online_booking_systems">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="o">No</option>
                             </select>
                         </div>
                         <div class="form-field">
@@ -219,15 +223,15 @@
                         <div class="form-field">
                             <label for="insurance_coverage_for_cargo">Insurance Coverage for Cargo:</label>
                             <select id="insurance_coverage_for_cargo" name="insurance_coverage_for_cargo">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                         <div class="form-field">
-                            <label for="liability_in_case_of_damage_loss">Liability in Case of Damage/Loss:</label>
-                            <select id="liability_in_case_of_damage_loss" name="liability_in_case_of_damage_loss">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                            <label for="liability_in_case_of_damage_or_loss">Liability in Case of Damage/Loss:</label>
+                            <select id="liability_in_case_of_damage_or_loss" name="liability_in_case_of_damage_loss">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
                         <div class="form-field">
@@ -238,17 +242,21 @@
 
                     <div class="form-row">
                         <div class="form-field">
+                            <label for="oda_areas">ODA areas:</label>
+                            <textarea id="oda_areas" name="oda_areas"></textarea>
+                        </div>
+                        <div class="form-field">
                             <label for="references_from_previous_clients">References from Previous Clients:</label>
                             <textarea id="references_from_previous_clients"
                                 name="references_from_previous_clients"></textarea>
                         </div>
                         <div class="form-field">
-                            <label for="market_reputation">Market Reputation/Reviews:</label>
-                            <textarea id="market_reputation" name="market_reputation_reviews"></textarea>
+                            <label for="market_reputation_reviews">Market Reputation/Reviews:</label>
+                            <textarea id="market_reputation_reviews" name="market_reputation_reviews"></textarea>
                         </div>
                     </div>
 
-                    <button class="btn" onclick="createpartner(event)" type="button">Submit</button>
+                    <button data-partnerid="" class="btn" id="partner-update-btn" onclick="createpartner(event)" type="button">Submit</button>
                 </form>
             </div>
 
@@ -277,10 +285,7 @@
                             <div class="form-row">
                                 <div class="form-field">
                                     <label for="town">Town:</label>
-                                    <select name="town" id="town">
-                                        <option value="nagaon">Nagaon</option>
-                                        <option value="ghy">Guwahati</option>
-                                    </select>
+                                    <input type="text" name="town" id="town">
                                 </div>
                                 <div class="form-field">
                                     <label for="type_of_godown">Type:</label>
@@ -319,6 +324,10 @@
                             </div>
 
                             <div class="form-row">
+                                <div class="form-field">
+                                    <label for="godown_pincode">Pincode:</label>
+                                    <input type="text" id="godown_pincode" name="godown_pincode" maxlength="20" required>
+                                </div>
                                 <div class="form-field">
                                     <label for="number">Phone Number:</label>
                                     <input type="text" id="number" name="number" maxlength="20" required>

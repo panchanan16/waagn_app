@@ -4,7 +4,6 @@ const request = new DataCall()
 
 async function getAllpartners(e) {
     const response = await request.GET_POST('v1/partners', 'GET')
-    console.log(response)
 }
 
 
@@ -19,13 +18,17 @@ async function renderPartners() {
         <td>${item.company_name}</td>
         <td>${item.contact_details}</td>
         <td>${item.years_of_experience}</td>
-        <td>01/09/2002</td>
-        <td>09/09/2024</td>
+        <td>${item.frequency_of_loads}</td>
         <td>
             <select class="${item.is_active ? 'status-green' : 'status-red'}" onchange="updatePartnerStatus(this, ${item.company_id})">
                 <option value="1" ${item.is_active ? 'selected' : ''}>Active</option>
                 <option value="0" ${item.is_active ? '' : 'selected'}>Unactive</option>
             </select>
+        </td>
+        <td>
+            <diV style="cursor: pointer;" onclick="editPartner(event, ${item.company_id})">
+                <i class="material-icons">app_registration</i> 
+            </div>
         </td>
        </tr>`
 
@@ -39,8 +42,12 @@ async function renderPartners() {
 async function createpartner(e) {
     e.preventDefault()
     const formData = new FormData(document.getElementById('partner-create-form'))
-    const response = await request.GET_POST('v1/partner', 'POST', formData, 'form')
-    if (response.success) { renderPartners() }
+    const response =  e.target.dataset.partnerid != "" ? await request.DEL_UPD(`v1/partner/${e.target.dataset.partnerid }`, 'PUT', formData, 'form') : await request.GET_POST('v1/partner', 'POST', formData, 'form')  
+
+    if (response.success) { 
+        renderPartners() 
+        document.getElementById("partner-create-form").reset();
+    }
 }
 
 
@@ -58,8 +65,9 @@ async function getIdAndOpenGodownForm(target) {
 
 async function renderPartnerDetails(partnerId) {
     const response = await request.GET_POST(`v1/partner/${partnerId}`, 'GET')
-    const boxData = response.data;
     if (response.success) {
+        const boxData = response.data;
+        console.log(boxData)
         const detailsBox = document.getElementById('partner-details-box')
         const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
                         <div class="key-value">
@@ -75,11 +83,11 @@ async function renderPartnerDetails(partnerId) {
                             </div>
                             <div class="key-value-pair">
                                 <strong>Contact details:</strong> ${boxData.
-                                    contact_details}
+                contact_details}
                             </div>
                             <div class="key-value-pair">
                                 <strong>Certifications:</strong> ${boxData.
-                                    certifications}
+                certifications}
                             </div>
                         </div>
     
@@ -96,6 +104,14 @@ async function renderPartnerDetails(partnerId) {
                             <div class="key-value-pair">
                                 <strong>Services Types:</strong>
                                  ${boxData.type_of_services}
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>ODA areas :</strong>
+                                 <span>${boxData.oda_areas}</span>
+                            </div>
+                            <div class="key-value-pair">
+                                <strong>Frequency Of Loads :</strong>
+                                 <span>${boxData.frequency_of_loads}</span>
                             </div>
                         </div>
     
@@ -134,50 +150,53 @@ async function renderPartnerDetails(partnerId) {
                         <div class="key-value">
                             <h2 class="flex details-heading">Compliance</h2>
                             <div class="key-value-pair">
-                                <strong>Compliance with Transportation Laws:</strong> <span class="status-green">delivered</span>
+                                <strong>Compliance with Transportation Laws:</strong> ${boxData.compliance_with_transportation_laws}
                             </div>
                             <div class="key-value-pair">
-                                <strong>Driver Certifications:</strong> John Doe
+                                <strong>Driver Certifications:</strong> ${boxData.driver_certifications
+            }
                             </div>
                         </div>
     
                         <div class="key-value">
                             <h2 class="flex details-heading">Pricing</h2>
                             <div class="key-value-pair">
-                                <strong>Cost Structure:</strong> <span class="status-green">delivered</span>
+                                <strong>Cost Structure:</strong> ${boxData.cost_structure}
                             </div>
                             <div class="key-value-pair">
-                                <strong>Payment Terms:</strong> John Doe
+                                <strong>Payment Terms:</strong> ${boxData.
+                payment_terms
+            }
                             </div>
                             <div class="key-value-pair">
-                                <strong>Additional Charges for Specialized Services:</strong><span class=""> New York, NY, 90001, lkrb path nabin nagar,
-                                    near police point, paltan bazar</span>
+                                <strong>Additional Charges for Specialized Services:</strong> ${boxData.additional_charges_for_specialized_services
+            }
                             </div>
                         </div>
     
                         <div class="key-value">
                             <h2 class="flex details-heading">Technology Integration</h2>
                             <div class="key-value-pair">
-                                <strong>Real-Time Tracking Availability:</strong> John Doe                                                       
+                                <strong>Real-Time Tracking Availability:</strong> ${boxData.real_time_tracking_availability}    
                             </div>
                             <div class="key-value-pair">
-                                <strong>Integration with Logistics Software :</strong> John Doe
+                                <strong>Integration with Logistics Software :</strong>${boxData.integration_with_logistics_software}
                             </div>
                             <div class="key-value-pair">
-                                <strong>Online Booking System:</strong> John Doe
+                                <strong>Online Booking System:</strong> ${boxData.
+                online_booking_systems
+            }
                             </div>
                         </div>
                         
                         <div class="key-value">
                             <h2 class="flex details-heading">Customer Support</h2>
                             <div class="key-value-pair">
-                                <strong>24/7 Customer Support:</strong> John Doe                                                        
-                            </div>
+                                <strong>24/7 Customer Support:</strong> ${boxData.customer_support_24_7}                                                       
+                            </div>                       
                             <div class="key-value-pair">
-                                <strong>Escalation Process:</strong> John Doe
-                            </div>
-                            <div class="key-value-pair">
-                                <strong>Emergency Point of Contact:</strong> John Doe
+                                <strong>Emergency Point of Contact:</strong> ${boxData.emergency_point_of_contact
+            }
                             </div>
                             
                         </div>
@@ -185,13 +204,14 @@ async function renderPartnerDetails(partnerId) {
                         <div class="key-value">
                             <h2 class="flex details-heading">Insurance and Liability</h2>
                             <div class="key-value-pair">
-                                <strong>Insurance Coverage For Cargo:</strong> John Doe                                                        
+                                <strong>Insurance Coverage For Cargo:</strong> ${boxData.insurance_coverage_for_cargo}      
                             </div>
                             <div class="key-value-pair">
-                                <strong>Liability in Case of Damage/Loss :</strong> John Doe
+                                <strong>Liability in Case of Damage/Loss :</strong> ${boxData.
+                liability_in_case_of_damage_or_loss}
                             </div>
                             <div class="key-value-pair">
-                                <strong>Claim Processing Time:</strong> John Doe
+                                <strong>Claim Processing Time:</strong> ${boxData.claim_processing_time}
                             </div>
                             
                         </div>
@@ -199,10 +219,11 @@ async function renderPartnerDetails(partnerId) {
                         <div class="key-value">
                             <h2 class="flex details-heading">References And Reputations</h2>
                             <div class="key-value-pair">
-                                <strong>References from Previous Clients:</strong> John Doe                                                        
+                                <strong>References from Previous Clients:</strong> ${boxData.references_from_previous_clients}     
                             </div>
                             <div class="key-value-pair">
-                                <strong>Market Reputation/Reviews:</strong> John Doe
+                                <strong>Market Reputation/Reviews:</strong> ${boxData.market_reputation_reviews
+            }
                             </div>                                             
                         </div>
                     
@@ -223,7 +244,7 @@ async function renderGodownList(partnerId) {
     const response = await request.GET_POST(`v1/godown/${partnerId}`, 'GET')
     if (response.success) {
         document.getElementById('godown-location-box').innerHTML = '';
-        response.data.forEach((item)=> {
+        response.data.forEach((item) => {
             const html = `<div class="key-value-box scroll-box"
             style="justify-content: space-around; margin-block: 1rem;">
             <div class="key-value">
@@ -237,13 +258,16 @@ async function renderGodownList(partnerId) {
                 <div class="key-value-pair">
                     <strong>Full Address:</strong> ${item.full_address}
                 </div>
+                 <div class="key-value-pair">
+                    <strong>Pincode:</strong> ${item.godown_pincode}
+                </div>
                 <div class="key-value-pair">
                     <strong>Contact Person:</strong> ${item.
                     contact_person_name}
                 </div>
                 <div class="key-value-pair">
                     <strong>Numbers:</strong> ${item.
-                        number} / ${item.alt_number}
+                    number} / ${item.alt_number}
                 </div>
                 <div class="key-value-pair">
                     <strong>Rate:</strong> ${item.
@@ -259,11 +283,34 @@ async function renderGodownList(partnerId) {
             </div>
            
         </div>`
-        document.getElementById('godown-location-box').innerHTML += html;
+            document.getElementById('godown-location-box').innerHTML += html;
         })
     }
     openPopup('godown-list-popup')
 
+}
+
+
+async function editPartner(e, partnerId) {
+    e.stopPropagation();
+    alert("Do you like to edit ??");
+    const form = document.getElementById("partner-create-form");
+    const inputs = Array.from(form.getElementsByTagName("INPUT"));
+    const inputArray = inputs.concat(
+        Array.from(form.getElementsByTagName("SELECT")).concat(Array.from(form.getElementsByTagName("textarea")))
+    );
+    const response = await request.GET_POST(`v1/partner/${partnerId}`, 'GET')
+    if (response.success) {
+        for (const key in response.data) {
+            inputArray.forEach((item) => {
+                if (key == item.id) {
+                    item.value = response.data[key];
+                }
+            });
+        }
+    }
+    document.getElementById("partner-update-btn").dataset.partnerid = partnerId;
+    openPopup("partner-add-form-popup");
 }
 
 
@@ -278,19 +325,19 @@ async function deletePartnerGodown(target) {
         reverseButtons: true,
         confirmButtonColor: '#E3242B',
         cancelButtonColor: '#1b1b1b'
-      }).then(async (result) => {
+    }).then(async (result) => {
         if (result.isConfirmed) {
             const response = await request.DEL_UPD(`v1/godown/${target.dataset.gid}/partner/${target.dataset.pid}`, 'DELETE')
-            if (response.success) { target.parentNode.parentNode.remove() } 
+            if (response.success) { target.parentNode.parentNode.remove() }
         } else {
-          return;
+            return;
         }
-      });
+    });
 }
 
 async function updatePartnerStatus(target, partnerID) {
     changeStatus(target)
-    await request.DEL_UPD(`v1/partner/status/${partnerID}`, 'PUT', {status: target.value})
+    await request.DEL_UPD(`v1/partner/status/${partnerID}`, 'PUT', { status: target.value })
 }
 
 

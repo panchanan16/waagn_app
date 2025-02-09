@@ -124,6 +124,8 @@ CREATE TABLE partner_companies (
     specialization VARCHAR(255) DEFAULT NULL,
     type_of_services VARCHAR(50) DEFAULT NULL,
     fleet_size VARCHAR(50) DEFAULT NULL,
+    frequency_of_loads VARCHAR(80) DEFAULT NULL,
+    oda_areas VARCHAR(200) DEFAULT NULL,
     types_of_vehicles VARCHAR(255),
     average_age_of_vehicles INT,
     number_of_warehouses INT,
@@ -160,6 +162,7 @@ CREATE TABLE partner_godown (
     rate DECIMAL(10, 2) DEFAULT NULL,
     oda_number VARCHAR(255) DEFAULT NULL,
     partner_id INT DEFAULT NULL,
+    godown_pincode INT DEFAULT NULL,
     FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE CASCADE
 );
 
