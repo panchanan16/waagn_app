@@ -146,16 +146,19 @@ async function renderOrderDetails(id) {
                 }
             </div>
             <div class="key-value-pair">
-                <strong>Drop Location:</strong>${data.delivery_location_address}
+                <strong>Drop Location:</strong> ${data.delivery_location_address}
             </div>
             <div class="key-value-pair">
-                <strong>Amount:</strong>${data.amount}
+                <strong>Amount:</strong> ${data.amount}
             </div>
              <div class="key-value-pair">
-                <strong>Payment Mode:</strong>${data.payment_mode}
+                <strong>Payment Mode:</strong> ${data.payment_mode}
             </div>
             <div class="key-value-pair">
-                <strong>Payment Status:</strong>${data.payment_status}
+                <strong>Payment Status:</strong> ${data.payment_status}
+            </div>
+            <div class="key-value-pair">
+                <strong>Tax Invoice No. :</strong> ${data.tax_invoice_number}
             </div>
 
              <div class="key-value-pair">
@@ -273,25 +276,31 @@ async function renderOrderDetails(id) {
         <div class="key-value">
             <h2 class="flex details-heading">GOODS INFORMATION</h2>
             <div class="key-value-pair">
-                <strong>Length Of Box:</strong> <span class="status-green">delivered</span>
+                <strong>Length Of Box :</strong> ${data.length_of_box}
             </div>
             <div class="key-value-pair">
-                <strong>Breadth Of Box:</strong> John Doe
+                <strong>Breadth Of Box :</strong> ${data.breadth_of_box}
             </div>
             <div class="key-value-pair">
-                <strong>Height Of Box:</strong><span class=""></span>
+                <strong>Height Of Box :</strong> ${data.height_of_box}
             </div>
             <div class="key-value-pair">
-                <strong>Volume :</strong> Los Angeles, CA
+                <strong>Volume :</strong> ${data.volume_of_consignment}
             </div>
             <div class="key-value-pair">
-                <strong>Number of boxes :</strong> Los Angeles, CA
+                <strong>Number of boxes :</strong> ${data.number_of_boxes}
             </div>
             <div class="key-value-pair">
-                <strong>Actual Weight :</strong> Los Angeles, CA
+                <strong>Actual Weight :</strong> ${data.actual_weight_of_consignment} kg
             </div>
             <div class="key-value-pair">
-                <strong>Goods Type :</strong> Los Angeles, CA
+                <strong>Goods Type :</strong> ${data.types_of_goods}
+            </div>
+            <div class="key-value-pair">
+                <strong>Risk Of Goods :</strong> ${data.consignment_risk}
+            </div>
+             <div class="key-value-pair">
+                <strong>Insurance. :</strong> ${data.insurance}
             </div>
         </div>              
 
