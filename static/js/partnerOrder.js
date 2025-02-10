@@ -242,8 +242,8 @@ async function renderPartnerOrderDetails(id) {
                 <button class="btn" onclick="updateReasonOfDeliveryFail(this, ${data.order_id})">Update</button>
             </div>
            
-            <div class="key-value-pair form-row hide" id="collected-amount-box">
-                <input type="text" name="collected_amount" id="collected_amount" placeholder="Update collected amount...">
+            <div class="key-value-pair ${data.order_status == 'delivered' && data.payment_status == 'topay' ? '' : 'hide'}" id="collected-amount-box">
+                <input style="padding:10px" type="text" name="collected_amount" id="collected_amount" placeholder="Update collected amount...">
                 <button class="btn" onclick="updateAmountCollected(this, ${data.order_id})">Update</button>
             </div>
 
@@ -340,6 +340,7 @@ async function acceptOrder(e, orderID) {
 
 
 async function updateOrderStatus(target, orderId) {
+    changeStatus(target)
     const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", {
       order_status: target.value,
     });

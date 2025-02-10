@@ -1,7 +1,7 @@
 const request = new DataCall();
 
-async function renderAllOrder() {
-  const response = await request.GET_POST("v1/orders", "GET");
+async function renderAllOrder(interval) {
+  const response = await request.GET_POST(`v1/orders?interval=${interval ? interval : 10}`, "GET");
   if (response.success) {
     document.getElementById("order-table").innerHTML = "";
     response.data.forEach((item, ind) => {
@@ -10,7 +10,7 @@ async function renderAllOrder() {
             <td class="search-item">${item.shipper_company_name}</td>
             <td >${item.receiver_company_name}</td>
             <td>${item.company_name ? item.company_name : 'not assigned'}</td>
-            <td>${item.order_date}</td>
+            <td>${new Date(item.order_date).toLocaleDateString('en-GB')}</td>
             <td>
               <span class="${item.order_status == 'delivered' ? 'status-green' : 'status-red'}">${item.order_status}</span>
             </td>
@@ -116,22 +116,22 @@ async function renderGodownLocationInForm() {
   }
 }
 
-async function renderVehiclesInForm() {
-  const partnerId = document.getElementById("partner-dropdown").value;
-  const type = document.getElementById("godown-type-dropdown").value;
-  if (partnerId && type) {
-    console.log(partnerId, type);
-    const response = await request.GET_POST(`v1/godowns/3/${type}`, "GET");
-    if (response.success) {
-      document.getElementById("godown-location-dropdown").innerHTML = "";
-      response.data.forEach((item) => {
-        document.getElementById(
-          "godown-location-dropdown"
-        ).innerHTML += `<option value="${item.godown_id}">${item.full_address}</option>`;
-      });
-    }
-  }
-}
+// async function renderVehiclesInForm() {
+//   const partnerId = document.getElementById("partner-dropdown").value;
+//   const type = document.getElementById("godown-type-dropdown").value;
+//   if (partnerId && type) {
+//     console.log(partnerId, type);
+//     const response = await request.GET_POST(`v1/godowns/3/${type}`, "GET");
+//     if (response.success) {
+//       document.getElementById("godown-location-dropdown").innerHTML = "";
+//       response.data.forEach((item) => {
+//         document.getElementById(
+//           "godown-location-dropdown"
+//         ).innerHTML += `<option value="${item.godown_id}">${item.full_address}</option>`;
+//       });
+//     }
+//   }
+// }
 
 async function renderOrderDetails(id) {
   const response = await request.GET_POST(`v1/order/${id}`, "GET");
@@ -471,6 +471,7 @@ function selectVehicle(target, vehicleId, driverId, driverName) {
 }
 
 async function updateOrderStatus(target, orderId) {
+  changeStatus(target)
   const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", {
     order_status: target.value,
   });
@@ -522,6 +523,18 @@ async function searchOrder(target, className, type) {
       alert('No order found!')
     }
   }
+}
+
+
+async function filterOrders() {
+  const filterbox = document.getElementById('filter-box').querySelector('input[name="filter"]:checked')
+  const param = filterbox ? filterbox.value : null;
+  if (param) {
+    renderAllOrder(param);
+  } else {
+    alert('Select the filter first !')
+  }
+
 }
 
 renderAllOrder();

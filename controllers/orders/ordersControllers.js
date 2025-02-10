@@ -2,7 +2,8 @@ const db = require('../../config/dbConfig');
 
 // GET all orders
 exports.getAll = (req, res) => {
-  const query = 'SELECT orders.*, partner_companies.company_name FROM orders LEFT JOIN partner_assign ON partner_assign.order_id = orders.order_id LEFT JOIN partner_companies ON partner_companies.company_id = partner_assign.partner_id;';
+  const { interval } = req.query
+  const query = `SELECT orders.*, partner_companies.company_name FROM orders LEFT JOIN partner_assign ON partner_assign.order_id = orders.order_id LEFT JOIN partner_companies ON partner_companies.company_id = partner_assign.partner_id WHERE orders.order_date >= CURDATE() - INTERVAL ${interval} DAY ORDER BY orders.order_id DESC;`;
 
   db.query(query, (err, results) => {
     if (err) {

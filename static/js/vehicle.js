@@ -3,20 +3,31 @@ const request = new DataCall()
 async function createNewVehicle(e) {
     e.preventDefault();
     const formData = new FormData(document.getElementById('vehicle-add-form'))
-    const response = await request.GET_POST('v1/vehicle', 'POST', formData, 'form')
-    if (response.success) { renderVehicleList() }
+    const response = e.target.dataset.vehicleid != "" ? await request.DEL_UPD(`v1/vehicle/${e.target.dataset.vehicleid}`, 'PUT', formData, 'form') 
+    : await request.GET_POST('v1/vehicle', 'POST', formData, 'form')
+    if (response.success) { 
+        document.getElementById('vehicle-add-form').reset()
+        renderVehicleList() 
+    }
 }
 
 
-async function renderDriversAddOpenForm() {
+async function renderDriverListInForm() {
     const response = await request.GET_POST('v1/drivers/drop', 'GET')
     if (response.success) {
         const target = document.getElementById('driver-list-dropdown')
         target.innerHTML = ''
         response.data.forEach((item) => {
-            target.innerHTML += ` <option value="${item.driver_id}">${item.driver_name}</option>`
+            target.innerHTML += `<option value="${item.driver_id}">${item.driver_name}</option>`
         })
     }
+
+    return response;
+}
+
+
+async function renderDriversAddOpenForm() {
+    renderDriverListInForm()
     openPopup('vehicle-add-form-popup')
 }
 
@@ -46,6 +57,11 @@ async function renderVehicleList() {
                 </select>
             </td>
             <td>${item.owners_name}</td>
+            <td>
+                <diV style="cursor: pointer;" onclick="editVehicles(event, ${item.vehicle_id})">
+                    <i class="material-icons">app_registration</i> 
+                </div>
+            </td>
             </tr>`
             table.innerHTML += html
         })
@@ -62,124 +78,7 @@ async function renderVehicleDetails(vehicleID) {
     if (response.success) {
         const data = response.data[0]
         console.log(data)
-        const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
-        <div class="key-value">
-            <h2 class="flex details-heading">VEHICLES DETAILS</h2>
-            <div class="key-value-pair">
-                <strong>Vehicle Status:</strong> <span class="status-green">delivered</span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Vehicle Name:</strong> John Doe
-            </div>
-            <div class="key-value-pair">
-                <strong>Vehicle ID:</strong><span class=""></span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Registration Number:</strong> Los Angeles, CA
-            </div>
-            <div class="key-value-pair">
-                <strong>Vehicle Type:</strong> Los Angeles, CA
-            </div>
-        </div>
-        <div class="key-value">
-            <h2 class="flex details-heading">OWNER DETAILS</h2>                           
-            <div class="key-value-pair">
-                <strong>Owner name:</strong> John Doe
-            </div>
-            <div class="key-value-pair">
-                <strong>Owner Contact:</strong><span class=""></span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Company affiliation:</strong> Los Angeles, CA
-            </div>
-            <div class="key-value-pair">
-                <strong>DL Number:</strong> Los Angeles, CA
-            </div>
-            <div class="key-value-pair">
-                <strong>Vehicle Registration:</strong> Los Angeles, CA
-            </div>
-            <div class="key-value-pair">
-                <strong>Pollution Certificate:</strong> Los Angeles, CA
-            </div>
-            <div class="key-value-pair">
-                <strong>Fitness Certificate:</strong> Los Angeles, CA
-            </div>
-        </div>
-        <div class="key-value">
-            <h2 class="flex details-heading">TECHNOLOGY</h2>
-            <div class="key-value-pair">
-                <strong>GPS Integration:</strong> <span class="status-green">delivered</span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Compatibility With Software:</strong> John Doe
-            </div>
-            <div class="key-value-pair">
-                <strong>Temparature Control:</strong><span class=""> </span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Online Availibility Status:</strong> Los Angeles, CA
-            </div>
-        </div>
-        <div class="key-value">
-            <h2 class="flex details-heading">MAINTENANCE</h2>
-            <div class="key-value-pair">
-                <strong>Last Service date:</strong> <span class="status-green">delivered</span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Maitenance Schedule:</strong> John Doe
-            </div>
-            <div class="key-value-pair">
-                <strong>Major Repairs:</strong><span class="">/span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Insurance Provider:</strong> Los Angeles, CA
-            </div>
-            <div class="key-value-pair">
-                <strong>Policy details:</strong> Los Angeles, CA
-            </div>
-        </div>                   
-
-        <div class="key-value">
-            <h2 class="flex details-heading">CAPAPIBILITY</h2>                         
-            <div class="key-value-pair">
-                <strong>Cost per Kilometer:</strong> John Doe
-            </div>
-            <div class="key-value-pair">
-                <strong>Preffered Routes:</strong><span class=""> New York, NY, 90001, lkrb path nabin
-                    nagar,
-                    near police point, paltan bazar</span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Availability Schedule:</strong> Los Angeles, CA
-            </div>
-            <div class="key-value-pair">
-                <strong>Special handling Capabilities:</strong> Los Angeles, CA
-            </div>
-            <div class="key-value-pair">
-                <strong>Road Permit:</strong> Los Angeles, CA
-            </div>
-        </div>
-
-        <div class="key-value">
-            <h2 class="flex details-heading">Delivery Adress</h2>
-            <div class="key-value-pair">
-                <strong>Order Status:</strong> <span class="status-green">delivered</span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Name:</strong> John Doe
-            </div>
-            <div class="key-value-pair">
-                <strong>Pickup Location:</strong><span class=""> New York, NY, 90001, lkrb path nabin
-                    nagar,
-                    near police point, paltan bazar</span>
-            </div>
-            <div class="key-value-pair">
-                <strong>Drop Location:</strong> Los Angeles, CA
-            </div>
-        </div>                       
-    </div>`
-
-    const html2 = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
+        const html2 = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
     <div class="key-value">
         <h2 class="flex details-heading">VEHICLES DETAILS</h2>
         <div class="key-value-pair">
@@ -187,9 +86,6 @@ async function renderVehicleDetails(vehicleID) {
             <span class="${data.is_active ? 'status-green' : 'status-red'}">
                  ${data.is_active ? 'Active' : 'Not Active'}
             </span>
-        </div>
-        <div class="key-value-pair">
-            <strong>Vehicle Name:</strong> John Doe
         </div>
         <div class="key-value-pair">
             <strong>Vehicle ID:</strong><span>${data.vehicle_id}</span>
@@ -269,6 +165,9 @@ async function renderVehicleDetails(vehicleID) {
         <div class="key-value-pair">
             <strong>Feedback :</strong> <span>${data.feedback_on_performance_and_reliability}</span>
         </div>
+         <div class="key-value-pair">
+            <strong>Claim Process :</strong> <span>${data.claim_process}</span>
+        </div>
     </div>                   
 
     <div class="key-value">
@@ -299,22 +198,25 @@ async function renderVehicleDetails(vehicleID) {
     <div class="key-value">
         <h2 class="flex details-heading">DRIVER ASSIGNED</h2>
         <div class="key-value-pair">
-            <strong>Order Status:</strong> <span class="status-green">delivered</span>
+            <strong>Driver Name:</strong> ${data.driver_name}
         </div>
         <div class="key-value-pair">
-            <strong>Name:</strong> John Doe
+            <strong>Driver Number:</strong> ${data.contact_number}
         </div>
         <div class="key-value-pair">
-            <strong>Pickup Location:</strong><span>New York, NY, 90001, lkrb path nabin nagar, near police point, paltan bazar</span>
+            <strong>Driver Status:</strong>
+            <span class="${data.driver_status ? 'status-green' : 'status-red'}">
+             ${data.driver_status ? 'Active' : 'Not Active'}
+            </span>
         </div>
         <div class="key-value-pair">
-            <strong>Drop Location:</strong> Los Angeles, CA
+            <strong>Driver License No.:</strong> ${data.dl_number}
         </div>
     </div>                       
 </div>
 `
 
-    document.getElementById('vehicle-details-box').innerHTML = html2
+        document.getElementById('vehicle-details-box').innerHTML = html2
     }
 
     openPopup('vehicle-detail-popup')
@@ -324,6 +226,33 @@ async function renderVehicleDetails(vehicleID) {
 async function updateVehicleStatus(target, vehicleID) {
     changeStatus(target)
     const response = await request.DEL_UPD(`v1/vehicle/status/${vehicleID}`, 'PUT', { status: target.value })
+}
+
+
+async function editVehicles(e, vehicleid, formId) {
+    e.stopPropagation();
+    alert("Do you like to edit ??");
+    const form = document.getElementById("vehicle-add-form");
+    const inputs = Array.from(form.getElementsByTagName("INPUT"));
+    const inputArray = inputs.concat(
+        Array.from(form.getElementsByTagName("SELECT")).concat(Array.from(form.getElementsByTagName("textarea")))
+    );
+    const isDriverRendered = await renderDriverListInForm()
+    if (isDriverRendered.success) {
+        const response = await request.GET_POST(`v1/vehicle/${vehicleid}`, 'GET')
+        if (response.success) {
+            for (const key in response.data[0]) {
+                inputArray.forEach((item) => {
+                    if (key == item.id) {
+                        item.value = response.data[0][key];
+                    }
+                });
+            }
+            document.getElementById('driver-list-dropdown').value = response.data[0]['driver_details']
+        }
+    }
+    document.getElementById("vehicle-update-btn").dataset.vehicleid = vehicleid;
+    openPopup("vehicle-add-form-popup");
 }
 
 

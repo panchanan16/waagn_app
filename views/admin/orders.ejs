@@ -45,26 +45,26 @@
                     <h1>Latest Order</h1>
                     <div class="flex" style="gap:1rem;">
                         <button class="btn" onclick="openPopup('create-order-form-popup')">Create Order</button>
-                        <button class="btn" onclick="openPopup('filter-box')"><i style="font-size: 16px;"
+                        <button class="btn" onclick="toggleFilterBox('filter-box')"><i style="font-size: 16px;"
                                 class="material-icons">tune</i></button>
                     </div>
                 </div>
-                <div class="filter-box hide flex flex-col">
+                <div class="filter-box hide flex flex-col" id="filter-box">
                     <div class="filter-item flex" style="justify-content: space-between;">
-                        <label>Total order</label>
-                        <input type="radio" name="filter" id="">
+                        <label>Last 15 days</label>
+                        <input type="radio" name="filter" id="" value="15">
                     </div>
                     <div class="filter-item flex" style="justify-content: space-between;">
-                        <label>Total order</label>
-                        <input type="radio" name="filter" id="">
+                        <label>Last 30 days</label>
+                        <input type="radio" name="filter" id="" value="30">
                     </div>
                     <div class="filter-item flex" style="justify-content: space-between;">
-                        <label>Total order</label>
-                        <input type="radio" name="filter" id="">
+                        <label>Last 3 months</label>
+                        <input type="radio" name="filter" id="" value="90">
                     </div>
 
                     <div>
-                        <button class="btn">Apply</button>
+                        <button class="btn" onclick="filterOrders()">Apply</button>
                         <button class="btn" onclick="cancelFilter()">Cancel</button>
                     </div>
 
@@ -519,11 +519,7 @@
                                 </div>
                                 <div class="search-input scroll-box hide">
                                     <ul id="search-list">
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">DL 1C 2345</li>
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">MH 04 AB 5678</li>
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">KA 03 P 1234</li>
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">TN 22 AZ 9876</li>
-                                        <li class="vh-num-li" onclick="selectVehicle(this)">UP 16 AB 4321</li>
+                                        <!-- Dynamic rendering is here -->
                                     </ul>
                                 </div>
                             </div>

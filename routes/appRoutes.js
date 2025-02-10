@@ -28,7 +28,7 @@ appRoutes.put('/driver/status/:id', driverControllers.updateDriverStatus)
 appRoutes.post('/vehicle', vehicleControllers.createVehicle)
 appRoutes.get('/vehicle/:id', vehicleControllers.getOneVehicle)
 appRoutes.get('/vehicles', vehicleControllers.getAllVehicles)
-appRoutes.put('/vehicle', vehicleControllers.updateVehicle)
+appRoutes.put('/vehicle/:id', vehicleControllers.updateVehicle)
 appRoutes.put('/vehicle/status/:id', vehicleControllers.updateVehicleStatus)
 appRoutes.get('/vehicles/drivers', vehicleControllers.getAllVehiclesWithDriver)
 

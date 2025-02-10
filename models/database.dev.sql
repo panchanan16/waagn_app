@@ -100,7 +100,7 @@ CREATE TABLE vehicle_information (
     policy_details TEXT,
     coverage_for_goods_and_vehicle TINYINT(1), 
     claim_process TEXT,
-    last_service_date DATE,
+    last_service_date VARCHAR(80) DEFAULT NULL,
     maintenance_schedule TEXT,
     major_repairs TEXT,
     references_from_previous_employers_clients TEXT,
@@ -109,6 +109,8 @@ CREATE TABLE vehicle_information (
     is_active TINYINT(1) DEFAULT 1,
     FOREIGN KEY (driver_details) REFERENCES drivers(driver_id) ON DELETE SET NULL
 );
+
+ALTER TABLE `vehicle_information` CHANGE `last_service_date` `last_service_date` VARCHAR(80) NULL DEFAULT NULL;
 
 
 -- 3pl partners table
@@ -194,6 +196,7 @@ CREATE TABLE partner_assign (
     datetime VARCHAR(100) DEFAULT NULL,
     msg_for_partner TEXT DEFAULT NULL,
     is_accepted ENUM("accepted", "notaccepted") DEFAULT 'notaccepted',
+    reason_of_fail_delivery TEXT DEFAULT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE SET NULL,
     FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE CASCADE,
     FOREIGN KEY (godown_id) REFERENCES partner_godown(godown_id) ON DELETE CASCADE,
@@ -227,6 +230,7 @@ CREATE TABLE partner_delivery_details (
     actual_weight DECIMAL(10, 2) DEFAULT NULL,  
     charged_weight DECIMAL(10, 2) DEFAULT NULL, 
     partner_amount DECIMAL(15, 2) DEFAULT NULL,
+    collected_amount INT DEFAULT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
     FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE CASCADE
 );

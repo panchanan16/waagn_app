@@ -34,7 +34,7 @@ function cancelFilter() {
 
 function changeStatus(target) {
   console.log(target.classList);
-  if (target.value == 1) {
+  if (target.value == 1 || target.value == 'delivered') {
     target.classList.remove("status-red");
     target.classList.add("status-green");
   } else {
@@ -62,6 +62,10 @@ function toggleAsideSubmenu(target) {
   targetUl.classList.toggle("hide");
   target.parentNode.querySelector(".arr-right").classList.toggle("hide");
   target.parentNode.querySelector(".arr-down").classList.toggle("hide");
+}
+
+function toggleFilterBox(target) {
+    document.getElementById(target).classList.toggle('hide')
 }
 
 function prevent(e) {
