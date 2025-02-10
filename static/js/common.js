@@ -101,3 +101,15 @@ async function logOutAdmin() {
       window.location.href = location.origin + json.redirect;
   }
 }
+
+function renderSummary(values) {
+  const target = Array.from(document.querySelector('.service-cards').getElementsByTagName('h3'))
+  target.forEach((item)=> {
+      values.forEach((valu)=> {
+          if (valu.order_status == item.id) {
+             item.textContent = valu.sum
+          }     
+      })
+  })
+  document.getElementById('total').textContent = values[0].total
+}

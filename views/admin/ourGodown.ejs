@@ -53,10 +53,9 @@
                     <thead>
                         <tr>
                             <th>Godown ID</th>
-                            <th>Contact Person</th>
-                            <th>City</th>
-                            <th>Partner Name</th>
-                            <th>Type</th>
+                            <th>Godown Name</th>
+                            <th>Loaction</th>
+                            <th>Contact Person</th>            
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -71,65 +70,191 @@
             <div class="form-container">
                 <div class="flex form-header">
                     <h2>Godown Information Form</h2>
-                    <span class="material-icons" style="cursor: pointer; color: #c11717;" onclick="closePopup('create-ourgodown-form-popup')">close</span>
+                    <span class="material-icons" style="cursor: pointer;color: #c11717;" onclick="closePopup('create-ourgodown-form-popup', 'form', 'godown-update-btn', 'godownid', 'ourgodown-register-form')">close</span>
                 </div>
                 <form id="ourgodown-register-form" style="margin-top: 1.5rem;">
-                    <div class="form-row">                     
+                    <div class="form-row">
                         <div class="form-field">
-                            <label for="town">Town:</label>
-                            <input type="text" id="town" name="town" required>
+                            <label for="name_of_the_godown">Name of the Godown:</label>
+                            <input type="text" id="name_of_the_godown" name="name_of_the_godown">
                         </div>
-                        <div class="form-field">
-                            <label for="type_of_godown">Type of Godown:</label>
-                            <input type="text" id="type_of_godown" name="type_of_godown" required>
-                        </div>
-                    </div>
-            
-                    <div class="form-row">                      
                         <div class="form-field">
                             <label for="full_address">Full Address:</label>
-                            <input type="text" id="full_address" name="full_address" required>
+                            <input type="text" id="full_address" name="full_address">
+                        </div>
+                        <div class="form-field">
+                            <label for="city">City:</label>
+                            <input type="text" id="city" name="city">
+                        </div>
+                        <div class="form-field">
+                            <label for="state">State:</label>
+                            <input type="text" id="state" name="state">
                         </div>
                     </div>
             
                     <div class="form-row">
+                        <div class="form-field">
+                            <label for="pincode">Pincode:</label>
+                            <input type="text" id="pincode" name="pincode">
+                        </div>
                         <div class="form-field">
                             <label for="contact_person_name">Contact Person Name:</label>
-                            <input type="text" id="contact_person_name" name="contact_person_name" required>
+                            <input type="text" id="contact_person_name" name="contact_person_name">
                         </div>
                         <div class="form-field">
-                            <label for="number">Contact Number:</label>
-                            <input type="text" id="number" name="number" required>
+                            <label for="contact_number">Contact Number:</label>
+                            <input type="text" id="contact_number" name="contact_number">
+                        </div>
+                        <div class="form-field">
+                            <label for="email_id">Email ID:</label>
+                            <input type="email" id="email_id" name="email_id">
                         </div>
                     </div>
             
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="alt_number">Alternate Number:</label>
-                            <input type="text" id="alt_number" name="alt_number">
+                            <label for="type_of_warehouse">Type of Warehouse:</label>
+                            <input type="text" id="type_of_warehouse" name="type_of_warehouse">
                         </div>
                         <div class="form-field">
-                            <label for="rate">Rate:</label>
-                            <input type="number" id="rate" name="rate" step="0.01" required>
+                            <label for="ownership_type">Ownership Type:</label>
+                            <input type="text" id="ownership_type" name="ownership_type">
+                        </div>
+                        <div class="form-field">
+                            <label for="owners_name">Owner's Name:</label>
+                            <input type="text" id="owners_name" name="owners_name">
+                        </div>
+                        <div class="form-field">
+                            <label for="gst_number">GST Number:</label>
+                            <input type="text" id="gst_number" name="gst_number">
                         </div>
                     </div>
             
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="oda_number">ODA Number:</label>
-                            <input type="text" id="oda_number" name="oda_number">
+                            <label for="warehouse_license_number">Warehouse License Number:</label>
+                            <input type="text" id="warehouse_license_number" name="warehouse_license_number">
                         </div>
                         <div class="form-field">
-                            <label for="partner_name">Partner Name:</label>
-                            <input type="text" id="partner_name" name="partner_name">
+                            <label for="expiry_date_of_license">Expiry Date of License:</label>
+                            <input type="date" id="expiry_date_of_license" name="expiry_date_of_license">
+                        </div>
+                        <div class="form-field">
+                            <label for="total_area">Total Area (sq ft):</label>
+                            <input type="number" step="0.01" id="total_area" name="total_area">
+                        </div>
+                        <div class="form-field">
+                            <label for="covered_area">Covered Area (sq ft):</label>
+                            <input type="number" step="0.01" id="covered_area" name="covered_area">
                         </div>
                     </div>
             
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="storage_capacity">Storage Capacity:</label>
+                            <input type="number" step="0.01" id="storage_capacity" name="storage_capacity">
+                        </div>
+                        <div class="form-field">
+                            <label for="number_of_floors">Number of Floors:</label>
+                            <input type="number" id="number_of_floors" name="number_of_floors">
+                        </div>
+                        <div class="form-field">
+                            <label for="number_of_loading_docks">Number of Loading Docks:</label>
+                            <input type="number" id="number_of_loading_docks" name="number_of_loading_docks">
+                        </div>
+                        <div class="form-field">
+                            <label for="loading_unloading_facility">Loading & Unloading Facility:</label>
+                            <select id="loading_unloading_facility" name="loading_unloading_facility">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="security_measures">Security Measures:</label>
+                            <textarea id="security_measures" name="security_measures"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="types_of_goods_stored">Types of Goods Stored:</label>
+                            <textarea id="types_of_goods_stored" name="types_of_goods_stored"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="temperature_controlled_storage">Temperature-Controlled Storage:</label>
+                            <select id="temperature_controlled_storage" name="temperature_controlled_storage">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">                       
+                        <div class="form-field">
+                            <label for="power_backup_available">Power Backup Available:</label>
+                            <select id="power_backup_available" name="power_backup_available">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="availability_of_material_handling_equipment">Material Handling Equipment Available:</label>
+                            <select id="availability_of_material_handling_equipment" name="availability_of_material_handling_equipment">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="nearest_highway_road_connectivity">Nearest Highway/Road Connectivity:</label>
+                            <input type="text" id="nearest_highway_road_connectivity" name="nearest_highway_road_connectivity">
+                        </div>
+                    </div>          
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="distance_from_nearest_railway_station">Distance from Nearest Railway Station (km):</label>
+                            <input type="number" step="0.01" id="distance_from_nearest_railway_station" name="distance_from_nearest_railway_station">
+                        </div>
+                        <div class="form-field">
+                            <label for="distance_from_nearest_airport">Distance from Nearest Airport (km):</label>
+                            <input type="number" step="0.01" id="distance_from_nearest_airport" name="distance_from_nearest_airport">
+                        </div>
+                        <div class="form-field">
+                            <label for="availability_of_parking_facility">Parking Facility Available:</label>
+                            <select id="availability_of_parking_facility" name="availability_of_parking_facility">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="availability_of_transport_services">Transport Services Available:</label>
+                            <select id="availability_of_transport_services" name="availability_of_transport_services">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>                        
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="special_features_or_facilities">Special Features or Facilities:</label>
+                            <textarea id="special_features_or_facilities" name="special_features_or_facilities"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="rental_lease_terms">Rental/Lease Terms:</label>
+                            <textarea id="rental_lease_terms" name="rental_lease_terms"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="remarks_additional_notes">Remarks/Additional Notes:</label>
+                            <textarea id="remarks_additional_notes" name="remarks_additional_notes"></textarea>
+                        </div>
+                    </div>                                     
                     <div class="full-width">
-                        <button type="button" onclick="createOurGodown(event)" class="btn">Submit</button>
+                        <button type="button" id="godown-update-btn" data-godownid="" onclick="createOurGodown(event)" class="btn">Submit</button>
                     </div>
                 </form>
             </div>
+            
             
         </div>
 

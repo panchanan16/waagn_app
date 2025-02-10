@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Waagn App</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/lr.css" />
+    <script src="js/request.module.js"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      input {
+        padding: 0.8rem;
+        font-size: 16px;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waagn App</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/lr.css" />
-  <script src="js/request.module.js"></script>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    input {
-      padding: 0.8rem;
-      font-size: 16px;
-    }
-  </style>
-</head>
-
-<body>
-  <%- include('../partials/aside.ejs') %>
+  <body>
+    <%- include('../partials/aside.ejs') %>
     <div class="content">
       <div class="header">
         <div class="flex search-bar">
@@ -38,9 +40,16 @@
         </div>
 
         <div>
-          <input type="text" name="" id="order-for-lr" placeholder="Enter order ID..." />
+          <input
+            type="text"
+            name=""
+            id="order-for-lr"
+            placeholder="Enter order ID..."
+          />
           <button class="btn" onclick="startLRGeneration()">Start</button>
-          <button class="btn" id="downloadPdf" onclick="generatePDF()">Download</button>
+          <button class="btn" id="downloadPdf" onclick="generatePDF()">
+            Download
+          </button>
         </div>
       </div>
 
@@ -48,29 +57,53 @@
         <div class="form-container" style="width: 100%">
           <div class="flex form-header">
             <h2>LR Generation Form</h2>
-            <span class="material-icons" style="cursor: pointer; color: #c11717"
-              onclick="closePopup('create-driver-form-popup')">close</span>
+            <span
+              class="material-icons"
+              style="cursor: pointer; color: #c11717"
+              onclick="closePopup('create-driver-form-popup')"
+              >close</span
+            >
           </div>
           <form id="generate-lr-form" style="margin-top: 1.5rem">
             <div class="form-row">
               <div class="form-field">
                 <label for="dl_number">Docket Number:</label>
-                <input type="text" id="dl_number" name="docket_number" required />
+                <input
+                  type="text"
+                  id="dl_number"
+                  name="docket_number"
+                  required
+                />
               </div>
               <div class="form-field">
                 <label for="contact_number">Reciever Name:</label>
-                <input type="text" id="contact_number" name="reciever_name" required />
+                <input
+                  type="text"
+                  id="contact_number"
+                  name="reciever_name"
+                  required
+                />
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-field">
                 <label for="aadhaar_card_number">Invoice Number:</label>
-                <input type="text" id="aadhaar_card_number" name="invoice_number" required />
+                <input
+                  type="text"
+                  id="aadhaar_card_number"
+                  name="invoice_number"
+                  required
+                />
               </div>
               <div class="form-field">
                 <label for="dl_number">Declared Value:</label>
-                <input type="text" id="dl_number" name="declared_value" required />
+                <input
+                  type="text"
+                  id="dl_number"
+                  name="declared_value"
+                  required
+                />
               </div>
             </div>
             <!-- radio inputs -->
@@ -143,7 +176,11 @@
               <div class="form-row">
                 <div class="form-field">
                   <label for="whatsapp_number">Description Of goods:</label>
-                  <input type="text" id="whatsapp_number" name="whatsapp_number" />
+                  <input
+                    type="text"
+                    id="whatsapp_number"
+                    name="whatsapp_number"
+                  />
                 </div>
                 <div class="form-field">
                   <label for="alt_number">Actual Weight:</label>
@@ -162,7 +199,12 @@
                   <input type="text" id="alt_number" name="alt_number" />
                 </div>
                 <div class="form-field">
-                  <button class="btn" type="button" style="margin-top: 1.8rem" onclick="addItemField(event)">
+                  <button
+                    class="btn"
+                    type="button"
+                    style="margin-top: 1.8rem"
+                    onclick="addItemField(event)"
+                  >
                     Add Now
                   </button>
                 </div>
@@ -188,28 +230,54 @@
         <div class="pdf" id="pdf-content">
           <div class="section">
             <div class="row">
-              <div class="column" style="flex: 0 0 50%" colspan="2">
-                <div class="flex flex-col" style="justify-content: space-around; gap: 3px">
-                  <img src="/img/logo.png" alt="" height="50px" width="230px" />
-                  <h2>HAX TECHNOLOGIES PVT LTD</h2>
-                  <p>JL Bhawan, NH-37, Jalukbari, Guwahati-781013</p>
-                  <p>Email: contact@waagn.com</p>
-                  <p>CIN : U74999AS2016PTC017481</p>
+              <div class="column" style="flex: 0 0 100%" colspan="2">
+                <div class="flex" style="justify-content: space-around; gap: 3px; align-items: center;">
+                  <img src="/img/logo.png" alt="" height="45px" width="230px" />
+                  <div>
+                    <h2>HAX TECHNOLOGIES PVT LTD</h2>
+                    <p>JL Bhawan, NH-37, Jalukbari, Guwahati-781013</p>
+                     <div class="flex" style="gap: 1rem">
+                        <p>Email: contact@waagn.com</p>
+                        <p>CIN : U74999AS2016PTC017481</p>
+                     </div>
+                  </div>
                 </div>
               </div>
-              <div class="column" style="flex: 0 0 50%; padding: 0" colspan="2">
+              <!-- <div class="column" style="flex: 0 0 50%; padding: 0" colspan="2">
                 <div class="flex flex-col" style="gap: 1rem">
-                  <p style="padding: 1rem">
-                    Docket No: <span class="lr-field" id="docket_number"></span>
-                  </p>
-                  <p style="border-top: 2px solid rgb(86, 86, 86); padding: 1rem">
-                    Order ID: <span class="db-data" id="order_id"></span>
-                  </p>
+                    <div class="flex" style="justify-content: space-around; margin-top: 10px;">
+                      <p>
+                        Docket No: <span class="lr-field" id="docket_number"></span>
+                      </p>
+                      <p>
+                        Order ID: <span class="db-data" id="order_id"></span>
+                      </p>
+                    </div>
+                    <div class="flex" style="justify-content: space-around; margin-top: 10px;">
+                      <p>
+                        Docket No: <span class="lr-field" id="docket_number"></span>
+                      </p>
+                      <p>
+                        Order ID: <span class="db-data" id="order_id"></span>
+                      </p>
+                      <p>
+                        Order ID: <span class="db-data" id="order_id"></span>
+                      </p>
+                    </div>
                 </div>
-              </div>
+              </div> -->
             </div>
-            <div class="row">
-              <div class="column" style="flex: 0 0 50%" colspan="2">Date: <span class="db-data" id="order_date"></span></div>
+            <div class="row">             
+              <div class="column" style="flex: 0 0 16.66%" colspan="2">
+                Docker ID: <span class="lr-field" id="docket_number"></span>
+              </div>
+              <div class="column" style="flex: 0 0 16.66%" colspan="2">
+                Order ID: <span class="db-data" id="order_id"></span>
+              </div>
+              <div class="column" style="flex: 0 0 16.66%" colspan="2">
+                Date: <span class="db-data" id="order_date"></span>
+              </div>
+              
               <div class="column" style="flex: 0 0 25%" colspan="2">
                 Origin: <span class="db-data" id="shipper_town"></span>
               </div>
@@ -231,7 +299,8 @@
                 <span class="db-data" id="shipper_company_name">tiuyu</span>
               </div>
               <div class="column" style="flex: 0 0 50%">
-                Company Name: <span class="db-data" id="receiver_company_name"></span>
+                Company Name:
+                <span class="db-data" id="receiver_company_name"></span>
               </div>
             </div>
             <div class="row">
@@ -244,27 +313,31 @@
             </div>
             <div class="row">
               <div class="column" style="flex: 0 0 50%">
-                Address: <span class="db-data" id="pickup_location_address"></span>
+                Address:
+                <span class="db-data" id="pickup_location_address"></span>
               </div>
               <div class="column" style="flex: 0 0 50%">
-                Address: <span class="db-data" id="delivery_location_address"></span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="column" style="flex: 0 0 50%">
-                Contact: <span class="db-data" id="shipper_contact_number"></span>
-              </div>
-              <div class="column" style="flex: 0 0 50%">
-                Contact: <span class="db-data" id="receiver_contact_number"></span>
+                Address:
+                <span class="db-data" id="delivery_location_address"></span>
               </div>
             </div>
             <div class="row">
-              <div class="column" style="flex: 0 0 50%">
+              <div class="column" style="flex: 0 0 25%">
+                Contact:
+                <span class="db-data" id="shipper_contact_number"></span>
+              </div>
+              <div class="column" style="flex: 0 0 25%">
                 Pin Code: <span class="db-data" id="shipper_pincode"></span>
               </div>
-              <div class="column" style="flex: 0 0 50%">
+              <div class="column" style="flex: 0 0 25%">
+                Contact:
+                <span class="db-data" id="receiver_contact_number"></span>
+              </div>
+              <div class="column" style="flex: 0 0 25%">
                 Pin Code: <span class="db-data" id="receiver_pincode"></span>
               </div>
+            </div>
+            <div class="row">
               <div class="column font-bold" style="flex: 0 0 12.5%">
                 Payment Mode
               </div>
@@ -274,7 +347,10 @@
               <div class="column" style="flex: 0 0 12.5%">
                 <span class="checkbox lr-field" id="topay"></span>To Pay
               </div>
-              <div class="column" style="flex: 0 0 12.5%; border-right: 1.5px solid black">
+              <div
+                class="column"
+                style="flex: 0 0 12.5%; border-right: 1.5px solid black"
+              >
                 <span class="checkbox lr-field" id="tbb"></span>TBB
               </div>
               <div class="column font-bold" style="flex: 0 0 12.5%">
@@ -303,6 +379,7 @@
               <!-- dynamic data will render -->
             </div>
           </div>
+
           <div class="section">
             <div class="row">
               <div class="column font-bold">Charges</div>
@@ -337,13 +414,28 @@
               </div>
             </div>
           </div>
+          <!-- Seconnd Acknowledge -->
+          <div class="section">
+            <div class="row">
+              <div class="column" style="flex: 0 0 100%">
+                <p>We, Waagnx Logistics Solution (A Unit of Hax Technologies Private Limited), have successfully delivered the goods through our 3PL partner. Prior to delivery, our 3PL partner or in-house team conducted a thorough verification of the goods to ensure their quality, quantity, and compliance with the agreed terms. This verification process was completed successfully before committing to the final delivery to the customer.</p>
+                <p style="margin-top: 5px;">Signature: </p>
+                <p>Name of the position: </p>
+                <p>Contact Person: </p>
+              </div>
+            </div>
+          </div>
           <div class="section">
             <div class="row">
               <div class="column font-bold" style="flex: 0 0 33.33%">
                 Acknowledgement
               </div>
               <div class="column" style="flex: 0 0 66.67%" colspan="3">
-                We hereby acknowledge that the consignment has been received in full and in good condition, without any objections or complaints, as per the details mentioned in the LR. The consignee confirms that there are no damages, shortages, or discrepancies in the delivered goods
+                We hereby acknowledge that the consignment has been received in
+                full and in good condition, without any objections or
+                complaints, as per the details mentioned in the LR. The
+                consignee confirms that there are no damages, shortages, or
+                discrepancies in the delivered goods
               </div>
             </div>
             <div class="row">
@@ -351,30 +443,76 @@
                 Receiver's Name:
                 <span class="lr-field" id="reciever_name"></span>
               </div>
-              <div class="column" style="flex: 0 0 50%; padding: 1rem" colspan="2">
+              <div
+                class="column"
+                style="flex: 0 0 50%; padding: 1rem"
+                colspan="2"
+              >
                 Consignee Seal & Comments
               </div>
-              <div class="column" style="flex: 0 0 30%; padding: 1rem" colspan="2">
+              <div
+                class="column"
+                style="flex: 0 0 30%; padding: 1rem"
+                colspan="2"
+              >
                 <div>
                   <h4>Bank Account Details:</h4>
-                  <p style="margin-top: 5px;">Account Name: HAX TECHNOLOGIES PRIVATE LIMITED</p>
-                  <p>Bank Name: ICICI BANK</p> 
-                  <p>Account Number: 210605000784</p> 
-                  <p>IFSC Code: ICIC0002106</p> 
-                  <p>UPI ID: waagn16@ybl</p> 
+                  <p style="margin-top: 5px">
+                    Account Name: HAX TECHNOLOGIES PRIVATE LIMITED
+                  </p>
+                  <p>Bank Name: ICICI BANK</p>
+                  <p>Account Number: 210605000784</p>
+                  <p>IFSC Code: ICIC0002106</p>
+                  <p>UPI ID: waagn16@ybl</p>
                 </div>
               </div>
-              <div class="column" style="flex: 0 0 70%; padding: 1rem" colspan="2">
+              <div
+                class="column"
+                style="flex: 0 0 70%; padding: 1rem"
+                colspan="2"
+              >
                 <div>
                   <h3>Scan To Pay:</h3>
                   <div>
-                    <img src="/img/qr.png" alt="Qr-code" height="80px" width="80px">
-                    <p>Once the payment is successfully made, please share the payment confirmation with our team for further processing. For any queries, contact us at contact@waagn.com or +91-9707051570</p>
+                    <div class="flex" style="gap: 2rem; align-items: center;">
+                      <img
+                      src="/img/qr.png"
+                      alt="Qr-code"
+                      height="80px"
+                      width="80px"
+                    />
+                    <p>
+                      Once the payment is successfully made, please share the
+                      payment confirmation with our team for further processing.
+                      For any queries, contact us at contact@waagn.com or
+                      +91-9707051570
+                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="column" style="flex: 0 0 100%">
-                <span class="font-bold">Terms & Conditions</span>: Waagnx Logistics Solution (Waagn.com) acts as an intermediary between transporters and customers, facilitating goods pickup and delivery, customers must provide accurate details of goods including weight, volume, and packaging condition at the time of booking, transporters or our 3PL partners will verify goods before pickup, proper packaging of goods is the customer’s responsibility, estimated delivery timelines are subject to unforeseen delays and force majeure events, Waagnx is not liable for loss, damage, or theft of goods during transit, customers are advised to insure valuable goods, “To-Pay” orders must be paid before delivery via provided payment methods, any disputes related to damage or loss must be raised within 48 hours of delivery, cancellation is not allowed once the order is dispatched, refunds are subject to case review and transporter’s policy, customers and transporters must comply with all local, national, and international transport laws, restricted or illegal goods are not allowed for shipping, all disputes will be subject to jurisdiction in Guwahati High courts, by using Waagnx services, all parties agree to abide by these terms and conditions.
+                <span class="font-bold">Terms & Conditions</span>: Waagnx
+                Logistics Solution (Waagn.com) acts as an intermediary between
+                transporters and customers, facilitating goods pickup and
+                delivery, customers must provide accurate details of goods
+                including weight, volume, and packaging condition at the time of
+                booking, transporters or our 3PL partners will verify goods
+                before pickup, proper packaging of goods is the customer’s
+                responsibility, estimated delivery timelines are subject to
+                unforeseen delays and force majeure events, Waagnx is not liable
+                for loss, damage, or theft of goods during transit, customers
+                are advised to insure valuable goods, “To-Pay” orders must be
+                paid before delivery via provided payment methods, any disputes
+                related to damage or loss must be raised within 48 hours of
+                delivery, cancellation is not allowed once the order is
+                dispatched, refunds are subject to case review and transporter’s
+                policy, customers and transporters must comply with all local,
+                national, and international transport laws, restricted or
+                illegal goods are not allowed for shipping, all disputes will be
+                subject to jurisdiction in Guwahati High courts, by using Waagnx
+                services, all parties agree to abide by these terms and
+                conditions.
               </div>
             </div>
           </div>
@@ -518,13 +656,16 @@
 
     <div class="flex loader-bg hide" id="loading-container">
       <div>
-          <span class="loader">Loading</span>
+        <span class="loader">Loading</span>
       </div>
     </div>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script type='text/javascript' src='https://html2canvas.hertzen.com/dist/html2canvas.js'></script>
+    <script
+      type="text/javascript"
+      src="https://html2canvas.hertzen.com/dist/html2canvas.js"
+    ></script>
     <script>
       // document
       //   .getElementById("downloadPdf")
@@ -542,26 +683,25 @@
       //   });
 
       function generatePDF() {
-      window.jsPDF = window.jspdf.jsPDF;
-      var doc = new jsPDF();
-      var elementHTML = document.querySelector("#pdf-content");
-      doc.html(elementHTML, {
-        callback: function(doc) {
-          doc.save('Shipping_Details.pdf');
-        },
-        margin: [2, 2, 2, 2],
-        autoPaging: 'text',
-        x: 0,
-        y: 0,
-        width: 187.5,
-        windowWidth: 675,
-        height: 200
-      });
-    }
+        window.jsPDF = window.jspdf.jsPDF;
+        var doc = new jsPDF();
+        var elementHTML = document.querySelector("#pdf-content");
+        doc.html(elementHTML, {
+          callback: function (doc) {
+            doc.save("Shipping_Details.pdf");
+          },
+          margin: [2, 2, 2, 2],
+          autoPaging: "text",
+          x: 0,
+          y: 0,
+          width: 187.5,
+          windowWidth: 675,
+          height: 200,
+        });
+      }
     </script>
 
     <script src="/js/common.js"></script>
     <script src="/js/generateLr.js"></script>
-</body>
-
+  </body>
 </html>

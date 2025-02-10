@@ -110,7 +110,7 @@ CREATE TABLE vehicle_information (
     FOREIGN KEY (driver_details) REFERENCES drivers(driver_id) ON DELETE SET NULL
 );
 
-ALTER TABLE `vehicle_information` CHANGE `last_service_date` `last_service_date` VARCHAR(80) NULL DEFAULT NULL;
+
 
 
 -- 3pl partners table
@@ -173,17 +173,43 @@ CREATE TABLE partner_godown (
 
 CREATE TABLE our_godown (
     godown_id INT AUTO_INCREMENT PRIMARY KEY,
-    town VARCHAR(150) DEFAULT NULL,
-    type_of_godown VARCHAR(50) DEFAULT NULL,
+    name_of_the_godown VARCHAR(255) DEFAULT NULL,
     full_address TEXT DEFAULT NULL,
-    contact_person_name VARCHAR(150) DEFAULT NULL,
-    number VARCHAR(20) DEFAULT NULL,
-    alt_number VARCHAR(20) DEFAULT NULL,
-    rate DECIMAL(10, 2) DEFAULT NULL,
-    oda_number VARCHAR(255) DEFAULT NULL,
-    partner_name VARCHAR(100) DEFAULT NULL,
+    city VARCHAR(100) DEFAULT NULL,
+    state VARCHAR(100) DEFAULT NULL,
+    pincode VARCHAR(10) DEFAULT NULL,
+    contact_person_name VARCHAR(255) DEFAULT NULL,
+    contact_number VARCHAR(20) DEFAULT NULL,
+    email_id VARCHAR(100) DEFAULT NULL,
+    type_of_warehouse VARCHAR(100) DEFAULT NULL,
+    ownership_type VARCHAR(50) DEFAULT NULL,
+    owners_name VARCHAR(255) DEFAULT NULL,
+    gst_number VARCHAR(15) DEFAULT NULL,
+    warehouse_license_number VARCHAR(100) DEFAULT NULL,
+    expiry_date_of_license VARCHAR(50) DEFAULT NULL,
+    total_area DECIMAL(10, 2) DEFAULT NULL,
+    covered_area DECIMAL(10, 2) DEFAULT NULL,
+    storage_capacity DECIMAL(10, 2) DEFAULT NULL,
+    number_of_floors INT DEFAULT NULL,
+    loading_unloading_facility TINYINT(1) DEFAULT NULL,
+    number_of_loading_docks INT DEFAULT NULL,
+    security_measures TEXT DEFAULT NULL,
+    types_of_goods_stored TEXT DEFAULT NULL,
+    temperature_controlled_storage TINYINT(1) DEFAULT NULL,
+    power_backup_available TINYINT(1) DEFAULT NULL,
+    availability_of_material_handling_equipment TINYINT(1) DEFAULT NULL,
+    nearest_highway_road_connectivity VARCHAR(255) DEFAULT NULL,
+    distance_from_nearest_railway_station DECIMAL(10, 2) DEFAULT NULL,
+    distance_from_nearest_airport DECIMAL(10, 2) DEFAULT NULL,
+    availability_of_parking_facility TINYINT(1) DEFAULT NULL,
+    availability_of_transport_services TINYINT(1) DEFAULT NULL,
+    special_features_or_facilities TEXT DEFAULT NULL,
+    rental_lease_terms TEXT DEFAULT NULL,
+    remarks_additional_notes TEXT DEFAULT NULL,
     is_active TINYINT(1) DEFAULT 1
 );
+
+
 
 
 

@@ -140,3 +140,38 @@ LEFT JOIN drivers ON drivers.driver_id = vehicle_assignment.driver_id
 LEFT JOIN vehicle_information ON vehicle_information.vehicle_id = vehicle_assignment.vehicle_id
 LEFT JOIN partner_delivery_details ON partner_delivery_details.order_id = orders.order_id
 
+### Our Godown Form new ---
+
+Name of the Godown
+full_Address
+City
+State
+Pincode
+Contact Person Name
+Contact Number
+Email ID
+Type of Warehouse:
+Ownership Type:
+Owner’s Name 
+GST Number 
+Warehouse License Number
+Expiry Date of License
+Total Area 
+Covered Area 
+Storage Capacity 
+Number of Floors
+Loading & Unloading Facility
+Number of Loading Docks
+Security Measures
+Types of Goods Stored
+Temperature-Controlled Storage:
+Power Backup Available
+Availability of Material Handling Equipment
+Nearest Highway/Road Connectivity
+Distance from Nearest Railway Station 
+Distance from Nearest Airport 
+Availability of Parking Facility
+Availability of Transport Services
+Any Special Features or Facilities
+Rental/Lease Terms 
+Remarks/Additional Notes

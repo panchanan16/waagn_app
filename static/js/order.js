@@ -4,7 +4,7 @@ async function renderAllOrder(interval) {
   const response = await request.GET_POST(`v1/orders?interval=${interval ? interval : 10}`, "GET");
   if (response.success) {
     document.getElementById("order-table").innerHTML = "";
-    response.data.forEach((item, ind) => {
+    response.data[0].forEach((item, ind) => {
       const html = `<tr class="table-rows" onclick="openOrderDetails(${item.order_id})">
             <td class="search-item">${item.order_id}</td>
             <td class="search-item">${item.shipper_company_name}</td>
@@ -22,8 +22,11 @@ async function renderAllOrder(interval) {
             </tr>`;
       document.getElementById("order-table").innerHTML += html;
     });
+    renderSummary(response.data[1])
   }
 }
+
+
 
 function openOrderDetails(orderid) {
   renderOrderDetails(orderid);

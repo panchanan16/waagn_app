@@ -14,7 +14,6 @@ const multer = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
-
 //Drivers Api ---
 appRoutes.post('/driver/register', upload.single('driver_photo'), driverControllers.registerDriver)
 appRoutes.get('/drivers', driverControllers.getAllDrivers)
@@ -61,10 +60,10 @@ appRoutes.put('/godown/:id', partnerController.updatePartnerGodown);
 appRoutes.delete('/godown/:gid/partner/:pid', partnerController.deletePartnerGodown);
 
 //Our godown Api ---
-appRoutes.post('/ourgodown', ourGodownControllers.createGodown);    
-appRoutes.get('/ourgodowns', ourGodownControllers.getAllGodown);  
+appRoutes.post('/ourgodown', ourGodownControllers.createOurGodown);    
+appRoutes.get('/ourgodowns', ourGodownControllers.getAllGodowns);  
 appRoutes.get('/ourgodown/:id', ourGodownControllers.getOneGodown);
-appRoutes.put('/ourgodown/status/:id', ourGodownControllers.updateOurLocationStatus); 
+appRoutes.put('/ourgodown/status/:id', ourGodownControllers.updateOurGodownStatus); 
 
 
 //Partners Assign Api ---
