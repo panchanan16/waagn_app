@@ -95,6 +95,7 @@ appRoutes.get('/dashboard/data', summaryControllers.getDashBoardSummary);
 
 appRoutes.post('/compaint', complaintControllers.createComplaint)
 appRoutes.get('/compaints', complaintControllers.getAllComplaints); 
+appRoutes.get('/compaint/:id', complaintControllers.getOneComplaint); 
 appRoutes.delete('/compaint/:id', complaintControllers.deleteComplaint)
 
 

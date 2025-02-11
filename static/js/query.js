@@ -18,7 +18,7 @@ async function renderComplaints() {
         console.log(response)
         table.innerHTML = ''
         response.data.forEach(item => {
-        table.innerHTML += `<tr class="table-rows" onclick="renderDriverDetails(${item.driver_id})">
+        table.innerHTML += `<tr class="table-rows" onclick="renderComplaintDetails(${item.complain_id})">
         <td>${item.complain_id}</td>
         <td class="search-item">${item.order_id_tracking_number}</td>
         <td>${item.customer_name}</td>
@@ -35,6 +35,50 @@ async function renderComplaints() {
         });
     }
 
+}
+
+
+async function renderComplaintDetails(complaintId) {
+    const response =  await request.GET_POST(`v1/compaint/${complaintId}`, 'GET')
+    if (response.success) {
+        const data = response.data[0]
+        const html = `<div class="key-value">
+                        <div class="key-value-pair">
+                            <strong>complaintId :</strong> ${data.customer_name}
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Customer Name :</strong> ${data.driver_name}
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>OrderID :</strong> ${data.order_id_tracking_number}
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Contact Number :</strong> ${data.contact_number}
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Email ID :</strong>${data.email_id}
+                        </div>
+                         <div class="key-value-pair">
+                            <strong>Date Of Complain:</strong> ${ new Date(data.date_of_complaint).toLocaleDateString('en-GB')}
+                        </div>                    
+                    </div>
+                    <div class="key-value">
+                        <div class="key-value-pair">
+                            <strong>Complaint Type :</strong> ${data.complaint_type}
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Description of Issue:</strong> ${data.description_of_issue}
+                        </div>
+                        <div class="key-value-pair">
+                            <strong>Preffered Solution:</strong> ${data.preferred_resolution}
+                        </div>                       
+                        <div class="key-value-pair">
+                            <strong>Person Handling Concern:</strong> ${data.customer_person_handling_concern}
+                        </div>                 
+                    </div>`
+            document.getElementById('complaint-details-box').innerHTML = html
+    }
+    openPopup('complaint-detail-popup')
 }
 
 

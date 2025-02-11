@@ -50,6 +50,22 @@ exports.getAllComplaints = (req, res) => {
     });
 }
 
+
+// Read One complaints ---
+exports.getOneComplaint = (req, res) => {
+    const { id } = req.params
+    const query = 'SELECT * FROM customer_complaints WHERE complain_id = ?;';
+
+    db.query(query, [id], (error, results) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ success: false, error: 'Failed to retrieve complaints data' });
+        }
+        res.status(200).json({success: true, data: results});
+    });
+}
+
+
 // Delete a complaints ---
 exports.deleteComplaint = (req, res) => {
     const { id } = req.params
