@@ -373,9 +373,9 @@ async function renderOrderDetails(id) {
                 <strong>Reason Of Fail Delivery :</strong>
                 <span> ${data.reason_of_fail_delivery}</span>
             </div>
-            <div class="key-value-pair form-row">
-                <input type="text" name="amount" value="1000">
-                <button class="btn">Update</button>
+           <div class="key-value-pair ${data.order_status == 'delivered' && data.payment_status == 'topay' ? '' : 'hide'}" id="collected-amount-box">
+                <input style="padding:10px" type="text" name="collected_amount" id="collected_amount" placeholder="Update collected amount...">
+                <button class="btn" onclick="updateAmountCollected(this, ${data.order_id})">Update</button>
             </div>
              <div class="flex key-value-pair">
                 <div>
@@ -500,6 +500,16 @@ async function editOrder(e, orderid) {
   }
   document.getElementById("order-update-btn").dataset.orderid = orderid;
   openPopup("create-order-form-popup");
+}
+
+
+async function updateAmountCollected(target, id) {
+  const collectedAmount = target.parentNode.querySelector('#collected_amount').value
+  if (collectedAmount != "") {
+      const response = await request.DEL_UPD(`v1/dispatch/amount/${id}`, 'PUT', {collectedAmount})
+  } else {
+      alert('Enter the value First then update!')
+  }
 }
 
 async function searchOrder(target, className, type) {
