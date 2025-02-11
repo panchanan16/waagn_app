@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waagn App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/request.module.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <%- include('../partials/aside.ejs') %>
+        <div class="content">
+            <div class="header">
+                <div class="flex search-bar">
+                    <input type="text" oninput="searchItemsGlobal(this, 'search-item')" placeholder="search you query here...">
+                    <button><i class="material-icons">search</i></button>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600;">Panchanan Deka</span>
+                    <i class="material-icons" style="font-size:30px;">account_circle</i>
+                </div>
+            </div>           
+
+            <div class="table-container">
+                <div class="flex table-header" style="justify-content: space-between;">
+                    <h1>Complaint List</h1>
+                    <button class="btn" onclick="openPopup('create-driver-form-popup')">Raise a Complaint</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Complaint ID</th>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
+                            <th>Complaint Type</th>
+                            <th>Date of Complaint</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="complaints-table">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!-- create driver popup form -->
+        <div class="flex popup-container create-driver-form-popup hide">
+            <div class="form-container">
+                <div class="flex form-header">
+                    <h2>Customer Complaint Form</h2>
+                    <span class="material-icons" style="cursor: pointer;color: #c11717;" onclick="closePopup('create-driver-form-popup')">close</span>
+                </div>
+                <form id="complaint-register-form" style="margin-top: 1.5rem;">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="customer_name">Customer Name:</label>
+                            <input type="text" id="customer_name" name="customer_name" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="order_id_tracking_number">Order ID/Tracking Number:</label>
+                            <input type="text" id="order_id_tracking_number" name="order_id_tracking_number" required>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="contact_number">Contact Number:</label>
+                            <input type="text" id="contact_number" name="contact_number" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="email_id">Email ID:</label>
+                            <input type="email" id="email_id" name="email_id" required>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="complaint_type">Complaint Type:</label>
+                            <select id="complaint_type" name="complaint_type" required>
+                                <option value="Customer Refused">Customer Refused</option>
+                                <option value="Customer Requested Return">Customer Requested Return</option>
+                                <option value="Customer Unavailable">Customer Unavailable</option>
+                                <option value="Damaged Product">Damaged Product</option>
+                                <option value="Delivery Failed (Multiple Attempts)">Delivery Failed (Multiple Attempts)</option>
+                                <option value="Incorrect Address">Incorrect Address</option>
+                                <option value="Package Damaged">Package Damaged</option>
+                                <option value="Package Missing">Package Missing</option>
+                                <option value="Rude Behavior by Delivery Agent">Rude Behavior by Delivery Agent</option>
+                                <option value="Weather/Traffic Issues">Weather/Traffic Issues</option>
+                                <option value="Wrong Item Delivered">Wrong Item Delivered</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="preferred_resolution">Preferred Resolution:</label>
+                            <select id="preferred_resolution" name="preferred_resolution" required>
+                                <option value="Refund">Refund</option>
+                                <option value="Replacement">Replacement</option>
+                                <option value="Return to Origin">Return to Origin</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="description_of_issue">Description of the Issue:</label>
+                            <textarea id="description_of_issue" name="description_of_issue" rows="4" required></textarea>
+                        </div>
+                    </div>
+            
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="date_of_complaint">Date of Complaint:</label>
+                            <input type="date" id="date_of_complaint" name="date_of_complaint" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="customer_person_handling_concern">Customer Person Handling Concern:</label>
+                            <input type="text" id="customer_person_handling_concern" name="customer_person_handling_concern" required>
+                        </div>
+                    </div>
+            
+                    <div class="full-width">
+                        <button type="button" onclick="createComplaint(event)" class="btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+
+        <!-- driver details popup box -->
+        <div class="flex popup-container driver-detail-popup hide">
+            <div class="info-box" style="background-color: #fff;">
+                <button class="close-button" onclick="closePopup('driver-detail-popup')">
+                    <span class="material-icons">close</span> <!-- Material Icon for Close -->
+                </button>
+                <div class="key-value-box"  id="driver-details-box" style="justify-content: space-around; margin-block: 1rem;">
+                  
+                </div>
+            </div>
+        </div>
+
+        <div class="flex loader-bg hide" id="loading-container">
+            <div>
+                <span class="loader">Loading</span>
+            </div>
+        </div>
+
+        <script src="/js/common.js"></script>
+        <script src="/js/query.js"></script>
+</body>
+
+</html>

@@ -51,6 +51,10 @@ pageRouter.get('/generate-lr', async (req, res)=> {
     res.render('admin/generateLr.ejs')
 })
 
+pageRouter.get('/raise-query', async (req, res)=> {
+    res.render('admin/query.ejs')
+})
+
 pageRouter.get('/testing', async (req, res)=> {
     res.render('admin/test.ejs')
 })

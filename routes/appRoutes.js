@@ -7,6 +7,7 @@ const vehicleControllers = require('../controllers/vehicles/vehiclesController')
 const assignControllers = require('../controllers/assign/assignController')
 const ourGodownControllers = require('../controllers/godowns/ourGodownControllers')
 const summaryControllers = require('../controllers/summary/summaryControllers')
+const complaintControllers = require('../controllers/complaint/complaintControllers')
 
 // Transactions ---
 const assignTransactions = require('../controllers/assign/assignTransaction')
@@ -89,6 +90,12 @@ appRoutes.put('/dispatch/amount/:id', assignControllers.updateCollectedAmount);
 
 // Dashboard API ---
 appRoutes.get('/dashboard/data', summaryControllers.getDashBoardSummary); 
+
+// Raise complaint API --
+
+appRoutes.post('/compaint', complaintControllers.createComplaint)
+appRoutes.get('/compaints', complaintControllers.getAllComplaints); 
+appRoutes.delete('/compaint/:id', complaintControllers.deleteComplaint)
 
 
 module.exports = appRoutes

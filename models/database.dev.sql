@@ -262,6 +262,22 @@ CREATE TABLE partner_delivery_details (
 );
 
 
+--- Complaint raise table 
+CREATE TABLE customer_complaints (
+    complain_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(255) DEFAULT NULL,
+    order_id_tracking_number VARCHAR(255) NOT NULL,
+    contact_number VARCHAR(20) DEFAULT NULL,
+    email_id VARCHAR(255) DEFAULT NULL,
+    complaint_type VARCHAR(200) DEFAULT NULL, 
+    description_of_issue TEXT,
+    preferred_resolution VARCHAR(100) DEFAULT NULL,
+    date_of_complaint VARCHAR(50) DEFAULT NULL,
+    customer_person_handling_concern VARCHAR(255) DEFAULT NULL
+);
+
+
+
 
 
 
