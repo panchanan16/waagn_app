@@ -5,12 +5,18 @@ async function createOurGodown(e) {
   const formData = new FormData(
     document.getElementById("ourgodown-register-form")
   );
-  const response = await request.GET_POST(
+  const response =  e.target.dataset.godownid != "" ? await request.DEL_UPD(
+    `v1/ourgodown/${e.target.dataset.godownid}`,
+    "PUT",
+    formData,
+    "form"
+  ) : await request.GET_POST(
     "v1/ourgodown",
     "POST",
     formData,
     "form"
   );
+
   if (response.success) {
     document.getElementById("ourgodown-register-form").reset();
     renderOurGodowns();
@@ -37,7 +43,12 @@ async function renderOurGodowns() {
                         Unactive
                     </option>
             </select>
-        </td>  
+        </td> 
+         <td>
+            <diV style="cursor: pointer;" onclick="editLocation(event, ${item.godown_id})">
+                <i class="material-icons">app_registration</i> 
+            </div>
+        </td> 
         </tr>`;
       table.innerHTML += html;
     });
@@ -173,6 +184,29 @@ async function renderGodownDetails(godownId) {
   }
   openPopup("ourgodown-detail-popup");
 }
+
+
+async function editLocation(e, id) {
+    e.stopPropagation();
+    alert("Do you want to edit ??");
+    const form = document.getElementById("ourgodown-register-form");
+    const inputs = Array.from(form.getElementsByTagName("INPUT"));
+    const inputArray = inputs.concat(
+      Array.from(form.getElementsByTagName("SELECT")).concat(Array.from(form.getElementsByTagName("textarea")))
+    );
+    const response = await request.GET_POST(`v1/ourgodown/${id}`, "GET");
+    if (response.success) {
+      for (const key in response.data[0]) {
+        inputArray.forEach((item) => {
+          if (key == item.id) {
+            item.value = response.data[0][key];
+          }
+        });
+      }
+    }
+    document.getElementById("godown-update-btn").dataset.godownid = id;
+    openPopup("create-ourgodown-form-popup");
+  }
 
 
 async function updateOurLocationStatus(target, godownId) {

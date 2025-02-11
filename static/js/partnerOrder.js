@@ -293,6 +293,33 @@ function openPartnerOrderDetails(orderid) {
     openPopup("order-detail-popup");
 }
 
+
+async function renderGodownListInAssignForm(target) {
+    const partnerId = document.getElementById('partner_id').value
+    const type = target.value
+    if (partnerId && type) {
+        const response = await request.GET_POST(
+          `v1/godowns/${partnerId}/${type}`,
+          "GET"
+        );
+        if (response.success) {
+          document.getElementById("godown-location-dropdown").innerHTML = "";
+          if (response.data.length > 0) {
+            response.data.forEach((item) => {
+              document.getElementById(
+                "godown-location-dropdown"
+              ).innerHTML += `<option value="${item.godown_id}">${item.full_address}</option>`;
+            });
+          } else {
+            document.getElementById(
+              "godown-location-dropdown"
+            ).innerHTML = `<option value="" disable>No location added</option>`;
+          }
+        }
+    }
+    
+}
+
 async function openDispatchForm(orderId, dispatchId) {
     if (dispatchId !== null) {
         const response = await request.GET_POST(`v1/dispatch/${orderId}`, "GET");

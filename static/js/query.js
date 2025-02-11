@@ -30,7 +30,7 @@ async function renderComplaints() {
             <div onclick="deleteComplaint(this, ${item.complain_id})">
                 <i class="material-icons" style="color: red; cursor: pointer; font-size: 35px">delete_forever</i>
             </div>
-        </td>
+        </td>        
         </tr>`
         });
     }

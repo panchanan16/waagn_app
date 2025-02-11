@@ -97,7 +97,6 @@ async function renderGodownLocationInForm() {
   const partnerId = document.getElementById("partner-dropdown").value;
   const type = document.getElementById("godown-type-dropdown").value;
   if (partnerId && type) {
-    console.log(partnerId, type);
     const response = await request.GET_POST(
       `v1/godowns/${partnerId}/${type}`,
       "GET"

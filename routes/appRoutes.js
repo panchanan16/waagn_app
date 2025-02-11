@@ -65,6 +65,7 @@ appRoutes.post('/ourgodown', ourGodownControllers.createOurGodown);
 appRoutes.get('/ourgodowns', ourGodownControllers.getAllGodowns);  
 appRoutes.get('/ourgodown/:id', ourGodownControllers.getOneGodown);
 appRoutes.put('/ourgodown/status/:id', ourGodownControllers.updateOurGodownStatus); 
+appRoutes.put('/ourgodown/:id', ourGodownControllers.updateOurGodown); 
 
 
 //Partners Assign Api ---
