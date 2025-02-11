@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Waagn App</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/lr.css" />
+    <script src="js/request.module.js"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      input {
+        padding: 0.8rem;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include('../partials/aside.ejs') %>
+    <div class="content">
+      <div class="header">
+        <div class="flex search-bar">
+          <input type="text" placeholder="search you query here..." />
+          <button><i class="material-icons">search</i></button>
+        </div>
+        <div style="display: flex; align-items: center">
+          <span style="font-weight: 600">Panchanan Deka</span>
+          <i class="material-icons" style="font-size: 30px">account_circle</i>
+        </div>
+      </div>
+
+      <div class="lr-form">
+        <div class="form-container" style="width: 100%">
+          <div class="flex form-header">
+            <h2>User Create Form</h2>
+            <span
+              class="material-icons"
+              style="cursor: pointer; color: #c11717"
+              onclick="closePopup('create-driver-form-popup')"
+              >close</span
+            >
+          </div>
+          <form id="create-user-form" style="margin-top: 1.5rem">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="dl_number">Select Partner:</label>
+                <select name="partner_id" id="partner-box">
+                    <option value="" selected disabled>Select partner here</option>
+                </select>
+              </div>              
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="username">Username:</label>
+                    <input
+                      type="text"
+                      id="username"
+                      name="user_name"
+                      required
+                    />
+                </div>
+              <div class="form-field">
+                <label for="aapassworddhaar_card_number">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>              
+            </div>
+      
+
+            <div class="full-width" style="margin-top: 1rem;">
+              <button type="button" onclick="createUser(event)" class="btn">
+                Create user
+              </button>             
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+    <div class="flex loader-bg hide" id="loading-container">
+      <div>
+        <span class="loader">Loading</span>
+      </div>
+    </div>
+
+
+    <script src="/js/common.js"></script>
+    <script src="/js/manageAccount.js"></script>
+  </body>
+</html>

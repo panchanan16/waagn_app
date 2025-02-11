@@ -86,7 +86,7 @@ function searchItemsGlobal(target, className, value, removeId) {
     });
   }
 
-  if (removeId) { document.getElementById(removeId).remove() }
+  // if (removeId) { document.getElementById(removeId).remove() }
 }
 
 

@@ -278,6 +278,17 @@ CREATE TABLE customer_complaints (
 
 
 
+-- user create table
+
+CREATE TABLE partners (
+    partner_id INT PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+
+
+
 
 
 

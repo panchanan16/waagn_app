@@ -524,6 +524,9 @@ async function searchOrder(target, className, type) {
               <td>${item.shipper_contact_number}</td>
               <td>${item.order_date}</td>
               <td>
+              <span class="${item.order_status == 'delivered' ? 'status-green' : 'status-red'}">${item.order_status}</span>
+              </td>
+              <td>
                   <diV style="cursor: pointer;" onclick="editOrder(event, ${item.order_id})">
                       <i class="material-icons">app_registration</i> 
                   </div>

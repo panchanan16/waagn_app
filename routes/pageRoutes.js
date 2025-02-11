@@ -10,7 +10,7 @@ pageRouter.get('/', async (req, res)=> {
     res.render('admin/login.ejs')
 })
 
-pageRouter.get('/dashboard', async (req, res)=> {
+pageRouter.get('/dashboard', authenticate, async (req, res)=> {
     res.render('admin/dashboard.ejs')
 })
 
@@ -18,41 +18,45 @@ pageRouter.get('/orders', authenticate, async (req, res)=> {
     res.render('admin/orders.ejs')
 })
 
-pageRouter.get('/vehicles', async (req, res)=> {
+pageRouter.get('/vehicles', authenticate, async (req, res)=> {
     res.render('admin/vehicles.ejs')
 })
 
-pageRouter.get('/drivers', async (req, res)=> {
+pageRouter.get('/drivers', authenticate, async (req, res)=> {
     res.render('admin/drivers.ejs')
 })
 
-pageRouter.get('/our-godowns', async (req, res)=> {
+pageRouter.get('/our-godowns', authenticate, async (req, res)=> {
     res.render('admin/ourGodown.ejs')
 })
 
-pageRouter.get('/assign', async (req, res)=> {
+pageRouter.get('/assign', authenticate, async (req, res)=> {
     res.render('admin/assign.ejs')
 })
 
 
-pageRouter.get('/partners', async (req, res)=> {
+pageRouter.get('/partners', authenticate, async (req, res)=> {
     res.render('admin/partners.ejs')
 })
 
-pageRouter.get('/partners-orders', async (req, res)=> {
+pageRouter.get('/partners-orders', authenticate, async (req, res)=> {
     res.render('admin/partnerOrders.ejs')
 })
 
-pageRouter.get('/calculate-rate', async (req, res)=> {
+pageRouter.get('/calculate-rate', authenticate, async (req, res)=> {
     res.render('admin/rateCalculator.ejs')
 })
 
-pageRouter.get('/generate-lr', async (req, res)=> {
+pageRouter.get('/generate-lr', authenticate, async (req, res)=> {
     res.render('admin/generateLr.ejs')
 })
 
-pageRouter.get('/raise-query', async (req, res)=> {
+pageRouter.get('/raise-query', authenticate, async (req, res)=> {
     res.render('admin/query.ejs')
+})
+
+pageRouter.get('/manage-acccounts', authenticate, async (req, res)=> {
+    res.render('admin/manageAccount.ejs')
 })
 
 pageRouter.get('/testing', async (req, res)=> {
