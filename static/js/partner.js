@@ -10,9 +10,10 @@ async function getAllpartners(e) {
 async function renderPartners() {
     const response = await request.GET_POST('v1/partners', 'GET')
     if (response.success) {
+        console.log(response)
         const table = document.getElementById('partners-display-table')
         table.innerHTML = ''
-        response.data.forEach((item, ind) => {
+        response.data[0].forEach((item, ind) => {
             const html = `<tr data-partnerid="${item.company_id}" class="table-rows" ondblclick="setIdAndOpenPartnerDetails(${item.company_id})">
         <td>${ind + 1}</td>
         <td>${item.company_name}</td>
@@ -31,9 +32,10 @@ async function renderPartners() {
             </div>
         </td>
        </tr>`
-
-            table.innerHTML += html
+        table.innerHTML += html
         })
+
+        renderSummary(response.data[1], 'is_active')
 
     }
 }

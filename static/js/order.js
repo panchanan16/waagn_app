@@ -22,7 +22,7 @@ async function renderAllOrder(interval) {
             </tr>`;
       document.getElementById("order-table").innerHTML += html;
     });
-    renderSummary(response.data[1])
+    renderSummary(response.data[1], 'order_status')
   }
 }
 

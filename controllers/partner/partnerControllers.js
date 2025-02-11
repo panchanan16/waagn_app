@@ -70,7 +70,7 @@ exports.createPartnerCompany = (req, res) => {
 
 // Get all Partner Companies
 exports.getAllPartnerCompanies = (req, res) => {
-    const query = 'SELECT * FROM partner_companies';
+    const query = 'SELECT * FROM partner_companies; SELECT (SELECT COUNT(company_id) FROM partner_companies) AS total, is_active, COUNT(company_id) AS sum FROM partner_companies GROUP BY is_active;';
 
     db.query(query, (error, rows) => {
         if (error) {

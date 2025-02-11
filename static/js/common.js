@@ -102,11 +102,11 @@ async function logOutAdmin() {
   }
 }
 
-function renderSummary(values) {
+function renderSummary(values, status) {
   const target = Array.from(document.querySelector('.service-cards').getElementsByTagName('h3'))
   target.forEach((item)=> {
       values.forEach((valu)=> {
-          if (valu.order_status == item.id) {
+          if (valu[status] == item.id) {
              item.textContent = valu.sum
           }     
       })

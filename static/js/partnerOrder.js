@@ -3,24 +3,29 @@ const request = new DataCall();
 async function renderAllPartnerOrder() {
     const response = await request.GET_POST("v1/assign/partners", "GET");
     if (response.success) {
+        console.log(response)
         document.getElementById("order-table").innerHTML = "";
-        response.data.forEach((item, ind) => {
+        response.data[0].forEach((item, ind) => {
             const html = `<tr class="table-rows" onclick="openPartnerOrderDetails(${item.order_id
                 })">
             <td>${item.order_id}</td>
             <td>${item.company_name}</td>
-            <td>${item.full_address}</td>
+            <td>${item.receiver_name}</td>
             <td><span class="${item.order_status == "delivered" ? "status-green" : "status-red"
                 }">${item.order_status}</span></td>
-            <td>${item.contact_person_name}</td>
+            <td>${item.receiver_town}</td>
             <td><button class="btn" onclick="acceptOrder(event, ${item.order_id
                 })">
-            ${item.is_accepted == "accepted" ? "Accepted" : "Accept Now"}
+            ${item.is_partner_accepted ? "Accepted" : "Accept Now"}
             </button>
             </td>
             </tr>`;
             document.getElementById("order-table").innerHTML += html;
         });
+
+        renderSummary(response.data[1], 'order_status')
+        document.getElementById('pending-acceptance').textContent = response.data[1][0]['pending_acceptance']
+        document.getElementById('accepted-order').textContent = response.data[1][0]['total'] - response.data[1][0]['pending_acceptance']
     }
 }
 
