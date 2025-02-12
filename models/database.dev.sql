@@ -11,6 +11,7 @@ CREATE TABLE `admin_auth` (
 
 CREATE TABLE orders (
     order_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    booking_type VARCHAR(100) DEFAULT NULL,
     pickup_location_address VARCHAR(255) NOT NULL,
     delivery_location_address VARCHAR(255) NOT NULL,
     shipper_company_name VARCHAR(255),
@@ -48,6 +49,9 @@ CREATE TABLE orders (
     vehicle_assign_status TINYINT(1) DEFAULT 0,
     is_partner_accepted TINYINT(1) DEFAULT 0
 );
+
+ALTER TABLE orders ADD COLUMN
+booking_type VARCHAR(100) DEFAULT NULL AFTER order_id
 
 -- Drivers Table
 
@@ -282,8 +286,10 @@ CREATE TABLE customer_complaints (
 
 CREATE TABLE partners (
     partner_id INT PRIMARY KEY,
-    user_name VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    name VARCHAR(100) DEFAULT NULL,
+    user_name VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    token VARCHAR(255) DEFAULT NULL
 );
 
 

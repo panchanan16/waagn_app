@@ -14,5 +14,8 @@ authRoutes.post('/admin/logout', authenticate, adminAuthControllers.adminLogout)
 
 //partner auth api---
 authRoutes.post('/user/register', partnerAuthControllers.createuser)
+authRoutes.get('/users', partnerAuthControllers.getUsers)
+authRoutes.delete('/user/:id', partnerAuthControllers.deleteUser)
+authRoutes.post('/user/login', partnerAuthControllers.loginUser)
 
 module.exports = authRoutes

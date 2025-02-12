@@ -1,5 +1,6 @@
 const express = require('express')
 const authenticate = require('../middlewares/authenticateAdmin')
+const authenticatePartner = require('../middlewares/authenticatePartner')
 const pageRouter = express.Router()
 
 
@@ -67,11 +68,11 @@ pageRouter.get('/testing', async (req, res)=> {
 
 // 3PL Partners PAGES ---
 
-pageRouter.get('/partner-login', async (req, res)=> {
+pageRouter.get('/partner-login',  async (req, res)=> {
     res.render('partners/login.ejs')
 })
 
-pageRouter.get('/partner-dashboard', async (req, res)=> {
+pageRouter.get('/partner-dashboard', authenticatePartner, async (req, res)=> {
     res.render('partners/dashboard.ejs')
 })
 

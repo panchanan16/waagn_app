@@ -8,12 +8,12 @@ const authenticatePartner = (req, res, next) => {
         return res.status(401).redirect('/partner-login');
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET_PARTNER, (err, decoded) => {
         if (err) {
-            return res.status(403).json({ message: 'Invalid token.' });
+            return res.status(403).json({ message: 'Invalid token.', resolution: 'Goback and Login again to Continue...' });
         }
 
-        db.query('SELECT * FROM partner_auth WHERE partner_id = ?', [decoded.id], (error, results) => {
+        db.query('SELECT * FROM partners WHERE partner_id = ?', [decoded.id], (error, results) => {
             if (error || results.length === 0) {
                 return res.status(403).json({ message: 'Token not found in database.' });
             }

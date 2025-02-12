@@ -1,10 +1,10 @@
 const request = new DataCall();
 
-// console.log(sessionStorage.getItem('partnername'))
-// document.getElementById('partner-name').textContent = sessionStorage.getItem('partnername')
+document.getElementById('partner-name').textContent = sessionStorage.getItem('partnername')
 
 async function renderAllPartnerOrder() {
-    const response = await request.GET_POST("v1/assign/partners", "GET");
+    const partnerID = sessionStorage.getItem('partnerid')
+    const response = await request.GET_POST(`v1/assign/orders/${partnerID}`, "GET");
     if (response.success) {
         console.log(response)
         document.getElementById("order-table").innerHTML = "";

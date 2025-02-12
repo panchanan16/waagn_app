@@ -29,6 +29,22 @@ exports.getAllPartnerAssigns = (req, res) => {
   });
 };
 
+
+// Get all orders for a partner---
+exports.getAllOrdersForAPartner = (req, res) => {
+  const { id } = req.params
+  const query = 'SELECT partner_assign.order_id, partner_assign.is_accepted, orders.receiver_name, orders.receiver_town, orders.order_status, orders.is_partner_accepted, company_name, full_address, contact_person_name FROM partner_assign INNER JOIN orders ON orders.order_id = partner_assign.order_id INNER JOIN partner_companies ON partner_companies.company_id = partner_assign.partner_id INNER JOIN partner_godown ON partner_assign.partner_id = partner_godown.partner_id AND partner_assign.godown_id = partner_godown.godown_id WHERE partner_assign.partner_id = ?; SELECT (SELECT COUNT(order_id) FROM orders WHERE partner_assign_status = 1) AS total, (SELECT COUNT(order_id) FROM orders WHERE partner_assign_status = 1 AND is_partner_accepted = 0) AS pending_acceptance, order_status, COUNT(order_id) AS sum FROM orders GROUP BY order_status;';
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error fetching records:', err);
+      return res.status(500).send({ success: false, message: 'Failed to fetch partner assignments', error: err });
+    }
+    return res.status(200).send({ success: true, message: 'Fetched all partner assignments', data: results });
+  });
+};
+
+
+
 // Get a partner assignment by ID
 exports.getPartnerAssignById = (req, res) => {
   const { orderId } = req.params;

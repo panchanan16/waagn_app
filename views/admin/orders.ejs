@@ -102,6 +102,15 @@
                 <form id="order-create-form-admin" style="margin-top: 1.5rem;">
                     <div class="form-row">
                         <div class="form-field">
+                            <label for="booking_type">Booking Type:</label>
+                            <select  id="booking_type" name="booking_type">
+                                <option value="Full truck Load">Full truck Load</option>
+                                <option value="Part Truck Load">Part Truck Load</option>
+                                <option value="Parcel">Parcel</option>
+                                <option value="Intracity">Intracity</option>
+                            </select>
+                        </div>  
+                        <div class="form-field">
                             <label for="pickup_location_address">Pickup Location Address:</label>
                             <input type="text" id="pickup_location_address" name="pickup_location_address" required>
                         </div>
@@ -162,20 +171,17 @@
                             <label for="receiver_name">Receiver Name:</label>
                             <input type="text" id="receiver_name" name="receiver_name">
                         </div>
-                    </div>
-
-                    <div class="form-row">
                         <div class="form-field">
                             <label for="receiver_contact_number">Receiver Contact Number:</label>
                             <input type="text" id="receiver_contact_number" name="receiver_contact_number">
                         </div>
+                    </div>      
+
+                    <div class="form-row">
                         <div class="form-field">
                             <label for="receiver_gst">Receiver GST:</label>
                             <input type="text" id="receiver_gst" name="receiver_gst">
                         </div>
-                    </div>
-
-                    <div class="form-row">
                         <div class="form-field">
                             <label for="reciever_pincode">Receiver PINCODE:</label>
                             <input type="text" id="receiver_pincode" name="receiver_pincode">

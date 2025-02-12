@@ -70,6 +70,7 @@ appRoutes.put('/ourgodown/:id', ourGodownControllers.updateOurGodown);
 
 //Partners Assign Api ---
 appRoutes.get('/assign/partners', assignControllers.getAllPartnerAssigns); 
+appRoutes.get('/assign/orders/:id', assignControllers.getAllOrdersForAPartner); 
 appRoutes.get('/assign/partner/:orderId', assignControllers.getPartnerAssignById); 
 appRoutes.post('/assign/partner', assignTransactions.partnerAssign_StatusUpdate);    
 appRoutes.put('/assign/partner/:id', assignControllers.updatePartnerAssign);

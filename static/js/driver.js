@@ -6,7 +6,7 @@ async function renderDrivers() {
     if (response.success) {
         table.innerHTML = ''
         response.data[0].forEach(item => {
-            table.innerHTML += `<tr class="table-rows" onclick="renderDriverDetails(${item.driver_id})">
+        table.innerHTML += `<tr class="table-rows" onclick="renderDriverDetails(${item.driver_id})">
         <td>${item.driver_id}</td>
         <td class="search-item">${item.driver_name}</td>
         <td>${item.contact_number}</td>
