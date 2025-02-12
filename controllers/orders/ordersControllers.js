@@ -1,4 +1,5 @@
 const db = require('../../config/dbConfig');
+const sendWhatsAppMsg = require('../../templates/sendWhatsAppMsg');
 
 // GET all orders
 exports.getAll = (req, res) => {
@@ -100,16 +101,26 @@ exports.create = (req, res) => {
     tax_invoice_number, payment_mode, payment_status, amount, 'pending', order_date
   ], (err, result) => {
     if (err) {
-      console.error('Error creating order:', err);
+      // console.error('Error creating order:', err);
       return res.status(500).json({ message: 'Failed to create order', success: false });
     }
+
+    sendWhatsAppMsg({
+      orderID: result.insertId,
+      orderType: booking_type,
+      persons: [{ name: shipper_company_name, Number: shipper_contact_number }, { name: receiver_company_name, Number: receiver_contact_number }],
+      goodsDescription: types_of_goods,
+      pickLocation: pickup_location_address,
+      deliveryLocation: delivery_location_address,
+      type: 'orderplaced'
+    })
     return res.status(201).json({ message: 'Order created successfully', orderId: result.insertId, success: true });
   });
 };
 
 // UPDATE an existing order
 exports.update = (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
   const {
     booking_type,
     pickup_location_address,
@@ -185,7 +196,7 @@ exports.updateOrderStatus = (req, res) => {
 
   const query = `UPDATE orders SET order_status = ? WHERE order_id = ?`;
 
-  db.query(query, [order_status, orderId ], (err, result) => {
+  db.query(query, [order_status, orderId], (err, result) => {
     if (err) {
       console.error('Error updating order:', err);
       return res.status(500).json({ message: 'Failed to update order', success: false });
@@ -193,6 +204,7 @@ exports.updateOrderStatus = (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: 'Order not found', success: false });
     }
+    
     return res.status(200).json({ message: 'Order Status Updated successfully', success: true });
   });
 };

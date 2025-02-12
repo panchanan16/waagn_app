@@ -1,4 +1,5 @@
-const db = require('../../config/dbConfig')
+const db = require('../../config/dbConfig');
+const sendWhatsAppMsg = require('../../templates/sendWhatsAppMsg');
 
 async function partnerAssign_StatusUpdate(req, res) {
   db.getConnection((err, connection) => {
@@ -176,6 +177,21 @@ async function dispatch_StatusUpdate(req, res) {
               return res.status(500).send({ success: false, message: 'Failed to update dispatch Status', error: err });
             });
           }
+
+          const msgInquiry = `SELECT * FROM orders WHERE order_id = ?`
+          connection.query(msgInquiry, [order_id], (err, result) => {
+            if (!err) {
+              sendWhatsAppMsg({
+                orderID: order_id,
+                persons: [{ name: result[0].receiver_company_name, Number: result[0].receiver_contact_number }],
+                goodsDescription: result[0].types_of_goods,
+                deliveryPerson: assigned_driver_name,
+                agentContact: assigned_driver_number,
+                type: 'outfordelivery'
+              })
+            }
+          })
+
 
           //Commit the transaction ---
           connection.commit((err) => {

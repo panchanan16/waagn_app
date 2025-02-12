@@ -113,3 +113,5 @@ function renderSummary(values, status) {
   })
   document.getElementById('total').textContent = values[0].total
 }
+
+

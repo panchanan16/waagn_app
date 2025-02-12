@@ -168,9 +168,10 @@ async function renderOrderDetails(id) {
 
              <div class="key-value-pair">
                 <strong>Order Status:</strong>
-                <select class="${data.order_status == "delivered" ? "status-green" : "status-red"}" onchange="updateOrderStatus(this, ${
-                  data.order_id
-                })">
+                <select class="${data.order_status == "delivered" ? "status-green" : "status-red"}" 
+                 onchange="updateOrderStatus(this, ${
+                  data.order_id})">
+
                     <option value="pending" ${
                       data.order_status == "pending" ? "selected" : ""
                     }>Pending</option>
@@ -474,9 +475,7 @@ function selectVehicle(target, vehicleId, driverId, driverName) {
 
 async function updateOrderStatus(target, orderId) {
   changeStatus(target)
-  const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", {
-    order_status: target.value,
-  });
+  const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", { order_status: target.value });
 }
 
 async function editOrder(e, orderid) {

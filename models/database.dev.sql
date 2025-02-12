@@ -28,7 +28,7 @@ CREATE TABLE orders (
     receiver_email_address VARCHAR(100),
     receiver_pincode VARCHAR(10) DEFAULT NULL,
     receiver_town VARCHAR(100) DEFAULT NULL,
-    types_of_goods VARCHAR(150),
+    types_of_goods TEXT DEFAULT NULL,
     actual_weight_of_consignment DECIMAL(10, 2),
     number_of_boxes INT,
     length_of_box VARCHAR(30),
@@ -50,8 +50,7 @@ CREATE TABLE orders (
     is_partner_accepted TINYINT(1) DEFAULT 0
 );
 
-ALTER TABLE orders ADD COLUMN
-booking_type VARCHAR(100) DEFAULT NULL AFTER order_id
+ALTER TABLE `orders` CHANGE `types_of_goods` `types_of_goods` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
 
 -- Drivers Table
 

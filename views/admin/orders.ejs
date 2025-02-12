@@ -20,7 +20,7 @@
                     <button onclick="searchOrder(this, 'search-item', 'db')"><i class="material-icons">search</i></button>
                 </div>
                 <div style="display: flex; align-items: center;">
-                    <span style="font-weight: 600;">Panchanan Deka</span>
+                    <span style="font-weight: 600;">Admin</span>
                     <i class="material-icons" style="font-size:30px;">account_circle</i>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                     <div class="form-row">
                         <div class="form-field">
                             <label for="booking_type">Booking Type:</label>
-                            <select  id="booking_type" name="booking_type">
+                            <select id="booking_type" name="booking_type">
                                 <option value="Full truck Load">Full truck Load</option>
                                 <option value="Part Truck Load">Part Truck Load</option>
                                 <option value="Parcel">Parcel</option>
@@ -153,12 +153,7 @@
                         </div>
                         <div class="form-field">
                             <label for="shipper_town">Shipper City:</label>
-                            <select  id="shipper_town" name="shipper_town">
-                                <option value="Guwahati">Guwahati</option>
-                                <option value="Jorhat">Jorhat</option>
-                                <option value="Nagaon">Nagaon</option>
-                                <option value="Golaghat">Golaghat</option>
-                            </select>
+                            <input type="text" id="shipper_town" name="shipper_town">                               
                         </div>                    
                     </div>
 
@@ -188,12 +183,7 @@
                         </div>
                         <div class="form-field">
                             <label for="receiver_town">Receiver City:</label>
-                            <select  id="receiver_town" name="receiver_town">
-                                <option value="Guwahati">Guwahati</option>
-                                <option value="Jorhat">Jorhat</option>
-                                <option value="Nagaon">Nagaon</option>
-                                <option value="Golaghat">Golaghat</option>
-                            </select>
+                            <input type="text" id="receiver_town" name="receiver_town">                           
                         </div>
                     </div>
 
@@ -203,11 +193,8 @@
                             <input type="email" id="receiver_email_address" name="receiver_email_address">
                         </div>
                         <div class="form-field">
-                            <label for="types_of_goods">Types of Goods:</label>
-                            <select id="types_of_goods" name="types_of_goods">
-                                <option value="liquid">Liquid</option>
-                                <option value="solid">Solid</option>
-                            </select>
+                            <label for="types_of_goods">Goods Description:</label>
+                            <input type="text" id="types_of_goods" name="types_of_goods">                            
                         </div>
                     </div>
 
