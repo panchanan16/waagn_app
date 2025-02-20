@@ -425,7 +425,7 @@ async function renderOrderDetails(id) {
               : "Assign Pickup Vehicle"
           }
         </button>
-        <a href="/testing" target="_blank">
+        <a href="/download-order-details?order=${data.order_id}" target="_blank">
           <button class="btn">Download</button>
         </a>
     </div>`;

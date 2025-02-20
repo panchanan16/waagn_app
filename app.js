@@ -10,6 +10,7 @@ require('./config/dbConfig')
 
 const authRoutes = require('./routes/authRoutes')
 const pageRouter = require('./routes/pageRoutes')
+const serverSideRouter = require('./routes/serverSideRoute')
 const appRoutes = require('./routes/appRoutes')
 const transactionRoute = require('./routes/transactionRoutes')
 
@@ -36,6 +37,7 @@ app.use('/v1', transactionRoute)
 
 //page routes
 app.use('/', pageRouter)
+app.use('/', serverSideRouter)
 
 
 app.listen(3000, ()=> {

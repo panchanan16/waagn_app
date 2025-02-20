@@ -50,8 +50,6 @@ CREATE TABLE orders (
     is_partner_accepted TINYINT(1) DEFAULT 0
 );
 
-ALTER TABLE `orders` CHANGE `types_of_goods` `types_of_goods` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
-
 -- Drivers Table
 
 CREATE TABLE drivers (

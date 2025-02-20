@@ -48,6 +48,10 @@
         margin-bottom: 20px;
       }
 
+      .logo span {
+        font-size: 13px;
+      }
+
       h2 {
         text-align: center;
       }
@@ -65,7 +69,7 @@
       .details {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        gap: 3px;
       }
 
       .details > div {
@@ -98,6 +102,8 @@
     </style>
   </head>
   <body>
+    <%= console.log(data) %>
+
     <div class="container" id="orderDetails">
       <!-- Placeholder for dynamic data -->
       <div class="logo">
@@ -115,30 +121,41 @@
       <div class="section">
         <h3>Order Information</h3>
         <div class="details">
-          <div><span>Order ID:</span> <span id="orderId"></span></div>
-          <div><span>Payment Mode:</span> <span id="paymentMode"></span></div>
+          <div><span>Order ID:</span> <span id="orderId"> <%= data.order_id %></span></div>
+          <div><span>Payment Mode:</span> <span id="paymentMode"><%= data.payment_mode %></span></div>
           <div>
-            <span>Payment Status:</span> <span id="paymentStatus"></span>
+            <span>Payment Status:</span> <span id="paymentStatus"><%= data.payment_status %></span>
           </div>
-          <div><span>Order Date:</span> <span id="orderDate"></span></div>
+          <div><span>Order Date:</span> <span id="orderDate"><%= new Date(data.order_date).toLocaleDateString('en-GB') %></span></div>
+          <div>
+            <span>Pickup location:</span> <span id="paymentStatus"><%= data.pickup_location_address %></span>
+          </div>
+          <div>
+            <span>Drop location:</span> <span id="paymentStatus"><%= data.delivery_location_address %></span>
+          </div>
+
         </div>
+        
       </div>
 
       <div class="section">
         <h3>Shipper Information</h3>
         <div class="details">
-          <div><span>Shipper Name:</span> <span id="shipperName"></span></div>
+          <div><span>Shipper Name:</span> <span id="shipperName"><%= data.shipper_name %></span></div>
           <div>
-            <span>Shipper Company:</span> <span id="shipperCompanyName"></span>
+            <span>Shipper Company:</span> <span id="shipperCompanyName"><%= data.shipper_company_name %></span>
           </div>
           <div>
             <span>Shipper Contact:</span>
-            <span id="shipperContactNumber"></span>
+            <span id="shipperContactNumber"><%= data.shipper_contact_number %></span>
           </div>
-          <div><span>Shipper GST:</span> <span id="shipperGST"></span></div>
-          <div><span>Shipper Email:</span> <span id="shipperEmail"></span></div>
+          <div><span>Shipper GST:</span> <span id="shipperGST"><%= data.shipper_gst %></span></div>
+          <div><span>Shipper Email:</span> <span id="shipperEmail"><%= data.shipper_email_address %></span></div>
           <div>
-            <span>Shipper Pincode:</span> <span id="shipperPincode"></span>
+            <span>Shipper Pincode:</span> <span id="shipperPincode"><%= data.shipper_pincode %></span>
+          </div>
+          <div>
+            <span>Shipper Town:</span> <span id="shipperPincode"><%= data.shipper_town %></span>
           </div>
         </div>
       </div>
@@ -146,21 +163,24 @@
       <div class="section">
         <h3>Receiver Information</h3>
         <div class="details">
-          <div><span>Receiver Name:</span> <span id="receiverName"></span></div>
+          <div><span>Receiver Name:</span> <span id="receiverName"><%= data.receiver_name %></span></div>
           <div>
             <span>Receiver Company:</span>
-            <span id="receiverCompanyName"></span>
+            <span id="receiverCompanyName"><%= data.receiver_company_name %></span>
           </div>
           <div>
             <span>Receiver Contact:</span>
-            <span id="receiverContactNumber"></span>
+            <span id="receiverContactNumber"><%= data.receiver_contact_number %></span>
           </div>
-          <div><span>Receiver GST:</span> <span id="receiverGST"></span></div>
+          <div><span>Receiver GST:</span> <span id="receiverGST"><%= data.receiver_gst %></span></div>
           <div>
-            <span>Receiver Email:</span> <span id="receiverEmail"></span>
+            <span>Receiver Email:</span> <span id="receiverEmail"><%= data.receiver_email_address %></span>
           </div>
           <div>
-            <span>Receiver Pincode:</span> <span id="receiverPincode"></span>
+            <span>Receiver Pincode:</span> <span id="receiverPincode"><%= data.receiver_pincode %></span>
+          </div>
+          <div>
+            <span>Receiver Town:</span> <span id="shipperPincode"><%= data.receiver_town %></span>
           </div>
         </div>
       </div>
@@ -170,32 +190,32 @@
         <div class="details">
           <div>
             <span>Vehicle Registration:</span>
-            <span id="vehicleRegistrationNumber"></span>
+            <span id="vehicleRegistrationNumber"><%= data.payment_status %></span>
           </div>
-          <div><span>Driver Name:</span> <span id="driverName"></span></div>
+          <div><span>Driver Name:</span> <span id="driverName"><%= data.payment_status %></span></div>
         </div>
       </div>
 
       <div class="section">
         <h3>Dispatch Details</h3>
         <div class="details">
-          <div><span>Dispatch ID:</span> <span id="dispatchId"></span></div>
+          <div><span>Dispatch ID:</span> <span id="dispatchId"><%= data.payment_status %></span></div>
           <div>
-            <span>Assigned Vehicle:</span> <span id="partnerCart"></span>
+            <span>Assigned Vehicle:</span> <span id="partnerCart"><%= data.payment_status %></span>
           </div>
           <div>
-            <span>Driver Name:</span> <span id="assignedDriverName"></span>
+            <span>Driver Name:</span> <span id="assignedDriverName"><%= data.payment_status %></span>
           </div>
           <div>
-            <span>Driver Number:</span> <span id="assignedDriverNumber"></span>
+            <span>Driver Number:</span> <span id="assignedDriverNumber"><%= data.payment_status %></span>
           </div>
-          <div><span>E-way Bill No:</span> <span id="ewayBillNo"></span></div>
-          <div><span>Actual Weight:</span> <span id="actualWeight"></span></div>
+          <div><span>E-way Bill No:</span> <span id="ewayBillNo"></span><%= data.payment_status %></div>
+          <div><span>Actual Weight:</span> <span id="actualWeight"></span><%= data.payment_status %></div>
           <div>
-            <span>Charged Weight:</span> <span id="chargedWeight"></span>
+            <span>Charged Weight:</span> <span id="chargedWeight"><%= data.payment_status %></span>
           </div>
           <div>
-            <span>Partner Amount:</span> <span id="partnerAmount"></span>
+            <span>Partner Amount:</span> <span id="partnerAmount"><%= data.payment_status %></span>
           </div>
         </div>
       </div>

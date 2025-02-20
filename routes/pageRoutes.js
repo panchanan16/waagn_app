@@ -60,7 +60,7 @@ pageRouter.get('/manage-acccounts', authenticate, async (req, res)=> {
     res.render('admin/manageAccount.ejs')
 })
 
-pageRouter.get('/testing', async (req, res)=> {
+pageRouter.get('/testing', async (req, res)=> { 
     res.render('admin/test.ejs')
 })
 
