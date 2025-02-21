@@ -72,7 +72,7 @@ function prevent(e) {
   e.stopPropagation();
 }
 
-function searchItemsGlobal(target, className, value, removeId) {
+function searchItemsGlobal(target, className, value) {
   const items = Array.from(document.querySelectorAll(`.${className}`));
   const query = value ? value.toLowerCase() : target.value.toLowerCase();
   for (let i = 0; i < items.length; i++) {
@@ -87,6 +87,11 @@ function searchItemsGlobal(target, className, value, removeId) {
   }
 
   // if (removeId) { document.getElementById(removeId).remove() }
+}
+
+
+function filterSummary(filtervalue) {
+  searchItemsGlobal(false, 'table-rows', filtervalue)
 }
 
 

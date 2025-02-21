@@ -1,5 +1,6 @@
 const db = require('../../config/dbConfig');
 const sendWhatsAppMsg = require('../../templates/sendWhatsAppMsg');
+const getWhatsappReciverFromDb = require('../../utils/getWhatsappRecieverDb');
 
 async function partnerAssign_StatusUpdate(req, res) {
   db.getConnection((err, connection) => {
@@ -66,6 +67,8 @@ async function vehicleAssign_StatusUpdate(req, res) {
       return;
     }
 
+    console.log(req.body)
+
     //Start a transaction
     connection.beginTransaction((err) => {
       if (err) {
@@ -74,7 +77,7 @@ async function vehicleAssign_StatusUpdate(req, res) {
         return res.status(500).json({ success: false, message: "Error in database server" });
       }
 
-      const { order_id, vehicle_id, driver_id, msg_for_driver } = req.body;
+      const { order_id, vehicle_id, driver_id, msg_for_driver, driver_name, driver_number, vehicle_number } = req.body;
 
       const assignQuery = 'INSERT INTO vehicle_assignment (order_id, vehicle_id, driver_id, msg_for_driver) VALUES (?, ?, ?, ?)';
       connection.query(assignQuery, [order_id, vehicle_id, driver_id, msg_for_driver], (err, result) => {
@@ -97,6 +100,22 @@ async function vehicleAssign_StatusUpdate(req, res) {
               return res.status(500).send({ success: false, message: 'Failed to update Status', error: err });
             });
           }
+
+          //sending whtsapp msg
+          getWhatsappReciverFromDb(34).then((response) => {
+            console.log(response)
+            sendWhatsAppMsg({
+              orderID: order_id,
+              persons: [
+                 { name: response.shipper_company_name, Number: response.shipper_contact_number },
+                 { name: response.receiver_company_name, Number: response.receiver_contact_number }
+                ],
+              driverName: driver_name,
+              driverNumber: driver_number,
+              vehicleNumber: vehicle_number,
+              type: 'driverAssigned'
+            })
+          })
 
           //Commit the transaction
           connection.commit((err) => {

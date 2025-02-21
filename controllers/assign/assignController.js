@@ -230,15 +230,16 @@ exports.deletePartnerDeliveryDetails = (req, res) => {
 // Update Order Accepted by Partner ---
 exports.updateOrderAcceptStatus = (req, res) => {
   const { orderId } = req.params
+  const { value, status } = req.body
   const query = `UPDATE partner_assign SET is_accepted = ? WHERE order_id = ?`;
 
-  db.query(query, ['accepted', orderId], (err, result) => {
+  db.query(query, [status, orderId], (err, result) => {
     if (err) {
       return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
     }
 
     const queryToUpdateOrder = `UPDATE orders SET is_partner_accepted = ? WHERE order_id = ?`
-    db.query(queryToUpdateOrder, [1, orderId], (err2, result2) => {
+    db.query(queryToUpdateOrder, [value, orderId], (err2, result2) => {
       if (err2) {
         return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
       }

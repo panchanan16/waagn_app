@@ -14,13 +14,23 @@ async function renderAllPartnerOrder() {
             <td>${item.order_id}</td>
             <td>${item.company_name}</td>
             <td>${item.receiver_name}</td>
-            <td><span class="${item.order_status == "delivered" ? "status-green" : "status-red"
-                }">${item.order_status}</span></td>
+            <td>
+            <span class="${item.order_status == "delivered" ? "status-green" : "status-red"} search-item">
+                ${item.order_status}
+            </span>
+            </td>
             <td>${item.receiver_town}</td>
-            <td><button class="btn" onclick="acceptOrder(event, ${item.order_id
-                })">
-            ${item.is_partner_accepted ? "Accepted" : "Accept Now"}
-            </button>
+            <td>
+              <div class="flex" style="gap: 1rem">
+                <button class="btn" onclick="acceptOrder(event, ${item.order_id})" disabled="${item.is_partner_accepted ? true : false}">
+                ${item.is_partner_accepted == 1 ? "Accepted" :
+                    (item.is_partner_accepted == 2 ? 'Rejected' : 'Accept Now')
+                }
+                </button>
+                <button class="btn ${item.is_partner_accepted == 0 ? '' : 'hide'}" style="background-color:#b31b1b;" onclick="rejectOrder(event, ${item.order_id})">
+                  Reject
+                </button>
+              </div>                        
             </td>
             </tr>`;
             document.getElementById("order-table").innerHTML += html;
@@ -43,21 +53,20 @@ async function renderPartnerOrderDetails(id) {
                 <strong>OrderId:</strong> ${data.order_id}
             </div>            
             <div class="key-value-pair">
-                <strong>Pickup Location:</strong> ${
-                  data.pickup_location_address
-                }
+                <strong>Pickup Location:</strong> ${data.pickup_location_address
+            }
             </div>
             <div class="key-value-pair">
-                <strong>Drop Location:</strong>${data.delivery_location_address}
+                <strong>Drop Location:</strong> ${data.delivery_location_address}
             </div>
             <div class="key-value-pair">
-                <strong>Amount:</strong>${data.amount}
+                <strong>Amount:</strong> ${data.amount}
             </div>
              <div class="key-value-pair">
-                <strong>Payment Mode:</strong>${data.payment_mode}
+                <strong>Payment Mode:</strong> ${data.payment_mode}
             </div>
             <div class="key-value-pair">
-                <strong>Payment Status:</strong>${data.payment_status}
+                <strong>Payment Status:</strong> ${data.payment_status}
             </div>
             <div class="key-value-pair">
                 <strong>Tax Invoice No. :</strong> ${data.tax_invoice_number}
@@ -71,9 +80,8 @@ async function renderPartnerOrderDetails(id) {
 
              <div class="key-value-pair">
                 <strong>Update Status:</strong>
-                <select class="${data.order_status == "delivered" ? "status-green" : "status-red"}" onchange="updateOrderStatus(this, ${
-                  data.order_id
-                })">    
+                <select class="${data.order_status == "delivered" ? "status-green" : "status-red"}" onchange="updateOrderStatus(this, ${data.order_id
+            }, '${data.payment_status}')">    
                     <option value="" selected disabled>Update Status</option>                   
                     <option value="arrived">Arrived At Destination</option>
                     <option value="outfordelivery">Out For Delivery</option> 
@@ -110,17 +118,18 @@ async function renderPartnerOrderDetails(id) {
             <h2 class="flex details-heading">3PL PARTNER</h2>
              <div class="key-value-pair">
                 <strong>Accepted By 3PL:</strong>
-                <span class="${data.is_partner_accepted ? 'status-green' : 'status-red'}">
-                ${data.is_partner_accepted ? 'Accepted' : 'Not Yet'}
+                <span class="${data.is_partner_accepted == 1 ? 'status-green' : 'status-red'}">
+                ${data.is_partner_accepted == 1 ? 'Accepted' :
+                (data.is_partner_accepted == 2 ? 'rejected' : 'Not yet')
+            }
                 </span>
             </div>
              <div class="key-value-pair">
                 <strong>3PL Name: </strong> ${data.company_name}
             </div>
             <div class="key-value-pair">
-                <strong>Godown Location:</strong> <span class="">${
-                  data.full_address
-                }</span>
+                <strong>Godown Location:</strong> <span class="">${data.full_address
+            }</span>
             </div>
             <div class="key-value-pair">
                 <strong>Godown Manager:</strong>${data.contact_person_name}
@@ -134,24 +143,21 @@ async function renderPartnerOrderDetails(id) {
             <h2 class="flex details-heading">PICKUP DETAILS</h2>
             <div class="key-value-pair">
                 <strong>Vehicle Number:</strong> 
-                <span data-vehicleid="${
-                  typeof data.vehicle_id == "number" ? data.vehicle_id : ""
-                }">
+                <span data-vehicleid="${typeof data.vehicle_id == "number" ? data.vehicle_id : ""
+            }">
                 ${data.registration_number}
                 </span>
             </div>
             <div class="key-value-pair">
                 <strong>Driver Name:</strong>
-                <span data-driverid="${
-                  typeof data.driver_id == "number" ? data.driver_id : ""
-                }">
+                <span data-driverid="${typeof data.driver_id == "number" ? data.driver_id : ""
+            }">
                 ${data.driver_name}
                 </span>
             </div>
             <div class="key-value-pair">
-                <strong>Message for Driver:</strong> <span class="" id="msg-for-driver">${
-                  data.msg_for_driver
-                }</span>
+                <strong>Message for Driver:</strong> <span class="" id="msg-for-driver">${data.msg_for_driver
+            }</span>
             </div>      
         </div>  
 
@@ -250,7 +256,7 @@ async function renderPartnerOrderDetails(id) {
                 <button class="btn" onclick="updateReasonOfDeliveryFail(this, ${data.order_id})">Update</button>
             </div>
            
-            <div class="key-value-pair ${data.order_status == 'delivered' && data.payment_status == 'topay' ? '' : 'hide'}" id="collected-amount-box">
+            <div id= "delivered-amount-box" class="key-value-pair ${data.order_status == 'delivered' && data.payment_status == 'topay' ? '' : 'hide'}" id="collected-amount-box">
                 <input style="padding:10px" type="text" name="collected_amount" id="collected_amount" placeholder="Update collected amount...">
                 <button class="btn" onclick="updateAmountCollected(this, ${data.order_id})">Update</button>
             </div>
@@ -287,7 +293,7 @@ async function renderPartnerOrderDetails(id) {
         </button>
     </div>`
 
-    document.getElementById("order-details-box").innerHTML = html;
+        document.getElementById("order-details-box").innerHTML = html;
     }
 }
 
@@ -302,25 +308,25 @@ async function renderGodownListInAssignForm(target) {
     const type = target.value
     if (partnerId && type) {
         const response = await request.GET_POST(
-          `v1/godowns/${partnerId}/${type}`,
-          "GET"
+            `v1/godowns/${partnerId}/${type}`,
+            "GET"
         );
         if (response.success) {
-          document.getElementById("godown-location-dropdown").innerHTML = "";
-          if (response.data.length > 0) {
-            response.data.forEach((item) => {
-              document.getElementById(
-                "godown-location-dropdown"
-              ).innerHTML += `<option value="${item.godown_id}">${item.full_address}</option>`;
-            });
-          } else {
-            document.getElementById(
-              "godown-location-dropdown"
-            ).innerHTML = `<option value="" disable>No location added</option>`;
-          }
+            document.getElementById("godown-location-dropdown").innerHTML = "";
+            if (response.data.length > 0) {
+                response.data.forEach((item) => {
+                    document.getElementById(
+                        "godown-location-dropdown"
+                    ).innerHTML += `<option value="${item.godown_id}">${item.full_address}</option>`;
+                });
+            } else {
+                document.getElementById(
+                    "godown-location-dropdown"
+                ).innerHTML = `<option value="" disable>No location added</option>`;
+            }
         }
     }
-    
+
 }
 
 async function openDispatchForm(orderId, dispatchId) {
@@ -366,7 +372,20 @@ async function acceptOrder(e, orderID) {
     const response = await request.DEL_UPD(
         `v1/assign/partner/status/${orderID}`,
         "PUT",
-        { id: "4" }
+        { value: 1, status: 'accepted' }
+    );
+    if (response.success) {
+        renderAllPartnerOrder();
+    }
+}
+
+async function rejectOrder(e, orderID) {
+    e.stopPropagation();
+    alert(`Accepted Successfully For ${orderID}!`);
+    const response = await request.DEL_UPD(
+        `v1/assign/partner/status/${orderID}`,
+        "PUT",
+        { value: 2, status: 'rejected' }
     );
     if (response.success) {
         renderAllPartnerOrder();
@@ -374,20 +393,27 @@ async function acceptOrder(e, orderID) {
 }
 
 
-async function updateOrderStatus(target, orderId) {
+async function updateOrderStatus(target, orderId, topay) {
     changeStatus(target)
     const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", {
-      order_status: target.value,
+        order_status: target.value,
     });
-    if (target.value == "notdelivered") {
-       document.getElementById('reason-box').classList.remove('hide')
+
+    if (response.success) {
+        if (target.value == "notdelivered") {
+            document.getElementById('reason-box').classList.remove('hide')
+        }
+
+        if (target.value == "delivered" && topay == 'topay') {
+            document.getElementById('delivered-amount-box').classList.remove('hide')
+        }
     }
-  }
+}
 
 async function updateReasonOfDeliveryFail(target, id) {
     const text = target.parentNode.querySelector('#reason_of_fail_delivery').value
     if (text != "") {
-        const response = await request.DEL_UPD(`v1/assign/partner/fail/${id}`, 'PUT', {text})
+        const response = await request.DEL_UPD(`v1/assign/partner/fail/${id}`, 'PUT', { text })
     } else {
         alert('Type the reason First then update!')
     }
@@ -397,10 +423,11 @@ async function updateReasonOfDeliveryFail(target, id) {
 async function updateAmountCollected(target, id) {
     const collectedAmount = target.parentNode.querySelector('#collected_amount').value
     if (collectedAmount != "") {
-        const response = await request.DEL_UPD(`v1/dispatch/amount/${id}`, 'PUT', {collectedAmount})
+        const response = await request.DEL_UPD(`v1/dispatch/amount/${id}`, 'PUT', { collectedAmount })
     } else {
         alert('Type the reason First then update!')
     }
 }
+
 
 renderAllPartnerOrder();

@@ -94,7 +94,6 @@ appRoutes.put('/dispatch/amount/:id', assignControllers.updateCollectedAmount);
 appRoutes.get('/dashboard/data', summaryControllers.getDashBoardSummary); 
 
 // Raise complaint API --
-
 appRoutes.post('/compaint', complaintControllers.createComplaint)
 appRoutes.get('/compaints', complaintControllers.getAllComplaints); 
 appRoutes.get('/compaint/:id', complaintControllers.getOneComplaint); 

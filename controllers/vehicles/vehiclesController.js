@@ -67,7 +67,7 @@ function getOneVehicle(req, res) {
 
 // Function to get vehicles with driver name ---
 function getAllVehiclesWithDriver(req, res) {
-    const query = `SELECT vehicle_id, registration_number, driver_id, driver_name FROM vehicle_information INNER JOIN drivers ON vehicle_information.driver_details = drivers.driver_id;`
+    const query = `SELECT vehicle_id, registration_number, driver_id, driver_name, contact_number FROM vehicle_information INNER JOIN drivers ON vehicle_information.driver_details = drivers.driver_id;`
 
     db.query(query, (err, results) => {
         if (err) {

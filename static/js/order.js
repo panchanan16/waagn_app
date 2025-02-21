@@ -41,11 +41,11 @@ async function createOrderFromAdmin(e) {
   const response =
     e.target.dataset.orderid != ""
       ? await request.DEL_UPD(
-          `v1/order/${e.target.dataset.orderid}`,
-          `PUT`,
-          formData,
-          "form"
-        )
+        `v1/order/${e.target.dataset.orderid}`,
+        `PUT`,
+        formData,
+        "form"
+      )
       : await request.GET_POST("v1/order", `POST`, formData, "form");
   if (response.success) {
     renderAllOrder();
@@ -66,7 +66,7 @@ async function openAddPartnerForm(orderId, target) {
   }
   target.dataset.psid != ""
     ? (document.getElementById("update-partner-btn").dataset.psid =
-        target.dataset.psid)
+      target.dataset.psid)
     : (document.getElementById("update-vehicle-btn").dataset.psid = "");
   openPopup("select-3pl-box");
 }
@@ -76,19 +76,19 @@ async function openAddVehicleForm(orderId, target) {
   const msgTarget = document.getElementById("msg-for-driver");
   msgTarget.textContent != "null"
     ? (document.getElementById("msg-for-driver-inp").value =
-        msgTarget.textContent)
+      msgTarget.textContent)
     : "";
   const response = await request.GET_POST("v1/vehicles/drivers", "GET");
   if (response.success) {
     document.getElementById("search-list").innerHTML = "";
     response.data.forEach((item) => {
-      const html = `<li class="vh-num-li" onclick="selectVehicle(this, ${item.vehicle_id}, ${item.driver_id}, '${item.driver_name}')">${item.registration_number}</li>`;
+      const html = `<li class="vh-num-li" onclick="selectVehicle(this, ${item.vehicle_id}, ${item.driver_id}, '${item.driver_name}', '${item.contact_number}')">${item.registration_number}</li>`;
       document.getElementById("search-list").innerHTML += html;
     });
   }
   target.dataset.vsid != ""
     ? (document.getElementById("update-vehicle-btn").dataset.vsid =
-        target.dataset.vsid)
+      target.dataset.vsid)
     : (document.getElementById("update-vehicle-btn").dataset.vsid = "");
   openPopup("select-vehicle-box");
 }
@@ -146,9 +146,8 @@ async function renderOrderDetails(id) {
                 <strong>OrderId:</strong> ${data.order_id}
             </div>            
             <div class="key-value-pair">
-                <strong>Pickup Location:</strong> ${
-                  data.pickup_location_address
-                }
+                <strong>Pickup Location:</strong> ${data.pickup_location_address
+      }
             </div>
             <div class="key-value-pair">
                 <strong>Drop Location:</strong> ${data.delivery_location_address}
@@ -169,44 +168,34 @@ async function renderOrderDetails(id) {
              <div class="key-value-pair">
                 <strong>Order Status:</strong>
                 <select class="${data.order_status == "delivered" ? "status-green" : "status-red"}" 
-                 onchange="updateOrderStatus(this, ${
-                  data.order_id})">
+                 onchange="updateOrderStatus(this, ${data.order_id}, '${data.payment_status}')">
 
-                    <option value="pending" ${
-                      data.order_status == "pending" ? "selected" : ""
-                    }>Pending</option>
+                    <option value="pending" ${data.order_status == "pending" ? "selected" : ""
+      }>Pending</option>
 
-                    <option value="driver" ${
-                      data.order_status == "driver" ? "selected" : ""
-                    }>Driver Assigned</option>
+                    <option value="driver" ${data.order_status == "driver" ? "selected" : ""
+      }>Driver Assigned</option>
 
-                    <option value="pickupprogress" ${
-                      data.order_status == "pickupprogress" ? "selected" : ""
-                    }>Pickup In Progress</option>
+                    <option value="pickupprogress" ${data.order_status == "pickupprogress" ? "selected" : ""
+      }>Pickup In Progress</option>
 
-                    <option value="pickupcompleted" ${
-                      data.order_status == "pickupcompleted" ? "selected" : ""
-                    }>Pickup Completed</option>
+                    <option value="pickupcompleted" ${data.order_status == "pickupcompleted" ? "selected" : ""
+      }>Pickup Completed</option>
 
-                    <option value="transit" ${
-                      data.order_status == "transit" ? "selected" : ""
-                    }>In transit to 3PL</option>      
+                    <option value="transit" ${data.order_status == "transit" ? "selected" : ""
+      }>In transit to 3PL</option>      
 
-                    <option value="arrived" ${
-                      data.order_status == "arrived" ? "selected" : ""
-                    }>Arrived At Destination</option>
+                    <option value="arrived" ${data.order_status == "arrived" ? "selected" : ""
+      }>Arrived At Destination</option>
 
-                    <option value="outfordelivery" ${
-                      data.order_status == "outfordelivery" ? "selected" : ""
-                    }>Out For Delivery</option> 
+                    <option value="outfordelivery" ${data.order_status == "outfordelivery" ? "selected" : ""
+      }>Out For Delivery</option> 
 
-                    <option value="delivered" ${
-                      data.order_status == "delivered" ? "selected" : ""
-                    }>Delivered</option>
+                    <option value="delivered" ${data.order_status == "delivered" ? "selected" : ""
+      }>Delivered</option>
                     
-                    <option value="notdelivered" ${
-                      data.order_status == "notdelivered" ? "selected" : ""
-                    }>Not Delivered</option>
+                    <option value="notdelivered" ${data.order_status == "notdelivered" ? "selected" : ""
+      }>Not Delivered</option>
                 </select>
             </div>
         </div>
@@ -238,17 +227,18 @@ async function renderOrderDetails(id) {
             <h2 class="flex details-heading">3PL PARTNER</h2>
              <div class="key-value-pair">
                 <strong>Accepted By 3PL:</strong>
-                <span class="${data.is_partner_accepted ? 'status-green' : 'status-red'}">
-                ${data.is_partner_accepted ? 'Accepted' : 'Not Yet'}
+                <span class="${data.is_partner_accepted == 1 ? 'status-green' : 'status-red'}">
+                ${data.is_partner_accepted == 1 ? 'Accepted' :
+        (data.is_partner_accepted == 2 ? 'rejected' : 'Not yet')
+      }
                 </span>
             </div>
              <div class="key-value-pair">
                 <strong>3PL Name: </strong> ${data.company_name}
             </div>
             <div class="key-value-pair">
-                <strong>Godown Location:</strong> <span class="">${
-                  data.full_address
-                }</span>
+                <strong>Godown Location:</strong> <span class="">${data.full_address
+      }</span>
             </div>
             <div class="key-value-pair">
                 <strong>Godown Manager:</strong>${data.contact_person_name}
@@ -262,24 +252,21 @@ async function renderOrderDetails(id) {
             <h2 class="flex details-heading">PICKUP DETAILS</h2>
             <div class="key-value-pair">
                 <strong>Vehicle Number:</strong> 
-                <span data-vehicleid="${
-                  typeof data.vehicle_id == "number" ? data.vehicle_id : ""
-                }">
+                <span data-vehicleid="${typeof data.vehicle_id == "number" ? data.vehicle_id : ""
+      }">
                 ${data.registration_number}
                 </span>
             </div>
             <div class="key-value-pair">
                 <strong>Driver Name:</strong>
-                <span data-driverid="${
-                  typeof data.driver_id == "number" ? data.driver_id : ""
-                }">
+                <span data-driverid="${typeof data.driver_id == "number" ? data.driver_id : ""
+      }">
                 ${data.driver_name}
                 </span>
             </div>
             <div class="key-value-pair">
-                <strong>Message for Driver:</strong> <span class="" id="msg-for-driver">${
-                  data.msg_for_driver
-                }</span>
+                <strong>Message for Driver:</strong> <span class="" id="msg-for-driver">${data.msg_for_driver
+      }</span>
             </div>      
         </div>  
 
@@ -403,9 +390,8 @@ async function renderOrderDetails(id) {
     <div class="flex" style="gap: 1rem">
         <button 
         class="btn"
-        data-psid="${
-          typeof data.p_assign_id == "number" ? data.p_assign_id : ""
-        }" 
+        data-psid="${typeof data.p_assign_id == "number" ? data.p_assign_id : ""
+      }" 
         onclick="openAddPartnerForm(${data.order_id}, this)"
         >  
         ${data.partner_assign_status ? "Update Partner" : "Assign 3pl Partner"}
@@ -413,17 +399,15 @@ async function renderOrderDetails(id) {
 
         <button 
         class="btn"         
-        data-vsid="${
-          typeof data.v_assign_id == "number" ? data.v_assign_id : ""
-        }"
+        data-vsid="${typeof data.v_assign_id == "number" ? data.v_assign_id : ""
+      }"
         onclick="openAddVehicleForm(${data.order_id}, this)"
         data-vsid="${data.vehicle_assign_status ? data.v_assign_id : ""}"
         >
-          ${
-            data.vehicle_assign_status
-              ? "Update Vehicle"
-              : "Assign Pickup Vehicle"
-          }
+          ${data.vehicle_assign_status
+        ? "Update Vehicle"
+        : "Assign Pickup Vehicle"
+      }
         </button>
         <a href="/download-order-details?order=${data.order_id}" target="_blank">
           <button class="btn">Download</button>
@@ -438,15 +422,15 @@ async function assignPartnerToOrder(e) {
   const formData = new FormData(document.getElementById("assign-partner-form"));
   const response = e.target.dataset.psid != ""
     ? await request.GET_POST(
-        `v1/assign/partner/${e.target.dataset.psid}`,
-        "PUT",
-        formData,
-        "form"
-      )
+      `v1/assign/partner/${e.target.dataset.psid}`,
+      "PUT",
+      formData,
+      "form"
+    )
     : await request.GET_POST(`v1/assign/partner`, "POST", formData, "form");
-    if (response.success) {
-      closePopup('select-3pl-box', 'form', 'update-partner-btn', 'psid', 'assign-partner-form')
-    }
+  if (response.success) {
+    closePopup('select-3pl-box', 'form', 'update-partner-btn', 'psid', 'assign-partner-form')
+  }
 }
 
 async function assignVehicleToOrder(e) {
@@ -454,28 +438,34 @@ async function assignVehicleToOrder(e) {
   const formData = new FormData(document.getElementById("assign-vehicle-form"));
   const response = e.target.dataset.vsid != ""
     ? await request.GET_POST(
-        `v1/assign/vehicle/${e.target.dataset.vsid}`,
-        "PUT",
-        formData,
-        "form"
-      )
+      `v1/assign/vehicle/${e.target.dataset.vsid}`,
+      "PUT",
+      formData,
+      "form"
+    )
     : await request.GET_POST(`v1/assign/vehicle`, "POST", formData, "form");
-    if (response.success) {
-      closePopup('select-vehicle-box', 'form', 'update-vehicle-btn', 'vsid', 'assign-vehicle-form')
-    }
+  if (response.success) {
+    closePopup('select-vehicle-box', 'form', 'update-vehicle-btn', 'vsid', 'assign-vehicle-form')
+  }
 }
 
-function selectVehicle(target, vehicleId, driverId, driverName) {
+function selectVehicle(target, vehicleId, driverId, driverName, driverNumber) {
   document.getElementById("vehicle-dropdown").value = target.textContent;
   document.getElementById("driver-name-inp").value = driverName;
+  document.getElementById("driver-number-inp").value = driverNumber;
   document.getElementById("driver-driverid-inp").value = driverId;
   document.getElementById("driver-vehicleid-inp").value = vehicleId;
   closePopup("search-input");
 }
 
-async function updateOrderStatus(target, orderId) {
+async function updateOrderStatus(target, orderId, topay) {
   changeStatus(target)
   const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", { order_status: target.value });
+  if (response.success) {
+    if (target.value == "delivered" && topay == 'topay') {
+      document.getElementById('collected-amount-box').classList.remove('hide')
+    }
+  }
 }
 
 async function editOrder(e, orderid) {
@@ -504,9 +494,9 @@ async function editOrder(e, orderid) {
 async function updateAmountCollected(target, id) {
   const collectedAmount = target.parentNode.querySelector('#collected_amount').value
   if (collectedAmount != "") {
-      const response = await request.DEL_UPD(`v1/dispatch/amount/${id}`, 'PUT', {collectedAmount})
+    const response = await request.DEL_UPD(`v1/dispatch/amount/${id}`, 'PUT', { collectedAmount })
   } else {
-      alert('Enter the value First then update!')
+    alert('Enter the value First then update!')
   }
 }
 
@@ -516,7 +506,7 @@ async function searchOrder(target, className, type) {
     const response = await request.GET_POST(`v1/order/${query}`, "GET");
     if (response.success && response.data.length > 0) {
       const item = response.data[0]
-        const html = `<tr class="table-rows" id="onsearch" onclick="openOrderDetails(${item.order_id})">
+      const html = `<tr class="table-rows" id="onsearch" onclick="openOrderDetails(${item.order_id})">
               <td class="search-item">${item.order_id}</td>
               <td class="search-item">${item.shipper_company_name}</td>
               <td class="search-item">${item.receiver_company_name}</td>
@@ -531,8 +521,8 @@ async function searchOrder(target, className, type) {
                   </div>
               </td>
               </tr>`;
-        document.getElementById("order-table").innerHTML += html;
-        searchItemsGlobal(undefined, 'table-rows', query, 'onsearch')
+      document.getElementById("order-table").innerHTML += html;
+      searchItemsGlobal(undefined, 'table-rows', query, 'onsearch')
     } else {
       alert('No order found!')
     }

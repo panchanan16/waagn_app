@@ -50,21 +50,3 @@ async function sendWhatsAppMsg(msgDescription) {
     }
    
 }
-
-sendWhatsAppMsg({
-    orderID: 34,
-    persons: [{ name: 'Panchanan', Number: '6000192289' }],
-    goodsDescription: 'milk and butter',
-    deliveryPerson: 'rahul ali',
-    agentContact: '9854876587',
-    type: 'outfordelivery'
-  })
-
-// sendWhatsAppMsg({
-//     goodsDescription: 'cold cream and milk, powder',
-//     persons: [{name: 'Panchanan deka', Number: '6000192289'}, {name: 'sky rocket, Arjun', Number: '7002956967'}],
-//     orderType: 'Part time load',
-//     orderId: 234,
-//     pickLocation: 'lokhra bylane 7',
-//     deliveryLocation: 'beltola, near apart grind'
-// })

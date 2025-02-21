@@ -68,7 +68,7 @@
 
       .details {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 3px;
       }
 
@@ -76,8 +76,12 @@
         padding: 1px;
       }
 
-      .details div span {
+      .details div span:first-child {
         font-weight: bold;
+        font-size: 13px;
+      }
+      
+      .details div span:nth-child(2) {  
         font-size: 13px;
       }
 
@@ -102,21 +106,19 @@
     </style>
   </head>
   <body>
-    <%= console.log(data) %>
-
     <div class="container" id="orderDetails">
       <!-- Placeholder for dynamic data -->
       <div class="logo">
         <div class="flex flex-col" style="align-items: center; gap: 3px">
-          <img src="/img/logo.png" alt="" height="50px" width="250px" />
-          <h3>HAX TECHNOLOGIES PVT LTD</h3>
+          <img src="/img/logo.png" alt="" height="40px" width="200px" />
+          <span style="font-weight: 600;">HAX TECHNOLOGIES PVT LTD</span>
           <span>JL Bhawan, NH-37, Jalukbari, Guwahati-781013</span>
-          <span>Email: contact@waagn.com</span>
-          <span>CIN : U74999AS2016TC017481</span>
+          <div class="flex" style="gap: 1rem;">
+            <span>Email: contact@waagn.com</span>
+            <span>CIN : U74999AS2016TC017481</span>
+          </div>
         </div>
       </div>
-
-      <h2>Order Details</h2>
 
       <div class="section">
         <h3>Order Information</h3>
@@ -132,6 +134,12 @@
           </div>
           <div>
             <span>Drop location:</span> <span id="paymentStatus"><%= data.delivery_location_address %></span>
+          </div>
+          <div>
+            <span>Booking type:</span> <span id="paymentStatus"><%= data.booking_type %></span>
+          </div>
+          <div>
+            <span>Amount:</span> <span id="paymentStatus"> ₹ <%= data.amount %></span>
           </div>
 
         </div>
@@ -186,36 +194,106 @@
       </div>
 
       <div class="section">
+        <h3>Goods Information</h3>
+        <div class="details">
+          <div>
+            <span>Length Of Box:</span>
+            <span><%= data.length_of_box %> cm</span>
+          </div>
+          <div>
+            <span>Breadth Of Box:</span> 
+            <span id="driverName"><%= data.breadth_of_box %> cm</span>
+          </div>
+          <div>
+            <span>Height Of Box:</span> 
+            <span id="driverName"><%= data.height_of_box %> cm</span>
+          </div>
+          <div>
+            <span>Volume:</span> 
+            <span id="driverName"><%= data.volume_of_consignment %> cm<sup>3</sup></span>
+          </div>
+          <div>
+            <span>Number of boxes:</span> 
+            <span id="driverName"><%= data.number_of_boxes %></span>
+          </div>
+          <div>
+            <span>Actual Weight :</span> 
+            <span id="driverName"><%= data.actual_weight_of_consignment %> kg</span>
+          </div>
+          <div>
+            <span>Goods Type:</span> 
+            <span id="driverName"><%= data.types_of_goods %></span>
+          </div>
+          <div>
+            <span>Risk Of Goods:</span> 
+            <span id="driverName"><%= data.consignment_risk %></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>3pl partner Information</h3>
+        <div class="details">
+          <div>
+            <span>3PL Name:</span>
+            <span><%= data.company_name %></span>
+          </div>
+          <div>
+            <span>Godown Location:</span> 
+            <span id="driverName"><%= data.full_address %></span>
+          </div>
+          <div>
+            <span>Godown Contact:</span> 
+            <span id="driverName"><%= data.godown_contact %></span>
+          </div>
+          <div>
+            <span>Godown Manager:</span> 
+            <span id="driverName"><%= data.contact_person_name %></span>
+          </div>         
+        </div>
+      </div>
+
+      <div class="section">
         <h3>Vehicle and Driver Information</h3>
         <div class="details">
           <div>
-            <span>Vehicle Registration:</span>
-            <span id="vehicleRegistrationNumber"><%= data.payment_status %></span>
+            <span>Assigned Vehicle:</span>
+            <span id="vehicleRegistrationNumber"><%= data.registration_number %></span>
           </div>
-          <div><span>Driver Name:</span> <span id="driverName"><%= data.payment_status %></span></div>
+          <div><span>Driver Name:</span> <span id="driverName"><%= data.driver_name %></span></div>
         </div>
       </div>
 
       <div class="section">
         <h3>Dispatch Details</h3>
-        <div class="details">
-          <div><span>Dispatch ID:</span> <span id="dispatchId"><%= data.payment_status %></span></div>
+        <div class="details"> 
           <div>
-            <span>Assigned Vehicle:</span> <span id="partnerCart"><%= data.payment_status %></span>
+            <span>Assigned Vehicle:</span> 
+            <span id="partnerCart"><%= data.partner_cart != null ? data.partner_cart : 'N/A' %></span>
           </div>
           <div>
-            <span>Driver Name:</span> <span id="assignedDriverName"><%= data.payment_status %></span>
+            <span>Driver Name:</span> 
+            <span id="assignedDriverName"><%= data.assigned_driver_name != null ? data.assigned_driver_name : 'N/A' %></span>
           </div>
           <div>
-            <span>Driver Number:</span> <span id="assignedDriverNumber"><%= data.payment_status %></span>
-          </div>
-          <div><span>E-way Bill No:</span> <span id="ewayBillNo"></span><%= data.payment_status %></div>
-          <div><span>Actual Weight:</span> <span id="actualWeight"></span><%= data.payment_status %></div>
-          <div>
-            <span>Charged Weight:</span> <span id="chargedWeight"><%= data.payment_status %></span>
+            <span>Driver Number:</span> 
+            <span id="assignedDriverNumber"><%= data.assigned_driver_number != null ? data.assigned_driver_number : 'N/A' %></span>
           </div>
           <div>
-            <span>Partner Amount:</span> <span id="partnerAmount"><%= data.payment_status %></span>
+            <span>E-way Bill No:</span> 
+            <span id="ewayBillNo"><%= data.e_way_bill_no != null ? data.e_way_bill_no : 'N/A' %></span>
+          </div>
+          <div>
+            <span>Actual Weight:</span> 
+            <span id="actualWeight"><%= data.actual_weight != null ? data.actual_weight : 'N/A' %> kg</span>
+          </div>
+          <div>
+            <span>Charged Weight:</span> 
+            <span id="chargedWeight"><%= data.charged_weight != null ? data.charged_weight : 'N/A' %> kg</span>
+          </div>
+          <div>
+            <span>Partner Amount:</span> 
+            <span id="partnerAmount"> ₹ <%= data.partner_amount != null ? data.partner_amount : 'N/A' %></span>
           </div>
         </div>
       </div>
@@ -230,8 +308,8 @@
     <script>
     function generatePDF() {
       window.jsPDF = window.jspdf.jsPDF;
-      var doc = new jsPDF();
-      var elementHTML = document.querySelector("#orderDetails");
+      let doc = new jsPDF();
+      let elementHTML = document.querySelector("#orderDetails");
       doc.html(elementHTML, {
         callback: function(doc) {
           doc.save('order-details.pdf');

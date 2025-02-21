@@ -30,11 +30,11 @@
                     <h3 id="total">13</h3>
                     <p>Total Orders</p>
                 </div>
-                <div class="service-card" style="background-color: #c4c443;">
+                <div class="service-card" onclick="filterSummary('transit')" style="background-color: #c4c443;">
                     <h3 id="transit">0</h3>
                     <p>Order In Transit</p>
                 </div>
-                <div class="service-card" style="background-color: #89c867;">
+                <div class="service-card" onclick="filterSummary('pending')" style="background-color: #89c867;">
                     <h3 id="pending">0</h3>
                     <p>Pending for Pickup</p>
                 </div>
@@ -508,7 +508,7 @@
                                 <div>
                                     <label for="town">Select vehicle:</label>
                                     <input placeholder="Seach Vh. Number..." type="text"
-                                        onfocus="openPopup('search-input')" name="town" id="vehicle-dropdown" oninput="searchItems(this, 'vh-num-li')">
+                                        onfocus="openPopup('search-input')" name="vehicle_number" id="vehicle-dropdown" oninput="searchItems(this, 'vh-num-li')">
                                 </div>
                                 <div class="search-input scroll-box hide">
                                     <ul id="search-list">
@@ -523,11 +523,16 @@
                             </div>
                             <div class="form-field">
                                 <label for="driver-name-inp">Driver Name:</label>
-                                <input type="text" id="driver-name-inp" name="contact_person_name" maxlength="150"
+                                <input type="text" id="driver-name-inp" name="driver_name" maxlength="150"
                                     required>
                             </div>                           
                         </div>
                         <div class="form-row" style="margin-top: 1rem;">
+                            <div class="form-field">
+                                <label for="driver-vehicleid-inp">Driver Number:</label>
+                                <input type="text" value="" id="driver-number-inp" name="driver_number" maxlength="150"
+                                    required readonly>
+                            </div>
                             <div class="form-field">
                                 <label for="driver-vehicleid-inp">Vehicle Id:</label>
                                 <input type="text" value="not-set" id="driver-vehicleid-inp" name="vehicle_id" maxlength="150"

@@ -13,6 +13,7 @@ const pageRouter = require('./routes/pageRoutes')
 const serverSideRouter = require('./routes/serverSideRoute')
 const appRoutes = require('./routes/appRoutes')
 const transactionRoute = require('./routes/transactionRoutes')
+const getWhatsappReciverFromDb = require('./utils/getWhatsappRecieverDb')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -32,7 +33,6 @@ app.use('/v1', appRoutes)
 
 //transactions routee
 app.use('/v1', transactionRoute)
-
 
 
 //page routes
