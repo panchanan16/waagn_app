@@ -65,7 +65,7 @@ function toggleAsideSubmenu(target) {
 }
 
 function toggleFilterBox(target) {
-    document.getElementById(target).classList.toggle('hide')
+  document.getElementById(target).classList.toggle('hide')
 }
 
 function prevent(e) {
@@ -96,25 +96,35 @@ function filterSummary(filtervalue) {
 
 
 async function logOutAdmin() {
-    const response = await fetch('v1/auth/admin/logout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({user: 'admin'})
+  const response = await fetch('v1/auth/admin/logout', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user: 'admin' })
   })
-    const json = await response.json()
-    if (json.success) {
-      window.location.href = location.origin + json.redirect;
+  const json = await response.json()
+  if (json.success) {
+    window.location.href = location.origin + json.redirect;
   }
 }
 
-function renderSummary(values, status) {
+function renderSummary(values, status, type) {
   const target = Array.from(document.querySelector('.service-cards').getElementsByTagName('h3'))
-  target.forEach((item)=> {
-      values.forEach((valu)=> {
-          if (valu[status] == item.id) {
-             item.textContent = valu.sum
-          }     
+  target.forEach((item) => {
+    if (type == 'array') {
+      values.forEach((valu) => {
+        if (valu[status] == item.id) {
+          item.textContent = valu.sum
+        }
       })
+    } else {
+      for (const key in values) {
+        if (key == item.id) {
+          item.textContent = values[key]
+        }
+      }
+    }
+
+
   })
   document.getElementById('total').textContent = values[0].total
 }

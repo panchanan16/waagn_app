@@ -10,7 +10,7 @@ async function renderAllPartnerOrder() {
         document.getElementById("order-table").innerHTML = "";
         response.data[0].forEach((item, ind) => {
             const html = `<tr class="table-rows" onclick="openPartnerOrderDetails(${item.order_id
-                })">
+                }, ${item.partner_id})">
             <td>${item.order_id}</td>
             <td>${item.company_name}</td>
             <td>${item.receiver_name}</td>
@@ -22,12 +22,12 @@ async function renderAllPartnerOrder() {
             <td>${item.receiver_town}</td>
             <td>
               <div class="flex" style="gap: 1rem">
-                <button class="btn" onclick="acceptOrder(event, ${item.order_id})" disabled="${item.is_partner_accepted ? true : false}">
-                ${item.is_partner_accepted == 1 ? "Accepted" :
-                    (item.is_partner_accepted == 2 ? 'Rejected' : 'Accept Now')
+                <button class="btn" onclick="acceptOrder(event, ${item.order_id}, ${item.partner_id})">
+                ${item.is_accepted == 1 ? "Accepted" :
+                    (item.is_accepted == 2 ? 'Rejected' : 'Accept Now')
                 }
                 </button>
-                <button class="btn ${item.is_partner_accepted == 0 ? '' : 'hide'}" style="background-color:#b31b1b;" onclick="rejectOrder(event, ${item.order_id})">
+                <button class="btn ${item.is_accepted == 0 ? '' : 'hide'}" style="background-color:#b31b1b;" onclick="rejectOrder(event, ${item.order_id}, ${item.partner_id})">
                   Reject
                 </button>
               </div>                        
@@ -36,14 +36,13 @@ async function renderAllPartnerOrder() {
             document.getElementById("order-table").innerHTML += html;
         });
 
-        renderSummary(response.data[1], 'order_status')
+        renderSummary(response.data[1][0], 'order_status')
         document.getElementById('pending-acceptance').textContent = response.data[1][0]['pending_acceptance']
-        document.getElementById('accepted-order').textContent = response.data[1][0]['total'] - response.data[1][0]['pending_acceptance']
     }
 }
 
-async function renderPartnerOrderDetails(id) {
-    const response = await request.GET_POST(`v1/order/${id}`, "GET");
+async function renderPartnerOrderDetails(id, partnerid) {
+    const response = await request.GET_POST(`v1/order/${id}?partnerid=${partnerid ? partnerid : 0}`, "GET");
     if (response.success) {
         const data = response.data[0];
         const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
@@ -118,9 +117,9 @@ async function renderPartnerOrderDetails(id) {
             <h2 class="flex details-heading">3PL PARTNER</h2>
              <div class="key-value-pair">
                 <strong>Accepted By 3PL:</strong>
-                <span class="${data.is_partner_accepted == 1 ? 'status-green' : 'status-red'}">
-                ${data.is_partner_accepted == 1 ? 'Accepted' :
-                (data.is_partner_accepted == 2 ? 'rejected' : 'Not yet')
+                <span class="${data.partner_accepted == 1 ? 'status-green' : 'status-red'}">
+                ${data.partner_accepted == 1 ? 'Accepted' :
+                (data.partner_accepted == 2 ? 'rejected' : 'Not yet')
             }
                 </span>
             </div>
@@ -286,7 +285,7 @@ async function renderPartnerOrderDetails(id) {
     </div>
     <div class="flex" style="gap: 1rem">
         <button 
-        class="btn ${data.is_partner_accepted ? "" : "hide"}" 
+        class="btn ${data.partner_accepted == 1 ? "" : "hide"}" 
         onclick="openDispatchForm(${data.order_id}, ${data.dispatchId})"
         >  
          ${data.dispatchId != null ? 'Update Dispatch' : 'Assign Now'}
@@ -297,8 +296,8 @@ async function renderPartnerOrderDetails(id) {
     }
 }
 
-function openPartnerOrderDetails(orderid) {
-    renderPartnerOrderDetails(orderid);
+function openPartnerOrderDetails(orderid, partnerid) {
+    renderPartnerOrderDetails(orderid, partnerid);
     openPopup("order-detail-popup");
 }
 
@@ -366,26 +365,24 @@ async function addDispatchDetails(e) {
 
 }
 
-async function acceptOrder(e, orderID) {
+async function acceptOrder(e, orderID, partnerID) {
     e.stopPropagation();
-    alert(`Accepted Successfully For ${orderID}!`);
     const response = await request.DEL_UPD(
         `v1/assign/partner/status/${orderID}`,
         "PUT",
-        { value: 1, status: 'accepted' }
+        { value: 1, partnerID }
     );
     if (response.success) {
         renderAllPartnerOrder();
     }
 }
 
-async function rejectOrder(e, orderID) {
+async function rejectOrder(e, orderID, partnerID) {
     e.stopPropagation();
-    alert(`Accepted Successfully For ${orderID}!`);
     const response = await request.DEL_UPD(
         `v1/assign/partner/status/${orderID}`,
         "PUT",
-        { value: 2, status: 'rejected' }
+        { value: 2, partnerID }
     );
     if (response.success) {
         renderAllPartnerOrder();

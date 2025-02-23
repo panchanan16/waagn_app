@@ -31,6 +31,16 @@ async function sendWhatsAppMsg(msgDescription) {
             const driverAssignParams = `&template_uid=67b84f3b3d678&to=91${item.Number}&full_name=${encodeURIComponent(item.name)}&driver_name=${encodeURIComponent(msgDescription.driverName)}&order_id=${msgDescription.orderID}&driver_number=${msgDescription.driverNumber}&vehicle_number=${encodeURIComponent(msgDescription.vehicleNumber)}`;
             msgApiCall(driverAssignParams)
         });
+    } else if (msgDescription.type == 'failedDelivery') {
+        msgDescription.persons.forEach((item) => {
+            const failedDeliveryParams = `&template_uid=67b8a3ba71fc1&to=91${item.Number}&full_name=${encodeURIComponent(item.name)}&order_id=${msgDescription.orderID}&goods_description=${encodeURIComponent(msgDescription.goods)}&failed_reason=${encodeURIComponent(msgDescription.failedReason)}`;
+            msgApiCall(failedDeliveryParams)
+        });
+    } else if (msgDescription.type == 'delivered') {
+        msgDescription.persons.forEach((item) => {
+            const deliveredParams = `&template_uid=67bb606c24c43&to=91${item.Number}&full_name=${encodeURIComponent(item.name)}&order_id=${msgDescription.orderID}&goods_description=${encodeURIComponent(msgDescription.goods)}&pay_status=${encodeURIComponent(msgDescription.payStatus)}&drop_location=${encodeURIComponent(msgDescription.dropLocation)}`;
+            msgApiCall(deliveredParams)
+        });
     }
    
 }

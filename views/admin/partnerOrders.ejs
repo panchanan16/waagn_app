@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waagn App</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/request.module.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
@@ -25,27 +28,23 @@
                 </div>
             </div>
 
-            <div class="service-cards grid-col-5">
+            <div class="service-cards grid-col-4">
                 <div class="service-card">
-                    <h3 id="total">0</h3>
-                    <p>Total Orders</p>
+                    <h3 id="total_orders">0</h3>
+                    <p>Total Orders Assigned</p>
                 </div>
                 <div class="service-card" onclick="filterSummary('accepted')" style="background-color: #c4c443;">
-                    <h3 id="accepted-order">0</h3>
+                    <h3 id="accepted_orders">0</h3>
                     <p>Order Accepted</p>
                 </div>
                 <div class="service-card" onclick="filterSummary('Accept Now')" style="background-color: #89c867;">
-                    <h3 id="pending-acceptance">0</h3>
+                    <h3 id="pending_accept">0</h3>
                     <p>Pending Acceptence</p>
                 </div>
-                <div class="service-card" onclick="filterSummary('transit')" style="background-color: #c776db;">
-                    <h3 id="transit">0</h3>
-                    <p>Order In transit</p>
-                </div>
-                <div class="service-card" onclick="filterSummary('delivered')" style="background-color: #89c867;">
-                    <h3 id="delivered">0</h3>
-                    <p>Delivered Orders</p>
-                </div>
+                <div class="service-card" onclick="filterSummary('Rejected')" style="background-color: #c776db;">
+                    <h3 id="rejected_orders">0</h3>
+                    <p>Order Rejected</p>
+                </div>                
             </div>
 
             <div class="table-container">

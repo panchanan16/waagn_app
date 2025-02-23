@@ -28,11 +28,11 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box;    
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Noto Sans", Arial, Helvetica, sans-serif;
     background-color: #f9f9f9;
     color: #2e2e2e;
     margin: 0;

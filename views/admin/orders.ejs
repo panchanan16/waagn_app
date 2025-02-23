@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waagn App</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/request.module.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -25,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="service-cards grid-col-3">
+            <div class="service-cards grid-col-4">
                 <div class="service-card">
                     <h3 id="total">13</h3>
                     <p>Total Orders</p>
@@ -37,6 +40,10 @@
                 <div class="service-card" onclick="filterSummary('pending')" style="background-color: #89c867;">
                     <h3 id="pending">0</h3>
                     <p>Pending for Pickup</p>
+                </div>
+                <div class="service-card" onclick="filterSummary('delivered')" style="background-color: #be67c8;">
+                    <h3 id="delivered">0</h3>
+                    <p>Delivered Orders</p>
                 </div>
             </div>
 
@@ -489,7 +496,9 @@
                         </div>
 
                         <div style="margin-top: 1rem;">
-                            <button class="btn" id="update-partner-btn" data-psid="" type="button" onclick="assignPartnerToOrder(event)">Assign Now</button>
+                            <button class="btn" id="update-partner-btn" data-psid="" data-isaccept="" type="button" onclick="assignPartnerToOrder(event)">
+                                Assign Now
+                            </button>
                             <button class="btn" type="button" onclick="closePopup('select-3pl-box', 'form', 'update-partner-btn', 'psid', 'assign-partner-form')">Cancel</button>
                         </div>
                     </form>

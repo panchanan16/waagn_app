@@ -230,7 +230,7 @@ CREATE TABLE partner_assign (
     CONSTRAINT unique_order_partner_godown UNIQUE (order_id, partner_id, godown_id)
 );
 
-ALTER TABLE `partner_assign` CHANGE `is_accepted` `is_accepted` ENUM('accepted','notaccepted','rejected') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'notaccepted';
+ALTER TABLE `partner_assign` CHANGE `is_accepted` `is_accepted` TINYINT(1) NULL DEFAULT '0'
 
 
 --- Vehicle assign table 

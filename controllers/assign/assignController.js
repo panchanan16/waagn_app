@@ -1,4 +1,6 @@
 const db = require('../../config/dbConfig');
+const sendWhatsAppMsg = require('../../templates/sendWhatsAppMsg');
+const getWhatsappReciverFromDb = require('../../utils/getWhatsappRecieverDb');
 
 
 // ---------------------- Partner Assign Controllers ---------------------------
@@ -19,7 +21,7 @@ exports.createPartnerAssign = (req, res) => {
 
 // Get all partner assignments
 exports.getAllPartnerAssigns = (req, res) => {
-  const query = 'SELECT partner_assign.order_id, partner_assign.is_accepted, orders.receiver_name, orders.receiver_town, orders.order_status, orders.is_partner_accepted, company_name, full_address, contact_person_name FROM partner_assign INNER JOIN orders ON orders.order_id = partner_assign.order_id INNER JOIN partner_companies ON partner_companies.company_id = partner_assign.partner_id INNER JOIN partner_godown ON partner_assign.partner_id = partner_godown.partner_id AND partner_assign.godown_id = partner_godown.godown_id; SELECT (SELECT COUNT(order_id) FROM orders WHERE partner_assign_status = 1) AS total, (SELECT COUNT(order_id) FROM orders WHERE partner_assign_status = 1 AND is_partner_accepted = 0) AS pending_acceptance, order_status, COUNT(order_id) AS sum FROM orders GROUP BY order_status;';
+  const query = 'SELECT partner_assign.order_id, partner_assign.partner_id, partner_assign.is_accepted, orders.receiver_name, orders.receiver_town, orders.order_status, orders.is_partner_accepted, company_name, full_address, contact_person_name FROM partner_assign INNER JOIN orders ON orders.order_id = partner_assign.order_id INNER JOIN partner_companies ON partner_companies.company_id = partner_assign.partner_id INNER JOIN partner_godown ON partner_assign.partner_id = partner_godown.partner_id AND partner_assign.godown_id = partner_godown.godown_id; SELECT COUNT(order_id) AS total_orders, SUM(CASE WHEN is_accepted = 0 THEN 1 ELSE 0 END) AS pending_accept, SUM(CASE WHEN is_accepted = 1 THEN 1 ELSE 0 END) AS accepted_orders, SUM(CASE WHEN is_accepted = 2 THEN 1 ELSE 0 END) AS rejected_orders FROM partner_assign;';
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error fetching records:', err);
@@ -230,23 +232,15 @@ exports.deletePartnerDeliveryDetails = (req, res) => {
 // Update Order Accepted by Partner ---
 exports.updateOrderAcceptStatus = (req, res) => {
   const { orderId } = req.params
-  const { value, status } = req.body
-  const query = `UPDATE partner_assign SET is_accepted = ? WHERE order_id = ?`;
+  const { value, partnerID } = req.body
+  const query = `UPDATE partner_assign SET is_accepted = ? WHERE order_id = ? AND partner_id = ?`;
 
-  db.query(query, [status, orderId], (err, result) => {
+  db.query(query, [value, orderId, partnerID], (err, result) => {
     if (err) {
       return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
     }
 
-    const queryToUpdateOrder = `UPDATE orders SET is_partner_accepted = ? WHERE order_id = ?`
-    db.query(queryToUpdateOrder, [value, orderId], (err2, result2) => {
-      if (err2) {
-        return res.status(500).json({ success: false, error: 'Failed to Accept the order' });
-      }
-
-      return res.status(200).json({ success: true, message: 'Order Accepted Successfully!' });
-    })
-
+    return res.status(200).json({ success: true, message: 'Order Accepted Successfully!' });
 
   });
 }
@@ -265,6 +259,21 @@ exports.updateDeliveryFailReason = (req, res) => {
     if (result.changedRows == 0) {
       return res.status(404).json({ success: false, message: 'Order Not Found!' })
     }
+
+         //sending whtsapp msg
+         getWhatsappReciverFromDb(id).then((response) => {
+          console.log(response)
+          sendWhatsAppMsg({
+            orderID: id,
+            persons: [
+              { name: response.receiver_company_name, Number: response.receiver_contact_number },
+              { name: response.company_name, Number: response.contact_details }
+              ],
+            failedReason: req.body.text,
+            goods: response.types_of_goods,
+            type: 'failedDelivery'
+          })
+        })
 
     return res.status(200).json({ success: true, message: 'Reason Updated Successfully!' });
     })

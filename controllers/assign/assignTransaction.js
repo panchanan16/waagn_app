@@ -102,7 +102,7 @@ async function vehicleAssign_StatusUpdate(req, res) {
           }
 
           //sending whtsapp msg
-          getWhatsappReciverFromDb(34).then((response) => {
+          getWhatsappReciverFromDb(order_id).then((response) => {
             console.log(response)
             sendWhatsAppMsg({
               orderID: order_id,

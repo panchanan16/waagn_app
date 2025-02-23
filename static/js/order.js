@@ -1,35 +1,39 @@
 const request = new DataCall();
 
 async function renderAllOrder(interval) {
-  const response = await request.GET_POST(`v1/orders?interval=${interval ? interval : 10}`, "GET");
+  const response = await request.GET_POST(
+    `v1/orders?interval=${interval ? interval : 10}`,
+    "GET"
+  );
   if (response.success) {
     document.getElementById("order-table").innerHTML = "";
     response.data[0].forEach((item, ind) => {
-      const html = `<tr class="table-rows" onclick="openOrderDetails(${item.order_id})">
+      const html = `<tr class="table-rows" onclick="openOrderDetails(${item.order_id
+        }, ${item.partner_id})">
             <td class="search-item">${item.order_id}</td>
             <td class="search-item">${item.shipper_company_name}</td>
             <td >${item.receiver_company_name}</td>
-            <td>${item.company_name ? item.company_name : 'not assigned'}</td>
-            <td>${new Date(item.order_date).toLocaleDateString('en-GB')}</td>
+            <td>${item.company_name ? item.company_name : "not assigned"}</td>
+            <td>${new Date(item.order_date).toLocaleDateString("en-GB")}</td>
             <td>
-              <span class="${item.order_status == 'delivered' ? 'status-green' : 'status-red'}">${item.order_status}</span>
+              <span class="${item.order_status == "delivered" ? "status-green" : "status-red"
+        }">${item.order_status}
+              </span>
             </td>
             <td>
                 <diV style="cursor: pointer;" onclick="editOrder(event, ${item.order_id})">
-                    <i class="material-icons">app_registration</i> 
+                  <i class="material-icons">app_registration</i> 
                 </div>
             </td>
             </tr>`;
       document.getElementById("order-table").innerHTML += html;
     });
-    renderSummary(response.data[1], 'order_status')
+    renderSummary(response.data[1], "order_status", 'array');
   }
 }
 
-
-
-function openOrderDetails(orderid) {
-  renderOrderDetails(orderid);
+function openOrderDetails(orderid, partnerid) {
+  renderOrderDetails(orderid, partnerid);
   openPopup("order-detail-popup");
 }
 
@@ -53,8 +57,9 @@ async function createOrderFromAdmin(e) {
   }
 }
 
-async function openAddPartnerForm(orderId, target) {
+async function openAddPartnerForm(orderId, target, partnerAcceptance) {
   document.getElementById("order-id-input").value = orderId;
+  document.getElementById("update-partner-btn").dataset.isaccept = partnerAcceptance;
   const response = await request.GET_POST("v1/partners/drop", "GET");
   console.log(response);
   if (response.success) {
@@ -118,25 +123,9 @@ async function renderGodownLocationInForm() {
   }
 }
 
-// async function renderVehiclesInForm() {
-//   const partnerId = document.getElementById("partner-dropdown").value;
-//   const type = document.getElementById("godown-type-dropdown").value;
-//   if (partnerId && type) {
-//     console.log(partnerId, type);
-//     const response = await request.GET_POST(`v1/godowns/3/${type}`, "GET");
-//     if (response.success) {
-//       document.getElementById("godown-location-dropdown").innerHTML = "";
-//       response.data.forEach((item) => {
-//         document.getElementById(
-//           "godown-location-dropdown"
-//         ).innerHTML += `<option value="${item.godown_id}">${item.full_address}</option>`;
-//       });
-//     }
-//   }
-// }
 
-async function renderOrderDetails(id) {
-  const response = await request.GET_POST(`v1/order/${id}`, "GET");
+async function renderOrderDetails(orderid, partnerid) {
+  const response = await request.GET_POST(`v1/order/${orderid}?partnerid=${partnerid ? partnerid : 0}`, "GET");
   if (response.success) {
     const data = response.data[0];
     const html = `<div class="key-value-box scroll-box" style="justify-content: space-around; margin-block: 1rem;">
@@ -150,7 +139,8 @@ async function renderOrderDetails(id) {
       }
             </div>
             <div class="key-value-pair">
-                <strong>Drop Location:</strong> ${data.delivery_location_address}
+                <strong>Drop Location:</strong> ${data.delivery_location_address
+      }
             </div>
             <div class="key-value-pair">
                 <strong>Amount:</strong> ${data.amount}
@@ -167,8 +157,12 @@ async function renderOrderDetails(id) {
 
              <div class="key-value-pair">
                 <strong>Order Status:</strong>
-                <select class="${data.order_status == "delivered" ? "status-green" : "status-red"}" 
-                 onchange="updateOrderStatus(this, ${data.order_id}, '${data.payment_status}')">
+                <select class="${data.order_status == "delivered"
+        ? "status-green"
+        : "status-red"
+      }" 
+                 onchange="updateOrderStatus(this, ${data.order_id}, '${data.payment_status
+      }')">
 
                     <option value="pending" ${data.order_status == "pending" ? "selected" : ""
       }>Pending</option>
@@ -208,7 +202,8 @@ async function renderOrderDetails(id) {
                 <strong>Consignor Name:</strong> ${data.shipper_name}
             </div>
             <div class="key-value-pair">
-                <strong>Consignor Number:</strong> ${data.shipper_contact_number}
+                <strong>Consignor Number:</strong> ${data.shipper_contact_number
+      }
             </div>
             <div class="key-value-pair">
                 <strong>Consignor Email:</strong> ${data.shipper_email_address}
@@ -227,10 +222,8 @@ async function renderOrderDetails(id) {
             <h2 class="flex details-heading">3PL PARTNER</h2>
              <div class="key-value-pair">
                 <strong>Accepted By 3PL:</strong>
-                <span class="${data.is_partner_accepted == 1 ? 'status-green' : 'status-red'}">
-                ${data.is_partner_accepted == 1 ? 'Accepted' :
-        (data.is_partner_accepted == 2 ? 'rejected' : 'Not yet')
-      }
+                <span class="${data.partner_accepted == 1 ? "status-green" : "status-red"}">
+                  ${data.partner_accepted == 1 ? "Accepted" : (data.partner_accepted == 2 ? "rejected" : "Not yet") }     
                 </span>
             </div>
              <div class="key-value-pair">
@@ -288,7 +281,8 @@ async function renderOrderDetails(id) {
                 <strong>Number of boxes :</strong> ${data.number_of_boxes}
             </div>
             <div class="key-value-pair">
-                <strong>Actual Weight :</strong> ${data.actual_weight_of_consignment} kg
+                <strong>Actual Weight :</strong> ${data.actual_weight_of_consignment
+      } kg
             </div>
             <div class="key-value-pair">
                 <strong>Goods Type :</strong> ${data.types_of_goods}
@@ -304,16 +298,19 @@ async function renderOrderDetails(id) {
         <div class="key-value">
             <h2 class="flex details-heading">CONSIGNEE</h2>
             <div class="key-value-pair">
-                <strong>Consignee Company:</strong>  ${data.receiver_company_name}
+                <strong>Consignee Company:</strong>  ${data.receiver_company_name
+      }
             </div>
             <div class="key-value-pair">
                 <strong>Consignee Name:</strong>  ${data.receiver_name}
             </div>
             <div class="key-value-pair">
-                <strong>Consignee Number:</strong>  ${data.receiver_contact_number}
+                <strong>Consignee Number:</strong>  ${data.receiver_contact_number
+      }
             </div>
             <div class="key-value-pair">
-                <strong>Consignee Email:</strong>  ${data.receiver_email_address}
+                <strong>Consignee Email:</strong>  ${data.receiver_email_address
+      }
             </div>
             <div class="key-value-pair">
                 <strong>Consignee GST:</strong>  ${data.receiver_gst}
@@ -360,9 +357,19 @@ async function renderOrderDetails(id) {
                 <strong>Reason Of Fail Delivery :</strong>
                 <span> ${data.reason_of_fail_delivery}</span>
             </div>
-           <div class="key-value-pair ${data.order_status == 'delivered' && data.payment_status == 'topay' ? '' : 'hide'}" id="collected-amount-box">
+
+            <div class="key-value-pair flex flex-col hide" id="reason-box">
+                <textarea style="padding: .8rem" id="reason_of_fail_delivery" placeholder="Reason for not delivered..." name="reason_of_fail_delivery" required></textarea>
+                <button class="btn" onclick="updateReasonOfDeliveryFail(this, ${data.order_id})">Update</button>
+            </div>
+            
+           <div class="key-value-pair ${data.order_status == "delivered" && data.payment_status == "topay"
+        ? ""
+        : "hide"
+      }" id="collected-amount-box">
                 <input style="padding:10px" type="text" name="collected_amount" id="collected_amount" placeholder="Update collected amount...">
-                <button class="btn" onclick="updateAmountCollected(this, ${data.order_id})">Update</button>
+                <button class="btn" onclick="updateAmountCollected(this, ${data.order_id
+      })">Update</button>
             </div>
              <div class="flex key-value-pair">
                 <div>
@@ -389,10 +396,10 @@ async function renderOrderDetails(id) {
     </div>
     <div class="flex" style="gap: 1rem">
         <button 
-        class="btn"
+        class="btn ${data.partner_accepted == 1 ? 'hide' : ''}"
         data-psid="${typeof data.p_assign_id == "number" ? data.p_assign_id : ""
       }" 
-        onclick="openAddPartnerForm(${data.order_id}, this)"
+        onclick="openAddPartnerForm(${data.order_id}, this, ${data.is_partner_accepted})"
         >  
         ${data.partner_assign_status ? "Update Partner" : "Assign 3pl Partner"}
         </button>
@@ -409,7 +416,8 @@ async function renderOrderDetails(id) {
         : "Assign Pickup Vehicle"
       }
         </button>
-        <a href="/download-order-details?order=${data.order_id}" target="_blank">
+        <a href="/download-order-details?order=${data.order_id
+      }" target="_blank">
           <button class="btn">Download</button>
         </a>
     </div>`;
@@ -420,32 +428,56 @@ async function renderOrderDetails(id) {
 async function assignPartnerToOrder(e) {
   e.preventDefault();
   const formData = new FormData(document.getElementById("assign-partner-form"));
-  const response = e.target.dataset.psid != ""
-    ? await request.GET_POST(
+  const isPartnerAccepted = e.target.dataset.isaccept
+  let response = null;
+
+  if (isPartnerAccepted == 2 || e.target.dataset.psid == "") {
+    response = await request.GET_POST(
+      `v1/assign/partner`,
+      "POST",
+      formData,
+      "form"
+    );
+  } else if (isPartnerAccepted != 2 && e.target.dataset.psid != "") {
+    response = await request.DEL_UPD(
       `v1/assign/partner/${e.target.dataset.psid}`,
       "PUT",
       formData,
       "form"
-    )
-    : await request.GET_POST(`v1/assign/partner`, "POST", formData, "form");
+    );
+  }
+
   if (response.success) {
-    closePopup('select-3pl-box', 'form', 'update-partner-btn', 'psid', 'assign-partner-form')
+    closePopup(
+      "select-3pl-box",
+      "form",
+      "update-partner-btn",
+      "psid",
+      "assign-partner-form"
+    );
   }
 }
 
 async function assignVehicleToOrder(e) {
   e.preventDefault();
   const formData = new FormData(document.getElementById("assign-vehicle-form"));
-  const response = e.target.dataset.vsid != ""
-    ? await request.GET_POST(
-      `v1/assign/vehicle/${e.target.dataset.vsid}`,
-      "PUT",
-      formData,
-      "form"
-    )
-    : await request.GET_POST(`v1/assign/vehicle`, "POST", formData, "form");
+  const response =
+    e.target.dataset.vsid != ""
+      ? await request.GET_POST(
+        `v1/assign/vehicle/${e.target.dataset.vsid}`,
+        "PUT",
+        formData,
+        "form"
+      )
+      : await request.GET_POST(`v1/assign/vehicle`, "POST", formData, "form");
   if (response.success) {
-    closePopup('select-vehicle-box', 'form', 'update-vehicle-btn', 'vsid', 'assign-vehicle-form')
+    closePopup(
+      "select-vehicle-box",
+      "form",
+      "update-vehicle-btn",
+      "vsid",
+      "assign-vehicle-form"
+    );
   }
 }
 
@@ -459,12 +491,19 @@ function selectVehicle(target, vehicleId, driverId, driverName, driverNumber) {
 }
 
 async function updateOrderStatus(target, orderId, topay) {
-  changeStatus(target)
-  const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", { order_status: target.value });
+  changeStatus(target);
+  const response = await request.DEL_UPD(`v1/order/status/${orderId}`, "PUT", {
+    order_status: target.value,
+  });
   if (response.success) {
-    if (target.value == "delivered" && topay == 'topay') {
-      document.getElementById('collected-amount-box').classList.remove('hide')
+    if (target.value == "delivered" && topay == "topay") {
+      document.getElementById("collected-amount-box").classList.remove("hide");
     }
+
+    if (target.value == "notdelivered") {
+      document.getElementById('reason-box').classList.remove('hide')
+    }
+    
   }
 }
 
@@ -490,13 +529,15 @@ async function editOrder(e, orderid) {
   openPopup("create-order-form-popup");
 }
 
-
 async function updateAmountCollected(target, id) {
-  const collectedAmount = target.parentNode.querySelector('#collected_amount').value
+  const collectedAmount =
+    target.parentNode.querySelector("#collected_amount").value;
   if (collectedAmount != "") {
-    const response = await request.DEL_UPD(`v1/dispatch/amount/${id}`, 'PUT', { collectedAmount })
+    const response = await request.DEL_UPD(`v1/dispatch/amount/${id}`, "PUT", {
+      collectedAmount,
+    });
   } else {
-    alert('Enter the value First then update!')
+    alert("Enter the value First then update!");
   }
 }
 
@@ -505,40 +546,43 @@ async function searchOrder(target, className, type) {
     const query = target.parentNode.getElementsByTagName("INPUT")[0].value;
     const response = await request.GET_POST(`v1/order/${query}`, "GET");
     if (response.success && response.data.length > 0) {
-      const item = response.data[0]
-      const html = `<tr class="table-rows" id="onsearch" onclick="openOrderDetails(${item.order_id})">
+      const item = response.data[0];
+      const html = `<tr class="table-rows" id="onsearch" onclick="openOrderDetails(${item.order_id
+        })">
               <td class="search-item">${item.order_id}</td>
               <td class="search-item">${item.shipper_company_name}</td>
               <td class="search-item">${item.receiver_company_name}</td>
               <td>${item.shipper_contact_number}</td>
               <td>${item.order_date}</td>
               <td>
-              <span class="${item.order_status == 'delivered' ? 'status-green' : 'status-red'}">${item.order_status}</span>
+              <span class="${item.order_status == "delivered" ? "status-green" : "status-red"
+        }">${item.order_status}</span>
               </td>
               <td>
-                  <diV style="cursor: pointer;" onclick="editOrder(event, ${item.order_id})">
+                  <diV style="cursor: pointer;" onclick="editOrder(event, ${item.order_id
+        })">
                       <i class="material-icons">app_registration</i> 
                   </div>
               </td>
               </tr>`;
       document.getElementById("order-table").innerHTML += html;
-      searchItemsGlobal(undefined, 'table-rows', query, 'onsearch')
+      searchItemsGlobal(undefined, "table-rows", query, "onsearch");
     } else {
-      alert('No order found!')
+      alert("No order found!");
     }
   }
 }
 
-
 async function filterOrders() {
-  const filterbox = document.getElementById('filter-box').querySelector('input[name="filter"]:checked')
+  const filterbox = document
+    .getElementById("filter-box")
+    .querySelector('input[name="filter"]:checked');
   const param = filterbox ? filterbox.value : null;
   if (param) {
     renderAllOrder(param);
   } else {
-    alert('Select the filter first !')
+    alert("Select the filter first !");
   }
-
 }
 
 renderAllOrder();

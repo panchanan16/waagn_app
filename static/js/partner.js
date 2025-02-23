@@ -35,7 +35,7 @@ async function renderPartners() {
         table.innerHTML += html
         })
 
-        renderSummary(response.data[1], 'is_active')
+        renderSummary(response.data[1], 'is_active', 'array')
 
     }
 }
