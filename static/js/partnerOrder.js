@@ -22,7 +22,7 @@ async function renderAllPartnerOrder() {
             <td>${item.receiver_town}</td>
             <td>
               <div class="flex" style="gap: 1rem">
-                <button class="btn" onclick="acceptOrder(event, ${item.order_id}, ${item.partner_id})">
+                <button class="btn" onclick="acceptOrder(event, ${item.order_id}, ${item.partner_id})" ${item.is_accepted == 2 ? 'disabled' : ''}>
                 ${item.is_accepted == 1 ? "Accepted" :
                     (item.is_accepted == 2 ? 'Rejected' : 'Accept Now')
                 }

@@ -710,18 +710,26 @@ form textarea {
 }
 
 .sum-box {
-    background-color: #e0d9f3;
+    background-color: #231e2f;
     height: 10rem;
     border-radius: 8px;
-    box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.1);
-    align-items: center;
+    align-items: first baseline;
     justify-content: center;
+    width: 100%;
+}
+
+.sum-box h3 {
+    color: #fff;
+    font-size: 14px;
+    margin-left: 1rem;
 }
 
 .d-value {
     font-size: 30px;
     font-weight: 600;
     margin-top: 10px;
+    color: #fff;
+    margin-left: 1rem;
 }
 
 /* loader css */
