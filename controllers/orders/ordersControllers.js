@@ -105,7 +105,7 @@ exports.create = (req, res) => {
     tax_invoice_number, payment_mode, payment_status, amount, 'pending', order_date
   ], (err, result) => {
     if (err) {
-      // console.error('Error creating order:', err);
+      console.error('Error creating order:', err);
       return res.status(500).json({ message: 'Failed to create order', success: false });
     }
 

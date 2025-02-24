@@ -222,7 +222,7 @@ CREATE TABLE partner_assign (
     godown_id INT DEFAULT NULL,
     datetime VARCHAR(100) DEFAULT NULL,
     msg_for_partner TEXT DEFAULT NULL,
-    is_accepted ENUM("accepted", "notaccepted", "rejected") DEFAULT 'notaccepted',
+    is_accepted TINYINT(1) DEFAULT 0,
     reason_of_fail_delivery TEXT DEFAULT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE SET NULL,
     FOREIGN KEY (partner_id) REFERENCES partner_companies(company_id) ON DELETE CASCADE,
@@ -230,7 +230,6 @@ CREATE TABLE partner_assign (
     CONSTRAINT unique_order_partner_godown UNIQUE (order_id, partner_id, godown_id)
 );
 
-ALTER TABLE `partner_assign` CHANGE `is_accepted` `is_accepted` TINYINT(1) NULL DEFAULT '0'
 
 
 --- Vehicle assign table 
