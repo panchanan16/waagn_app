@@ -695,6 +695,7 @@ form textarea {
 /* pdf design */
 
 .pdf {
+    font-family: Arial, Helvetica, sans-serif;
     width: 196mm;
     height: 278mm;
     padding: 0.5rem;

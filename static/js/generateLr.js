@@ -17,13 +17,13 @@ async function startLRGeneration() {
 
 
 function addItemRow(data) {
-  const html = `<div class="row" ondblclick="removeItemField(this, 'lr')">
-                <div class="column">2</div>
+  const html = `<div class="row" ondblclick="removeItemField(this, 'lr')">           
                 <div class="column">${data[0].value}</div>
                 <div class="column">${data[1].value}</div>
                 <div class="column">${data[2].value}</div>
                 <div class="column">${data[3].value}</div>
                 <div class="column">${data[4].value}</div>
+                <div class="column">${data[5].value}</div>
             </div> `;
   document.getElementById("item-add-row").innerHTML += html;
 }
@@ -39,6 +39,7 @@ function addItemField(e) {
                   <div class="item-display">${inputs[2].value}</div>
                   <div class="item-display">${inputs[3].value}</div>
                   <div class="item-display">${inputs[4].value}</div>
+                  <div class="item-display">${inputs[5].value}</div>
                   <div style="cursor:pointer;" onclick="removeItemField(this)">&#10006;</div>
                 </div>`;
   document.getElementById("item-data-box").innerHTML += html;
