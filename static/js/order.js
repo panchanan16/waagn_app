@@ -362,7 +362,7 @@ async function renderOrderDetails(orderid, partnerid) {
                 <textarea style="padding: .8rem" id="reason_of_fail_delivery" placeholder="Reason for not delivered..." name="reason_of_fail_delivery" required></textarea>
                 <button class="btn" onclick="updateReasonOfDeliveryFail(this, ${data.order_id})">Update</button>
             </div>
-            
+
            <div class="key-value-pair ${data.order_status == "delivered" && data.payment_status == "topay"
         ? ""
         : "hide"
@@ -399,7 +399,7 @@ async function renderOrderDetails(orderid, partnerid) {
         class="btn ${data.partner_accepted == 1 ? 'hide' : ''}"
         data-psid="${typeof data.p_assign_id == "number" ? data.p_assign_id : ""
       }" 
-        onclick="openAddPartnerForm(${data.order_id}, this, ${data.is_partner_accepted})"
+        onclick="openAddPartnerForm(${data.order_id}, this, ${data.partner_accepted})"
         >  
         ${data.partner_assign_status ? "Update Partner" : "Assign 3pl Partner"}
         </button>
